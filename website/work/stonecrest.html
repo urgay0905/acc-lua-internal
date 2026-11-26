@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stonecrest Homes — Luxury design &amp; build (concept design)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #15130f; --stone: #f3eee6; --sand: #e6ddcf; --gold: #b8955a; --muted: #7c7468; --line: #ddd3c3; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--stone); color: var(--ink); font: 16px/1.7 Manrope, system-ui, sans-serif; overflow-x: hidden; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+  .concept-bar { background: var(--ink); color: var(--sand); font-size: 13px; text-align: center; padding: 8px 16px; }
+  .concept-bar a { color: var(--gold); font-weight: 600; }
+  .serif { font-family: "Playfair Display", Georgia, serif; font-weight: 500; }
+  .kick { font-size: 12px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+
+  .hero { position: relative; min-height: 92vh; color: #fff; display: flex; flex-direction: column; }
+  .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,9,7,.55) 0%, rgba(10,9,7,.15) 35%, rgba(10,9,7,.25) 60%, rgba(10,9,7,.8) 100%); }
+  .hero > * { position: relative; z-index: 1; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; gap: 16px; }
+  .logo { text-decoration: none; font-size: 24px; letter-spacing: .14em; text-transform: uppercase; }
+  .logo small { display: block; font: 600 10px Manrope, sans-serif; letter-spacing: .5em; color: var(--gold); margin-top: 2px; }
+  .links { display: flex; gap: 34px; align-items: center; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .links a { text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; border: 1px solid currentColor; }
+  .btn.gold { background: var(--gold); border-color: var(--gold); color: #fff; }
+  @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
+  .hero-copy { margin-top: auto; padding-bottom: 72px; display: grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items: end; }
+  h1 { font-size: clamp(46px, 7vw, 104px); line-height: 1; margin: 18px 0 0; letter-spacing: -.01em; }
+  h1 em { color: #e9cf9c; }
+  .hero-side p { margin: 0 0 26px; font-size: 18px; color: rgba(255,255,255,.88); }
+  .hero-side .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  @media (max-width: 860px) { .hero { min-height: 88vh; } .hero-copy { grid-template-columns: 1fr; padding-bottom: 48px; } }
+
+  .stats { background: var(--ink); color: var(--sand); }
+  .stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stats div div { padding: 34px 20px; border-left: 1px solid rgba(255,255,255,.1); }
+  .stats div div:first-child { border-left: 0; padding-left: 0; }
+  .stats b { display: block; font-family: "Playfair Display", serif; font-weight: 500; font-size: 36px; color: #fff; }
+  .stats span { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #a89e8e; }
+  @media (max-width: 760px) { .stats .wrap { grid-template-columns: 1fr 1fr; } .stats div div { padding: 22px 0; border-left: 0; } }
+
+  section { padding: 110px 0; }
+  @media (max-width: 600px) { section { padding: 72px 0; } }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
+  h2 { font-size: clamp(36px, 4.6vw, 62px); line-height: 1.06; margin: 14px 0 0; max-width: 700px; }
+  .more { font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 4px; }
+  .gallery { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: auto auto; gap: 22px; }
+  .proj { position: relative; overflow: hidden; color: #fff; }
+  .proj img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; aspect-ratio: 4 / 3; }
+  .proj:hover img { transform: scale(1.04); }
+  .proj.big { grid-row: span 2; }
+  .proj.big img { aspect-ratio: auto; min-height: 100%; }
+  .proj figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 26px 22px; background: linear-gradient(180deg, transparent, rgba(10,9,7,.75)); display: flex; justify-content: space-between; align-items: end; gap: 12px; }
+  .proj h3 { margin: 0; font-family: "Playfair Display", serif; font-weight: 500; font-size: 26px; }
+  .proj small { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #e9cf9c; }
+  @media (max-width: 860px) { .gallery { grid-template-columns: 1fr; } .proj.big { grid-row: auto; } .proj.big img { aspect-ratio: 4 / 3; } }
+
+  .craft { background: var(--sand); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .split .pic { position: relative; }
+  .split .pic img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .split .pic .inset { position: absolute; right: -30px; bottom: -40px; width: 46%; border: 8px solid var(--sand); aspect-ratio: 1; object-fit: cover; }
+  .steps { list-style: none; padding: 0; margin: 34px 0 0; counter-reset: s; }
+  .steps li { display: grid; grid-template-columns: 54px 1fr; gap: 6px 14px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .steps li::before { counter-increment: s; content: "0" counter(s); font-family: "Playfair Display", serif; font-size: 24px; color: var(--gold); grid-row: span 2; }
+  .steps b { font-size: 17px; }
+  .steps span { color: var(--muted); font-size: 15px; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 60px; } .split .pic .inset { right: 10px; bottom: -30px; } }
+
+  .cta { position: relative; color: #fff; text-align: center; padding: 140px 0; overflow: hidden; }
+  .cta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cta::after { content: ""; position: absolute; inset: 0; background: rgba(12,10,8,.62); }
+  .cta .wrap { position: relative; z-index: 1; }
+  .cta h2 { margin: 14px auto 18px; }
+  .cta p { color: rgba(255,255,255,.85); max-width: 520px; margin: 0 auto 32px; font-size: 18px; }
+  footer { background: var(--ink); color: #a89e8e; padding: 36px 0 44px; font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="concept-bar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
+
+<header class="hero">
+  <img src="../assets/photos/stonecrest-hero.jpg" alt="Modern white luxury villa with an infinity pool" fetchpriority="high">
+  <div class="wrap">
+    <nav>
+      <a class="logo serif" href="#">Stonecrest<small>Homes</small></a>
+      <div class="links"><a href="#homes">Our homes</a><a href="#process">Process</a><a href="#process">About</a><a class="btn" href="#start">Enquire</a></div>
+    </nav>
+  </div>
+  <div class="wrap hero-copy">
+    <div>
+      <span class="kick">Luxury design &amp; build</span>
+      <h1 class="serif">Homes built for <em>generations.</em></h1>
+    </div>
+    <div class="hero-side">
+      <p>Bespoke new-build homes and landmark renovations, designed and built by one dedicated team from first sketch to final key.</p>
+      <div class="btns"><a class="btn gold" href="#start">Start your build</a><a class="btn" href="#homes">View our homes</a></div>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div><b>Bespoke</b><span>Every home one of a kind</span></div>
+    <div><b>One team</b><span>Architects to builders</span></div>
+    <div><b>10-year</b><span>Structural warranty</span></div>
+    <div><b>Fixed</b><span>Transparent build pricing</span></div>
+  </div>
+</div>
+
+<main>
+  <section id="homes">
+    <div class="wrap">
+      <div class="head"><div><span class="kick">Selected homes</span><h2 class="serif">Architecture you'll feel the moment you arrive.</h2></div><a class="more" href="#">All projects</a></div>
+      <div class="gallery">
+        <figure class="proj big" style="margin:0"><img src="../assets/photos/stonecrest-3.jpg" alt="Contemporary timber and glass home at dusk" loading="lazy"><figcaption><div><small>New build · 2024</small><h3>The Timber House</h3></div></figcaption></figure>
+        <figure class="proj" style="margin:0"><img src="../assets/photos/stonecrest-1.jpg" alt="White modern villa with pool" loading="lazy"><figcaption><div><small>New build</small><h3>Villa Blanca</h3></div></figcaption></figure>
+        <figure class="proj" style="margin:0"><img src="../assets/photos/stonecrest-2.jpg" alt="Modern home with glass walls and pool" loading="lazy"><figcaption><div><small>Renovation</small><h3>The Glasshouse</h3></div></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="craft" id="process">
+    <div class="wrap split">
+      <div class="pic">
+        <img src="../assets/photos/stonecrest-craft.jpg" alt="Architect drawing plans" loading="lazy">
+        <img class="inset" src="../assets/photos/stonecrest-4.jpg" alt="Finished luxury living room" loading="lazy">
+      </div>
+      <div>
+        <span class="kick">How we work</span>
+        <h2 class="serif">Designed with care. Built without compromise.</h2>
+        <ol class="steps">
+          <li><b>Consultation &amp; vision</b><span>We walk the site with you and shape the brief around how you want to live.</span></li>
+          <li><b>Architectural design</b><span>Our architects create detailed plans, 3D visuals and handle planning permission.</span></li>
+          <li><b>Construction</b><span>Our own craftsmen build to the highest standard, with weekly progress updates.</span></li>
+          <li><b>Handover</b><span>A finished home, every detail checked, backed by our 10-year warranty.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="start">
+    <img src="../assets/photos/stonecrest-build.jpg" alt="Carpenter working on timber framing" loading="lazy">
+    <div class="wrap">
+      <span class="kick">Begin your project</span>
+      <h2 class="serif">Let's build something remarkable.</h2>
+      <p>Book a private consultation with our design team to talk through your plot, your plans and your budget.</p>
+      <a class="btn gold" href="#">Book a consultation</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© Stonecrest Homes (fictional business)</span><span>hello@example.com</span></div></footer>
+</body>
+</html>
