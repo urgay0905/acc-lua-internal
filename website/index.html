@@ -506,6 +506,12 @@
       if (window.gsap) gsap.from(done.children, { y: 20, opacity: 0, duration: .7, stagger: .08, ease: "power3.out" });
       form.reset();
     } catch (err) {
+      // Preview links (claude.ai) and local files block outside services, so explain that rather than showing an error
+      const isPreview = location.protocol === "file:" || /claude\.ai$|claudeusercontent\.com$|claude\.site$/.test(location.hostname);
+      if (isPreview) {
+        msg.innerHTML = `<b>Preview mode:</b> this preview can't send emails. Once the site is live, this form sends messages straight to ${CONTACT_EMAIL}.`;
+        return;
+      }
       msg.innerHTML = `Sorry, that didn't send. Try again, email <b>${CONTACT_EMAIL}</b>, or <button type="button" class="copy" id="useMail">open in your email app</button>`;
       document.getElementById("useMail").addEventListener("click", () => mailtoFallback(d));
       window.VeyroFX && VeyroFX.shake(form);
