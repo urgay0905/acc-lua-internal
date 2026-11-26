@@ -3,37 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Launchpad Studio — Websites for growing businesses</title>
-<meta name="description" content="Launchpad Studio designs and builds fast, modern websites for small and growing businesses. Clear pricing, quick turnaround, ongoing support.">
+<title>Veyro Digital — Websites for growing businesses</title>
+<meta name="description" content="Veyro Digital designs and builds fast, modern websites for small and growing businesses. Clear pricing, quick turnaround, ongoing support.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<meta property="og:image" content="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fbfaf7;
+    --bg: #fafbfd;
     --surface: #ffffff;
-    --surface-2: #f2efe8;
-    --text: #17171c;
+    --surface-2: #eff2f7;
+    --text: #0b0d14;
     --muted: #5b5b66;
-    --line: #e4e0d6;
-    --accent: #3d4cf5;
+    --line: #e1e5ee;
+    --accent: #0066e6;
     --accent-ink: #ffffff;
-    --accent-soft: #e8eaff;
-    --warm: #ff8a3d;
+    --accent-soft: #e3efff;
+    --warm: #00a8ff;
     --radius: 18px;
     --shadow: 0 1px 2px rgba(20,20,40,.04), 0 8px 30px rgba(20,20,40,.06);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0f1014; --surface: #17181e; --surface-2: #1e2028; --text: #f1f1f4;
-      --muted: #a2a3b0; --line: #2a2c36; --accent: #7c87ff; --accent-ink: #0f1014;
-      --accent-soft: #23264a; --warm: #ff9d5c; --shadow: 0 8px 30px rgba(0,0,0,.35);
+      --bg: #0b0d14; --surface: #17181e; --surface-2: #1e2028; --text: #f1f1f4;
+      --muted: #a2a3b0; --line: #2a2c36; --accent: #3b9bff; --accent-ink: #0b0d14;
+      --accent-soft: #14284a; --warm: #38c4ff; --shadow: 0 8px 30px rgba(0,0,0,.35);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0f1014; --surface: #17181e; --surface-2: #1e2028; --text: #f1f1f4;
-    --muted: #a2a3b0; --line: #2a2c36; --accent: #7c87ff; --accent-ink: #0f1014;
-    --accent-soft: #23264a; --warm: #ff9d5c; --shadow: 0 8px 30px rgba(0,0,0,.35);
+    --bg: #0b0d14; --surface: #17181e; --surface-2: #1e2028; --text: #f1f1f4;
+    --muted: #a2a3b0; --line: #2a2c36; --accent: #3b9bff; --accent-ink: #0b0d14;
+    --accent-soft: #14284a; --warm: #38c4ff; --shadow: 0 8px 30px rgba(0,0,0,.35);
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -58,7 +61,13 @@
   header.nav.scrolled { border-bottom-color: var(--line); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
   .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.02em; text-decoration: none; font-size: 18px; }
-  .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); display: grid; place-items: center; color: var(--accent-ink); }
+  .logo-mark { height: 40px; width: auto; border-radius: 8px; }
+  .wordmark { display: flex; flex-direction: column; line-height: 1; font-family: Montserrat, Inter, sans-serif; }
+  .wordmark b { font-weight: 800; font-size: 21px; letter-spacing: .01em; }
+  .wordmark small { display: flex; align-items: center; gap: 5px; font-weight: 600; font-size: 8.5px; letter-spacing: .38em; margin-top: 3px; color: var(--text); }
+  .wordmark small::before, .wordmark small::after { content: ""; flex: 1; height: 1.5px; background: var(--accent); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo-mark { background: #fff; padding: 3px 4px; } }
+  :root[data-theme="dark"] .logo-mark { background: #fff; padding: 3px 4px; }
   .nav-links { display: flex; gap: 28px; align-items: center; }
   .nav-links a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 15px; }
   .nav-links a:hover { color: var(--text); }
@@ -246,11 +255,9 @@
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a class="logo" href="#top" aria-label="Launchpad Studio home">
-      <span class="logo-mark" aria-hidden="true">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5M9 5h10v10"/></svg>
-      </span>
-      Launchpad Studio
+    <a class="logo" href="#top" aria-label="Veyro Digital home">
+      <img class="logo-mark" src="assets/logo-mark.png" alt="" width="40" height="37">
+      <span class="wordmark" aria-hidden="true"><b>VEYRO</b><small>DIGITAL</small></span>
     </a>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -572,7 +579,7 @@
 
 <footer>
   <div class="wrap foot">
-    <span>© <span id="year"></span> Launchpad Studio. All rights reserved.</span>
+    <span>© <span id="year"></span> Veyro Digital. All rights reserved.</span>
     <nav>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>

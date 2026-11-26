@@ -1,4 +1,4 @@
-# Launchpad Studio website
+# Veyro Digital website
 
 A single-page site for a web design business. Everything (HTML, CSS, JS) is in `index.html`, so there's nothing to build or install.
 
@@ -6,7 +6,7 @@ A single-page site for a web design business. Everything (HTML, CSS, JS) is in `
 
 Search `index.html` for these and replace them:
 
-- **Business name**: `Launchpad Studio` (placeholder)
+- **Business name**: Veyro Digital. The logo files are in `assets/` (`logo-mark.png` for the top bar and favicon, `logo.png` for the full logo).
 - **Email**: `hello@example.com`. It appears in the contact section and in `CONTACT_EMAIL` near the bottom of the file.
 - **Prices**: the Starter, Business and Store packages and the care plan are example prices.
 - **Work section**: the three projects are sample concepts. Replace them with real client work as you finish it.
