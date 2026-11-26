@@ -7,125 +7,117 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../vendor/lenis.css">
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Plumbing & heating: deep teal water, aqua, warm amber heat */
-  :root { --teal: #083c3d; --teal-2: #0d5455; --aqua: #3fd3c6; --amber: #ffb23f; --bg: #f1f6f5; --white: #fff; --ink: #072627; --muted: #557070; --line: #d6e4e2; --accent: #0d8a84;
-    --sans: Sora, system-ui, sans-serif; }
+  /* Heating & bathroom specialists: ink navy, warm cream, copper */
+  :root { --bg: #f4efe8; --cream: #fbf8f3; --ink: #0f1924; --ink-2: #172433; --copper: #c06f37; --copper-2: #e7a16a; --steel: #8b97a4; --muted: #67707a; --line: #e2d9cc; --accent: #c06f37;
+    --sans: "Hanken Grotesk", system-ui, sans-serif; --serif: Newsreader, Georgia, serif; }
   body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); }
-  .btn { padding: 15px 24px; border-radius: 14px; font: 700 15px var(--sans); }
-  .btn.amber { background: var(--amber); color: var(--teal); box-shadow: 0 12px 30px -12px rgba(255,178,63,.8); }
-  .btn.aqua { background: var(--aqua); color: var(--teal); }
-  .btn.line { box-shadow: inset 0 0 0 2px rgba(255,255,255,.4); color: #fff; background: transparent; }
-  .btn.teal { background: var(--teal); color: #fff; }
+  .it { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+  .k { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--copper); }
+  .btn { padding: 15px 26px; border-radius: 999px; font: 700 15px var(--sans); }
+  .btn.copper { background: linear-gradient(135deg, var(--copper-2), var(--copper)); color: #fff; box-shadow: 0 14px 30px -12px rgba(192,111,55,.75); }
+  .btn.ink { background: var(--ink); color: var(--cream); }
+  .btn.glass { background: rgba(255,255,255,.12); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); backdrop-filter: blur(10px); }
 
-  .sos { background: var(--amber); color: var(--teal); font-weight: 700; font-size: 14px; }
-  .sos .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-block: 10px; flex-wrap: wrap; }
-  .sos i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #c2410c; margin-right: 8px; animation: blink 1.2s ease-in-out infinite; }
-  @keyframes blink { 50% { opacity: .2; } }
-  .sos a { color: var(--teal); }
+  .nav { position: absolute; top: 34px; left: 0; right: 0; z-index: 50; color: #fff; }
+  .nav.scrolled { position: fixed; top: 0; background: rgba(15,25,36,.86); backdrop-filter: blur(14px); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 82px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 21px; letter-spacing: -.03em; }
+  .logo i { width: 30px; height: 30px; border-radius: 50%; background: conic-gradient(from 200deg, var(--copper-2), var(--copper), #7a3f17, var(--copper-2)); box-shadow: inset 0 0 0 7px var(--ink); }
+  .links { display: flex; gap: 30px; align-items: center; font-weight: 500; font-size: 15px; }
+  .links a:not(.btn) { text-decoration: none; opacity: .85; }
+  .live { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; animation: ping 1.8s infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(74,222,128,.6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(74,222,128,0); } }
+  @media (max-width: 900px) { .links a:not(.btn), .links .live { display: none; } }
 
-  .nav { position: sticky; top: 0; z-index: 50; background: var(--teal); color: #fff; }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 74px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 21px; text-decoration: none; letter-spacing: -.03em; }
-  .logo svg { color: var(--aqua); }
-  .links { display: flex; gap: 28px; align-items: center; font-weight: 600; font-size: 15px; }
-  .links a:not(.btn) { text-decoration: none; opacity: .8; }
-  @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
-
-  .hero { background: var(--teal); color: #fff; padding: 60px 0 150px; position: relative; overflow: hidden; }
-  .hero::before { content: ""; position: absolute; right: -10%; top: -20%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(63,211,198,.28), transparent 65%); }
-  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-  .hero h1 { font-size: clamp(44px, 6vw, 86px); line-height: 1; letter-spacing: -.05em; font-weight: 800; margin: 18px 0 22px; }
-  .hero h1 span { color: var(--aqua); }
-  .hero h1 em { font-style: normal; color: var(--amber); }
-  .hero p { color: #b5d0ce; font-size: 18px; max-width: 470px; margin: 0 0 28px; }
-  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: rgba(63,211,198,.14); color: var(--aqua); font-size: 13px; font-weight: 700; }
+  .hero { position: relative; min-height: max(760px, 100svh); color: #fff; display: flex; align-items: flex-end; overflow: hidden; background: var(--ink); }
+  .hero > .frame { position: absolute; inset: 0; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(15,25,36,.94) 0%, rgba(15,25,36,.7) 45%, rgba(15,25,36,.15) 100%), linear-gradient(0deg, rgba(15,25,36,.85), transparent 40%); }
+  .hero .wrap { position: relative; z-index: 2; padding-top: 170px; padding-bottom: 80px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: end; }
+  .hero h1 { font-size: clamp(50px, 7.2vw, 112px); line-height: .95; letter-spacing: -.055em; font-weight: 800; margin: 20px 0 24px; }
+  .hero h1 .it { color: var(--copper-2); font-weight: 400; letter-spacing: -.03em; }
+  .hero p { font-size: 19px; color: rgba(255,255,255,.8); max-width: 480px; margin: 0 0 32px; }
   .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-  .post { margin-top: 30px; display: flex; gap: 8px; padding: 8px; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); max-width: 470px; }
-  .post input { flex: 1; min-width: 0; background: transparent; border: 0; color: #fff; font: 600 16px var(--sans); padding: 0 12px; outline: none; text-transform: uppercase; }
-  .post input::placeholder { color: #87aaa7; text-transform: none; }
-  .post-msg { margin-top: 10px; font-size: 14px; color: var(--aqua); min-height: 22px; }
-  .hero-pic { position: relative; }
-  .hero-pic .frame { aspect-ratio: 1 / 1.05; border-radius: 34px; }
-  .van { position: absolute; left: -40px; bottom: 34px; width: 280px; background: #fff; color: var(--ink); border-radius: 22px; padding: 18px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.5); z-index: 1; }
-  .van-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .van-top i { width: 40px; height: 40px; border-radius: 12px; background: var(--amber); color: var(--teal); display: grid; place-items: center; }
-  .van-top b { display: block; font-size: 15px; } .van-top span { font-size: 13px; color: var(--muted); }
-  .route { position: relative; height: 6px; border-radius: 6px; background: var(--line); }
-  .route::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--p, 20%); border-radius: 6px; background: var(--accent); transition: width 1s; }
-  .route::after { content: ""; position: absolute; top: 50%; left: var(--p, 20%); width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 0 0 4px rgba(13,138,132,.25); transform: translate(-50%, -50%); transition: left 1s; }
-  .eta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 10px; }
-  .temp { position: absolute; right: -20px; top: 30px; background: var(--teal-2); color: #fff; border-radius: 20px; padding: 14px 18px; box-shadow: 0 20px 40px -16px rgba(0,0,0,.5); z-index: 1; display: flex; align-items: center; gap: 12px; }
-  .temp b { font-size: 30px; font-weight: 800; color: var(--amber); letter-spacing: -.04em; }
-  .temp span { font-size: 12px; color: #b5d0ce; line-height: 1.3; }
-  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } .van { left: 12px; bottom: 12px; width: 240px; } .temp { right: 12px; top: 12px; } .hero { padding-bottom: 120px; } }
+  .pipe { position: absolute; z-index: 1; right: 0; top: 130px; width: 46%; height: calc(100% - 130px); pointer-events: none; opacity: .9; }
+  .pipe .tube { fill: none; stroke: url(#cu); stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; }
+  .pipe .flow { fill: none; stroke: rgba(160,220,255,.9); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 18 26; animation: flow 1.6s linear infinite; }
+  .pipe .joint { fill: url(#cu); }
+  @keyframes flow { to { stroke-dashoffset: -88; } }
+  .status { background: rgba(255,255,255,.1); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.18); border-radius: 26px; padding: 24px; }
+  .status h3 { margin: 0 0 14px; font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+  .eng { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.12); font-size: 14px; }
+  .eng .av { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--copper-2), var(--copper)); display: grid; place-items: center; font-weight: 800; }
+  .eng b { display: block; font-size: 15px; } .eng span { color: rgba(255,255,255,.65); }
+  .eng em { margin-left: auto; font-style: normal; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: rgba(74,222,128,.18); color: #86efac; }
+  .eng em.b { background: rgba(231,161,106,.2); color: var(--copper-2); }
+  @media (max-width: 960px) { .hero .wrap { grid-template-columns: 1fr; } .pipe { width: 100%; opacity: .35; } }
 
-  .wave { display: block; width: 100%; height: 90px; margin-top: -90px; position: relative; z-index: 1; }
-  .wave path { animation: wave 9s ease-in-out infinite alternate; }
-  .wave path + path { animation-duration: 12s; animation-direction: alternate-reverse; }
-  @keyframes wave { to { transform: translateX(-60px); } }
+  .trust { background: var(--ink); color: rgba(255,255,255,.7); }
+  .trust .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-block: 22px; font-size: 14px; font-weight: 600; letter-spacing: .02em; }
+  .trust span::before { content: "◆"; color: var(--copper); margin-right: 10px; font-size: 10px; vertical-align: 2px; }
 
-  section { padding: 110px 0; }
-  @media (max-width: 600px) { section { padding: 72px 0; } }
-  .k { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
-  h2 { font-size: clamp(34px, 4.4vw, 60px); letter-spacing: -.05em; line-height: 1.02; font-weight: 800; margin: 12px 0 16px; }
-  h2 span { color: var(--accent); }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
-  .head p { color: var(--muted); max-width: 420px; margin: 0; }
+  section { padding: 130px 0; }
+  @media (max-width: 600px) { section { padding: 80px 0; } }
+  h2 { font-size: clamp(38px, 5vw, 72px); line-height: 1; letter-spacing: -.05em; font-weight: 800; margin: 16px 0 18px; }
+  h2 .it { color: var(--copper); font-weight: 400; letter-spacing: -.02em; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+  .head p { color: var(--muted); max-width: 420px; margin: 0; font-size: 17px; }
 
-  .svcs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .svc { background: #fff; border-radius: 24px; padding: 26px; border: 1px solid var(--line); transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s; }
-  .svc:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -30px rgba(8,60,61,.45); }
-  .svc .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; font-size: 24px; margin-bottom: 18px; }
-  .svc h3 { margin: 0 0 6px; font-size: 19px; letter-spacing: -.03em; }
-  .svc p { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
-  .svc b { font-size: 14px; color: var(--accent); }
-  @media (max-width: 960px) { .svcs { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .svcs { grid-template-columns: 1fr; } }
+  /* Emergency helper */
+  .help { display: grid; grid-template-columns: .9fr 1.1fr; gap: 0; background: var(--cream); border-radius: 36px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 80px -50px rgba(15,25,36,.45); }
+  .help-l { padding: 50px; border-right: 1px solid var(--line); }
+  .issues { display: grid; gap: 10px; margin-top: 26px; }
+  .issue { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 16px 18px; border-radius: 18px; border: 1px solid var(--line); background: #fff; cursor: pointer; font: 600 16px var(--sans); color: var(--ink); transition: all .25s; }
+  .issue svg { color: var(--copper); flex: none; }
+  .issue:hover { border-color: var(--copper-2); }
+  .issue[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .issue[aria-pressed="true"] svg { color: var(--copper-2); }
+  .help-r { padding: 50px; display: flex; flex-direction: column; background: radial-gradient(500px 300px at 100% 0%, rgba(231,161,106,.18), transparent 70%); }
+  .eta { display: flex; align-items: baseline; gap: 10px; }
+  .eta b { font-size: clamp(54px, 6vw, 84px); font-weight: 800; letter-spacing: -.06em; line-height: 1; color: var(--copper); }
+  .eta span { color: var(--muted); font-weight: 600; }
+  .todo { list-style: none; padding: 0; margin: 24px 0 30px; counter-reset: s; display: grid; gap: 14px; }
+  .todo li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; font-size: 16px; }
+  .todo li::before { content: counter(s); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--copper-2); font-weight: 800; font-size: 14px; }
+  #helpBody { transition: opacity .25s, transform .25s; }
+  .help-r .btn { align-self: flex-start; margin-top: auto; }
+  @media (max-width: 900px) { .help { grid-template-columns: 1fr; border-radius: 26px; } .help-l, .help-r { padding: 26px; } .help-l { border-right: 0; border-bottom: 1px solid var(--line); } }
 
-  .estimator { background: var(--teal); color: #fff; border-radius: 34px; padding: 50px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; }
-  .estimator h2 span { color: var(--aqua); }
-  .estimator > div > p { color: #b5d0ce; }
-  .jobs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
-  .job { text-align: left; background: rgba(255,255,255,.07); border: 1.5px solid transparent; border-radius: 16px; padding: 14px 16px; cursor: pointer; color: #fff; transition: all .25s; }
-  .job[aria-pressed="true"] { border-color: var(--aqua); background: rgba(63,211,198,.12); }
-  .job b { display: block; font-size: 15px; } .job span { font-size: 13px; color: #9fc0bd; }
+  .gallery { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 16px; }
+  .gallery figure { margin: 0; position: relative; border-radius: 26px; overflow: hidden; }
+  .gallery figure:first-child { grid-row: span 2; }
+  .gallery .frame { position: absolute; inset: 0; }
+  .gallery figcaption { position: absolute; left: 16px; bottom: 16px; z-index: 1; background: rgba(251,248,243,.92); backdrop-filter: blur(8px); padding: 10px 14px; border-radius: 14px; font-size: 14px; }
+  .gallery figcaption b { display: block; }
+  .gallery figcaption span { color: var(--muted); font-size: 13px; }
+  @media (max-width: 860px) { .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 240px); } .gallery figure:first-child { grid-column: span 2; grid-row: span 1; } }
+
+  .price { background: var(--ink); color: #fff; border-radius: 36px; padding: 56px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; }
+  .price h2 { color: #fff; } .price h2 .it { color: var(--copper-2); }
+  .price > div > p { color: #a9b4c0; }
+  .jobs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 26px 0 18px; }
+  .job { text-align: left; background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.1); border-radius: 18px; padding: 15px 17px; cursor: pointer; color: #fff; transition: all .25s; }
+  .job[aria-pressed="true"] { border-color: var(--copper-2); background: rgba(231,161,106,.12); }
+  .job b { display: block; } .job span { font-size: 13px; color: #a9b4c0; }
   .sizes { display: flex; gap: 8px; flex-wrap: wrap; }
-  .size { padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,.07); border: 1.5px solid transparent; cursor: pointer; font-weight: 600; color: #fff; }
-  .size[aria-pressed="true"] { border-color: var(--aqua); color: var(--aqua); }
-  .result { background: #fff; color: var(--ink); border-radius: 26px; padding: 32px; display: flex; flex-direction: column; gap: 10px; }
-  .result small { color: var(--muted); font-weight: 600; }
-  .result .range { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -.05em; line-height: 1.05; color: var(--teal); }
-  .result p { margin: 0; color: var(--muted); font-size: 14px; }
-  .result .btn { margin-top: 18px; }
-  .result { justify-content: center; }
-  .inc { list-style: none; padding: 16px 0 0; margin: 10px 0 0; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 14px; font-weight: 600; }
-  .inc li::before { content: "✓"; color: var(--accent); margin-right: 8px; font-weight: 800; }
-  @media (max-width: 900px) { .estimator { grid-template-columns: 1fr; padding: 26px; border-radius: 24px; } .jobs { grid-template-columns: 1fr; } }
+  .size { padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.1); cursor: pointer; color: #fff; font-weight: 600; }
+  .size[aria-pressed="true"] { border-color: var(--copper-2); color: var(--copper-2); }
+  .quote { background: var(--cream); color: var(--ink); border-radius: 28px; padding: 34px; display: flex; flex-direction: column; justify-content: center; }
+  .quote small { color: var(--muted); font-weight: 600; }
+  .quote .range { font-size: clamp(38px, 4vw, 56px); font-weight: 800; letter-spacing: -.055em; line-height: 1.05; margin: 6px 0 12px; }
+  .quote ul { list-style: none; padding: 16px 0 0; margin: 0 0 22px; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 14px; font-weight: 600; }
+  .quote li::before { content: "◆"; color: var(--copper); margin-right: 10px; font-size: 9px; vertical-align: 2px; }
+  @media (max-width: 900px) { .price { grid-template-columns: 1fr; padding: 26px; border-radius: 26px; } .jobs { grid-template-columns: 1fr; } }
 
-  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; }
-  .steps::before { content: ""; position: absolute; top: 28px; left: 6%; right: 6%; height: 2px; background: repeating-linear-gradient(90deg, var(--aqua) 0 10px, transparent 10px 18px); }
-  .steps li { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 74px 22px 24px; }
-  .steps span { position: absolute; top: 6px; left: 22px; width: 46px; height: 46px; border-radius: 50%; background: var(--teal); color: var(--aqua); display: grid; place-items: center; font-weight: 800; font-size: 18px; box-shadow: 0 0 0 6px var(--bg); }
-  .steps b { display: block; font-size: 18px; letter-spacing: -.02em; }
-  .steps p { margin: 6px 0 0; color: var(--muted); font-size: 14.5px; }
-  @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } .steps::before { display: none; } }
-  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
-  .proof { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .proof .frame { aspect-ratio: 4 / 4.4; border-radius: 30px; }
-  .checks { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 14px; }
-  .checks li { display: flex; gap: 14px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; }
-  .checks i { width: 30px; height: 30px; border-radius: 10px; background: rgba(63,211,198,.2); color: var(--accent); display: grid; place-items: center; font-style: normal; font-weight: 800; flex: none; }
-  .checks b { display: block; } .checks span { color: var(--muted); font-size: 14px; }
-  @media (max-width: 900px) { .proof { grid-template-columns: 1fr; gap: 30px; } }
-
-  .call { background: linear-gradient(120deg, var(--amber), #ff8a3d); color: var(--teal); border-radius: 30px; padding: 56px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
-  .call h2 { margin: 0 0 6px; } .call h2 span { color: #fff; } .call p { margin: 0; font-weight: 600; }
-  @media (max-width: 600px) { .call { padding: 34px 22px; } }
-  footer { padding: 30px 0 46px; color: var(--muted); font-size: 14px; }
+  .final { text-align: center; }
+  .final h2 { max-width: 820px; margin-inline: auto; }
+  .final p { color: var(--muted); font-size: 18px; margin: 0 auto 30px; max-width: 460px; }
+  .final .ctas { justify-content: center; }
+  footer { padding: 30px 0 46px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
@@ -133,53 +125,83 @@
 <body>
 <div class="clip">
 <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
-<div class="sos"><div class="wrap"><span><i></i>Burst pipe or no heating? An engineer can be with you in 2 hours.</span><a href="#">Call 01632 960 215 →</a></div></div>
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2s7 7.6 7 12.5A7 7 0 0 1 5 14.5C5 9.6 12 2 12 2z"/></svg>Northline</a>
-    <nav class="links"><a href="#services">Services</a><a href="#quote">Prices</a><a href="#why">Why us</a><a class="btn amber" href="#quote">Free quote</a></nav>
+    <a class="logo" href="#"><i></i>Northline</a>
+    <nav class="links"><span class="live"><i></i>3 engineers free today</span><a href="#help">Emergency</a><a href="#work">Our work</a><a class="btn copper" href="#price">Get a price</a></nav>
   </div>
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" style="padding:0">
+    <div class="frame"><img src="../assets/photos/northline-1.jpg" alt="Luxury bathroom with a freestanding bath" data-parallax fetchpriority="high"></div>
+    <svg class="pipe" viewBox="0 0 600 900" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <defs><linearGradient id="cu" x1="0" x2="1"><stop offset="0" stop-color="#7a3f17"/><stop offset=".45" stop-color="#e7a16a"/><stop offset=".6" stop-color="#f6c79c"/><stop offset="1" stop-color="#9b5222"/></linearGradient></defs>
+      <path class="tube" d="M640 120 H420 a40 40 0 0 0 -40 40 V420 a40 40 0 0 1 -40 40 H200 a40 40 0 0 0 -40 40 V960"/>
+      <path class="flow" d="M640 120 H420 a40 40 0 0 0 -40 40 V420 a40 40 0 0 1 -40 40 H200 a40 40 0 0 0 -40 40 V960"/>
+      <circle class="joint" cx="380" cy="300" r="14"/><circle class="joint" cx="160" cy="700" r="14"/>
+    </svg>
     <div class="wrap">
       <div>
-        <span class="chip">Gas Safe registered · 12-month guarantee</span>
-        <h1>Hot water. <span>No leaks.</span> <em>No fuss.</em></h1>
-        <p>Boilers, bathrooms and emergency plumbing from local engineers who turn up on time, quote first and clean up after.</p>
-        <div class="ctas"><a class="btn amber" href="#quote">Get a free quote</a><a class="btn line" href="#services">Our services</a></div>
-        <form class="post" id="post"><input id="pc" placeholder="Enter your postcode" aria-label="Postcode" maxlength="8"><button class="btn aqua" type="submit">Check area</button></form>
-        <div class="post-msg" id="postMsg" role="status"></div>
+        <span class="k" style="color:var(--copper-2)">Heating · Plumbing · Bathrooms</span>
+        <h1>Warm homes. <span class="it">Beautiful</span> bathrooms.</h1>
+        <p>Gas Safe heating engineers and bathroom specialists for homes that deserve better than a quick fix.</p>
+        <div class="ctas"><a class="btn copper" href="#price">Get an instant price</a><a class="btn glass" href="#help">I have an emergency</a></div>
       </div>
-      <div class="hero-pic">
-        <div class="frame"><img src="../assets/photos/northline-hero.jpg" alt="Bright modern bathroom with a glass walk-in shower" fetchpriority="high"></div>
-        <div class="temp"><b id="tmp">21°</b><span>Heating<br>back on</span></div>
-        <div class="van" id="van"><div class="van-top"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7a4 4 0 0 0-5.6 5.6L3 18l3 3 5.4-5.4A4 4 0 0 0 17 10l-2.5 2.5-3-3z"/></svg></i><div><b>Dan is on his way</b><span>Boiler repair · Van 04</span></div></div><div class="route" id="route"></div><div class="eta"><span>Left depot</span><span id="eta">Arriving in 14 min</span></div></div>
-      </div>
-    </div>
-  </section>
-  <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 C 240 90 480 0 720 40 S 1200 90 1500 40 V90 H0z" fill="#0d8a84" opacity=".35"/><path d="M-60 55 C 200 10 460 90 720 55 S 1180 10 1500 55 V90 H-60z" fill="#f1f6f5"/></svg>
-
-  <section id="services" style="padding-top:60px">
-    <div class="wrap">
-      <div class="head"><div><span class="k">What we fix</span><h2>From a drip to a <span>full refit.</span></h2></div><p>Fixed prices, tidy work and a 12-month guarantee on everything we do.</p></div>
-      <div class="svcs">
-        <div class="svc" data-reveal><div class="ic" style="background:#fff2db;color:#c2620a"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3 4 4.5 4 8.5a4 4 0 0 1-8 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 0-7.5z"/><path d="M8 21h8"/></svg></div><h3>Boilers</h3><p>Repairs, servicing and A-rated installs in a day.</p><b>Service from £75</b></div>
-        <div class="svc" data-reveal><div class="ic" style="background:#dcf5f2;color:#0d8a84"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a4 4 0 0 1 4 4v1"/><path d="M10 13h8a2 2 0 0 0 0-4H10z"/><path d="M11 16v1M14 16v2M17 16v1M12.5 19v1M15.5 19v1"/></svg></div><h3>Bathrooms</h3><p>Design, supply and fit, usually in 8 working days.</p><b>From £4,500</b></div>
-        <div class="svc" data-reveal><div class="ic" style="background:#e3eefc;color:#2563eb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></div><h3>Leaks</h3><p>Burst pipes and leaks traced and fixed fast.</p><b>Same-day call-out</b></div>
-        <div class="svc" data-reveal><div class="ic" style="background:#f3e8ff;color:#7c3aed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 9v7"/></svg></div><h3>Heating</h3><p>Radiators, smart thermostats and power flushes.</p><b>From £95</b></div>
+      <div class="status" data-reveal>
+        <h3>Today's engineers <span class="live"><i></i>Live</span></h3>
+        <div class="eng"><span class="av">D</span><div><b>Dan</b><span>Boilers &amp; heating</span></div><em>Free 2:30pm</em></div>
+        <div class="eng"><span class="av">S</span><div><b>Sophie</b><span>Leaks &amp; plumbing</span></div><em>Free now</em></div>
+        <div class="eng"><span class="av">R</span><div><b>Raj</b><span>Bathroom fitting</span></div><em class="b">On a job</em></div>
       </div>
     </div>
   </section>
+  <div class="trust"><div class="wrap"><span>Gas Safe registered</span><span>Fixed prices, agreed first</span><span>12-month guarantee</span><span>No call-out fee</span><span>7am – 9pm, 7 days</span></div></div>
 
-  <section id="quote" style="padding-top:0">
+  <section id="help">
     <div class="wrap">
-      <div class="estimator" data-reveal>
+      <div class="head"><div><span class="k">Emergency helper</span><h2>Something wrong? <span class="it">Start here.</span></h2></div><p>Tell us what's happening and we'll tell you what to do right now, and how fast we can get to you.</p></div>
+      <div class="help" data-reveal>
+        <div class="help-l">
+          <b style="font-size:18px">What's happening?</b>
+          <div class="issues">
+            <button class="issue" aria-pressed="true" data-k="burst"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>Burst pipe or major leak</button>
+            <button class="issue" aria-pressed="false" data-k="heat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></svg>No heating or hot water</button>
+            <button class="issue" aria-pressed="false" data-k="boiler"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 17h6M12 7v4"/></svg>Boiler leaking or making noise</button>
+            <button class="issue" aria-pressed="false" data-k="drain"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M8 12h8M12 8v8"/></svg>Blocked drain or toilet</button>
+          </div>
+        </div>
+        <div class="help-r">
+          <div id="helpBody">
+            <div class="eta"><b id="hEta">~2 hrs</b><span id="hSub">typical arrival</span></div>
+            <ol class="todo" id="hTodo"></ol>
+          </div>
+          <a class="btn ink" href="#">Call now: 01632 960 215</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><div><span class="k">Recent work</span><h2>Bathrooms we're <span class="it">proud</span> of.</h2></div><p>Designed, supplied and fitted by our own team, usually in around eight working days.</p></div>
+      <div class="gallery">
+        <figure data-reveal><div class="frame"><img src="../assets/photos/northline-hero.jpg" alt="Bathroom with walk-in glass shower" loading="lazy"></div><figcaption><b>Walk-in shower suite</b><span>Harrogate · 7 days</span></figcaption></figure>
+        <figure data-reveal><div class="frame"><img src="../assets/photos/northline-4.jpg" alt="Bright bathroom with plants" loading="lazy"></div><figcaption><b>Family bathroom</b><span>Ripon · 8 days</span></figcaption></figure>
+        <figure data-reveal><div class="frame"><img src="../assets/photos/northline-3.jpg" alt="Chrome bath tap detail" loading="lazy"></div><figcaption><b>Brassware upgrade</b><span>Knaresborough · 1 day</span></figcaption></figure>
+        <figure data-reveal><div class="frame"><img src="../assets/photos/northline-2.jpg" alt="Copper heating pipework" loading="lazy"></div><figcaption><b>New boiler &amp; pipework</b><span>Leeds · 1 day</span></figcaption></figure>
+        <figure data-reveal><div class="frame"><img src="../assets/photos/northline-1.jpg" alt="Freestanding bath in a modern bathroom" loading="lazy"></div><figcaption><b>Master en-suite</b><span>York · 9 days</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="price" style="padding-top:0">
+    <div class="wrap">
+      <div class="price" data-reveal>
         <div>
-          <span class="k" style="color:var(--aqua)">Instant price guide</span>
-          <h2>Know the cost <span>up front.</span></h2>
-          <p>Pick a job and your home size. We confirm a fixed price after a free visit.</p>
+          <span class="k" style="color:var(--copper-2)">Instant price guide</span>
+          <h2>Know the cost <span class="it">before</span> we arrive.</h2>
+          <p>Pick a job and your home size. We confirm a fixed price after a free visit, and it never changes.</p>
           <div class="jobs">
             <button class="job" aria-pressed="true" data-base="75,95"><b>Boiler service</b><span>Annual safety check</span></button>
             <button class="job" aria-pressed="false" data-base="1950,2650"><b>New boiler</b><span>A-rated, fitted in a day</span></button>
@@ -188,42 +210,21 @@
           </div>
           <div class="sizes"><button class="size" aria-pressed="false" data-m="1">1–2 bed</button><button class="size" aria-pressed="true" data-m="1.15">3–4 bed</button><button class="size" aria-pressed="false" data-m="1.35">5+ bed</button></div>
         </div>
-        <div class="result"><small>Typical price</small><div class="range" id="range">£86 – £109</div><p>Includes parts, labour and VAT. Fixed price confirmed after a free visit.</p><ul class="inc"><li>No call-out fee</li><li>12-month guarantee</li><li>Card or bank transfer</li></ul><a class="btn teal" href="#">Book a free visit</a></div>
+        <div class="quote"><small>Typical price</small><div class="range" id="range">£86 – £109</div><ul><li>Parts, labour and VAT included</li><li>No call-out fee</li><li>12-month guarantee</li></ul><a class="btn copper" href="#">Book a free visit</a></div>
       </div>
     </div>
   </section>
 
-  <section id="how" style="padding-top:0">
+  <section class="final" style="padding-top:20px">
     <div class="wrap">
-      <div class="head"><div><span class="k">How a job works</span><h2>Booked to <span>sorted</span> in four steps.</h2></div><p>Clear updates at every stage, so you're never left waiting in for someone.</p></div>
-      <ol class="steps">
-        <li data-reveal><span>1</span><b>Tell us the problem</b><p>Online in 60 seconds or by phone, 7am to 9pm.</p></li>
-        <li data-reveal><span>2</span><b>Get a fixed price</b><p>We quote before we start. No surprises later.</p></li>
-        <li data-reveal><span>3</span><b>Track your engineer</b><p>A live text with their arrival time when they set off.</p></li>
-        <li data-reveal><span>4</span><b>Job done, guaranteed</b><p>Tidy finish and a 12-month guarantee on all work.</p></li>
-      </ol>
+      <span class="k">Northline</span>
+      <h2>Heating and bathrooms, <span class="it">done properly.</span></h2>
+      <p>Speak to a real engineer, not a call centre. Lines open 7am to 9pm, seven days a week.</p>
+      <div class="ctas"><a class="btn ink" href="#">Call 01632 960 215</a><a class="btn copper" href="#price">Get a price</a></div>
     </div>
-  </section>
-
-  <section id="why" style="padding-top:0">
-    <div class="wrap proof">
-      <div class="frame" data-reveal><img src="../assets/photos/northline-1.jpg" alt="Finished bathroom with freestanding bath" loading="lazy"></div>
-      <div>
-        <span class="k">Why Northline</span><h2>The plumber you'll <span>actually</span> recommend.</h2>
-        <ul class="checks">
-          <li data-reveal><i>✓</i><div><b>On time, or we'll tell you</b><span>Live tracking text when your engineer sets off.</span></div></li>
-          <li data-reveal><i>✓</i><div><b>Price agreed before we start</b><span>No call-out fee and no surprise extras.</span></div></li>
-          <li data-reveal><i>✓</i><div><b>Dust sheets and shoe covers</b><span>We leave your home cleaner than we found it.</span></div></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding-top:0">
-    <div class="wrap"><div class="call" data-reveal><div><h2>Water where it <span>shouldn't be?</span></h2><p>Lines open 7am – 9pm, seven days a week.</p></div><a class="btn teal" href="#">Call 01632 960 215</a></div></div>
   </section>
 </main>
-<footer><div class="wrap"><span>© Northline Plumbing &amp; Heating (fictional business)</span><span>Serving the local area</span></div></footer>
+<footer><div class="wrap"><span>© Northline Heating &amp; Bathrooms (fictional business)</span><span>Serving North Yorkshire</span></div></footer>
 </div>
 
 <script src="../vendor/gsap.min.js"></script>
@@ -231,10 +232,26 @@
 <script src="../vendor/lenis.min.js"></script>
 <script src="motion.js"></script>
 <script>
+  // Emergency helper
+  const H = {
+    burst:  ["~2 hrs", "typical emergency arrival", ["Turn off your stop tap. It's usually under the kitchen sink.", "Switch off electrics near the water if it's safe to reach the fuse box.", "Open cold taps to drain the system, then call us."]],
+    heat:   ["Today", "most heating call-outs", ["Check your thermostat is on and the boiler has power.", "Look at the boiler pressure gauge: it should read 1–1.5 bar.", "Try resetting the boiler once. If it fails again, call us."]],
+    boiler: ["~3 hrs", "typical arrival", ["Turn the boiler off at the switch and isolate the power.", "Put a towel or bowl under any drip and keep pets away.", "If you smell gas, leave the house and call 0800 111 999 first."]],
+    drain:  ["Same day", "drain and toilet call-outs", ["Stop using the affected sink, toilet or shower.", "Don't use chemical drain cleaners: they can damage pipes.", "Note where water is backing up so we can find it fast."]],
+  };
+  const issues = document.querySelectorAll(".issue"), body = document.getElementById("helpBody");
+  function showHelp(k, animate) {
+    const [eta, sub, steps] = H[k];
+    const paint = () => { document.getElementById("hEta").textContent = eta; document.getElementById("hSub").textContent = sub;
+      document.getElementById("hTodo").innerHTML = steps.map(s => `<li>${s}</li>`).join(""); body.style.opacity = 1; body.style.transform = "none"; };
+    if (!animate) return paint();
+    body.style.opacity = 0; body.style.transform = "translateY(8px)"; setTimeout(paint, 220);
+  }
+  issues.forEach(b => b.addEventListener("click", () => { issues.forEach(x => x.setAttribute("aria-pressed", x === b)); showHelp(b.dataset.k, true); }));
+  showHelp("burst", false);
   // Price guide
   const jobs = document.querySelectorAll(".job"), sizes = document.querySelectorAll(".size"), out = document.getElementById("range");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const shown = { lo: 0, hi: 0 }, fmt = n => "£" + Math.round(n).toLocaleString("en-GB");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, shown = { lo: 0, hi: 0 }, fmt = n => "£" + Math.round(n).toLocaleString("en-GB");
   function calc() {
     const [lo, hi] = document.querySelector('.job[aria-pressed="true"]').dataset.base.split(",").map(Number);
     const m = parseFloat(document.querySelector('.size[aria-pressed="true"]').dataset.m), t = { lo: lo * m, hi: hi * m };
@@ -243,21 +260,6 @@
   }
   [jobs, sizes].forEach(set => set.forEach(b => b.addEventListener("click", () => { set.forEach(x => x.setAttribute("aria-pressed", x === b)); calc(); })));
   calc();
-  // Postcode check (demo)
-  document.getElementById("post").addEventListener("submit", e => {
-    e.preventDefault();
-    const v = document.getElementById("pc").value.trim().toUpperCase(), msg = document.getElementById("postMsg");
-    msg.textContent = v ? `✓ Good news, we cover ${v}. Next engineer free today at 2:30pm.` : "Enter a postcode to check your area.";
-  });
-  // Van tracker + thermostat (demo)
-  const route = document.getElementById("route"), eta = document.getElementById("eta"), tmp = document.getElementById("tmp");
-  let p = 20, mins = 14, t = 16;
-  if (!reduce) setInterval(() => {
-    p = p >= 92 ? 20 : p + 12; mins = p >= 92 ? 1 : Math.max(1, mins - 2); if (p === 20) mins = 14;
-    route.style.setProperty("--p", p + "%"); eta.textContent = p >= 92 ? "Arriving now" : `Arriving in ${mins} min`;
-    t = t >= 21 ? 16 : t + 1; tmp.textContent = t + "°";
-  }, 1500);
-  route.style.setProperty("--p", "20%");
 </script>
 </body>
 </html>

@@ -305,12 +305,7 @@
   input, select, textarea { transition: border-color .25s, box-shadow .25s; }
   input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent); }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    html.js .reveal, html.js [data-anim] { opacity: 1; }
-    .float, .dot, .plan.featured, .hv-card, .mock-screen img, .phone-screen img { animation: none; }
-    .card:hover, .step:hover, .plan:hover, .concept:hover { transform: none; }
-  }
+  
 
   /* Work: link to concepts page */
   .work-more { margin-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -545,9 +540,9 @@
   @keyframes introReelOpen { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; width: 100vw; height: 100vh; border-radius: 0; } }
   @keyframes introOut { to { opacity: 0; visibility: hidden; } }
   .intro.skip { display: none; }
-  @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+  
   .page-wipe { position: fixed; inset: 0; z-index: 400; background: var(--bg); transform: translateY(100%); pointer-events: none; }
-  @media (prefers-reduced-motion: reduce) { html.js .intro { display: none; } }
+  
 
   /* ---- Alive: drifting glows + scroll hint ---- */
   .hero::before, .page-hero::before { animation: drift 16s ease-in-out infinite alternate; }
@@ -556,7 +551,7 @@
   .scroll-hint i { width: 22px; height: 34px; border-radius: 12px; border: 2px solid var(--line); position: relative; }
   .scroll-hint i::after { content: ""; position: absolute; left: 50%; top: 6px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: var(--accent); animation: wheel 1.8s ease-in-out infinite; }
   @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(10px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .hero::before, .page-hero::before, .scroll-hint i::after { animation: none; } }
+  
 
   .hero, .page-hero { overflow-x: clip; }
 
@@ -621,4 +616,4 @@
   .odo-col { display: inline-block; height: 1em; overflow: hidden; line-height: 1; }
   .odo-strip { display: flex; flex-direction: column; will-change: transform; }
   .odo-strip span { height: 1em; line-height: 1; }
-  @media (prefers-reduced-motion: reduce) { .pp-hot::before { animation: none; } }
+  

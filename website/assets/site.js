@@ -3,7 +3,10 @@
 // page still works: content is simply shown without animation.
 (function () {
   const root = document.documentElement;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Animation is the point of this site, so it plays for everyone. Visitors who ask their
+  // device to reduce motion just don't get smooth-scroll hijacking (see Lenis below).
+  const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = false;
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const gsap = window.gsap;
   const ST = window.ScrollTrigger;
@@ -20,7 +23,7 @@
 
   // ---------- Smooth scroll ----------
   let lenis = null;
-  if (animate && window.Lenis) {
+  if (animate && window.Lenis && !prefersReduce) {
     lenis = new window.Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     gsap.registerPlugin(ST);
     lenis.on("scroll", ST.update);

@@ -7,83 +7,110 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../vendor/lenis.css">
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Soft clinical luxury: blush paper, rose accent, sage calm, arch shapes */
-  :root { --bg: #fbf5f1; --blush: #f3e2da; --rose: #b4675b; --accent: #b4675b; --sage: #8e9c88; --ink: #352a2b; --muted: #8b7c79; --line: #ead9d1;
-    --serif: "Cormorant Garamond", Georgia, serif; --sans: Jost, system-ui, sans-serif; }
+  /* Clinical luxury: warm greige, deep plum ink, blush glow */
+  :root { --bg: #efe9e3; --paper: #f8f4f0; --white: #fff; --ink: #2b2124; --muted: #85777a; --line: #ddd2ca; --blush: #e9c7bd; --rose: #b77b6d; --accent: #b77b6d; --plum: #3a2a2f;
+    --serif: Cormorant, Georgia, serif; --sans: Figtree, system-ui, sans-serif; }
   body { background: var(--bg); color: var(--ink); font: 300 17px/1.7 var(--sans); }
-  .btn { padding: 15px 30px; border-radius: 999px; font: 400 14px var(--sans); letter-spacing: .12em; text-transform: uppercase; }
-  .btn.rose { background: var(--ink); color: var(--bg); }
-  .btn.soft { background: transparent; box-shadow: inset 0 0 0 1px var(--ink); color: var(--ink); }
-  .eyebrow { font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--rose); }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); }
+  .btn { padding: 15px 30px; border-radius: 999px; font: 500 14px var(--sans); letter-spacing: .06em; }
+  .btn.ink { background: var(--plum); color: var(--paper); }
+  .btn.soft { background: rgba(255,255,255,.6); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(10px); }
 
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,245,241,.88); backdrop-filter: blur(14px); }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(239,233,227,.75); backdrop-filter: blur(18px); }
   .nav.scrolled { box-shadow: 0 1px 0 var(--line); }
-  .nav .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 84px; }
-  .nav .l, .nav .r { display: flex; gap: 30px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
-  .nav .r { justify-content: flex-end; align-items: center; }
-  .nav a { text-decoration: none; }
-  .logo { font: 500 30px var(--serif); letter-spacing: .4em; text-align: center; padding-left: .4em; }
-  @media (max-width: 860px) { .nav .l { visibility: hidden; } .nav .r a:not(.btn) { display: none; } .logo { font-size: 24px; } }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .logo { font: 300 32px var(--serif); letter-spacing: .32em; text-decoration: none; padding-left: .32em; }
+  .links { display: flex; gap: 34px; align-items: center; font-size: 14px; }
+  .links a:not(.btn) { text-decoration: none; color: var(--muted); }
+  @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
 
-  .hero { text-align: center; padding: 60px 0 0; }
-  .hero h1 { font: 500 clamp(54px, 8vw, 124px)/.98 var(--serif); margin: 20px auto 22px; max-width: 1000px; letter-spacing: -.01em; }
+  .hero { padding: 20px 0 110px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; }
+  .hero-copy { padding: 70px 60px 40px 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero h1 { font: 300 clamp(60px, 8.4vw, 132px)/.92 var(--serif); letter-spacing: -.035em; margin: 24px 0 26px; }
   .hero h1 em { font-style: italic; color: var(--rose); }
-  .hero p { max-width: 520px; margin: 0 auto 32px; color: var(--muted); font-size: 18px; }
-  .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .arches { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 22px; align-items: end; margin-top: 70px; }
-  .arch { border-radius: 999px 999px 0 0; aspect-ratio: 3 / 4.2; }
-  .arch.side { aspect-ratio: 3 / 3.6; }
-  .arch-wrap { position: relative; }
-  .note { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); background: rgba(255,255,255,.88); backdrop-filter: blur(8px); padding: 12px 22px; border-radius: 999px; font-size: 14px; white-space: nowrap; }
-  .note b { font-weight: 500; color: var(--rose); }
-  @media (max-width: 760px) { .arches { grid-template-columns: 1fr; } .arch.side { display: none; } }
+  .hero p { color: var(--muted); font-size: 18px; max-width: 420px; margin: 0 0 36px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .awards { display: flex; gap: 34px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .awards b { display: block; font: 400 30px var(--serif); color: var(--ink); }
+  .portrait { position: relative; min-height: 680px; }
+  .portrait .frame { position: absolute; inset: 0; border-radius: 340px 340px 30px 30px; }
+  .portrait::before { content: ""; position: absolute; inset: 8% -6% -6% 10%; border-radius: 340px 340px 30px 30px; background: radial-gradient(circle at 50% 30%, var(--blush), transparent 70%); filter: blur(30px); z-index: -1; }
+  .chip { position: absolute; z-index: 1; background: rgba(248,244,240,.82); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.7); border-radius: 22px; padding: 14px 18px; box-shadow: 0 24px 50px -24px rgba(43,33,36,.4); font-size: 14px; }
+  .chip b { display: block; font-weight: 500; }
+  .chip span { color: var(--muted); font-size: 13px; }
+  .c1 { left: -40px; top: 110px; display: flex; gap: 12px; align-items: center; }
+  .c1 i { width: 38px; height: 38px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--blush) 60%, var(--rose)); }
+  .c2 { right: 26px; bottom: 40px; }
+  .c2 .dots { display: flex; gap: 4px; margin-top: 8px; } .c2 .dots i { width: 22px; height: 5px; border-radius: 3px; background: var(--rose); } .c2 .dots i:nth-child(n+4) { background: var(--line); }
+  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } .hero-copy { padding: 30px 0; } .portrait { min-height: 460px; } .c1 { left: 12px; top: 20px; } .c2 { right: 12px; bottom: 12px; } }
+
+  .marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 22px 0; }
+  .marquee div { display: flex; gap: 50px; width: max-content; animation: m 40s linear infinite; font: italic 300 34px var(--serif); color: var(--muted); white-space: nowrap; }
+  .marquee span::after { content: "✦"; margin-left: 50px; font-size: .5em; color: var(--rose); vertical-align: middle; }
+  @keyframes m { to { transform: translateX(-50%); } }
 
   section { padding: 130px 0; }
   @media (max-width: 600px) { section { padding: 80px 0; } }
-  h2 { font: 500 clamp(40px, 5vw, 72px)/1.02 var(--serif); margin: 16px 0 20px; }
+  h2 { font: 300 clamp(44px, 5.6vw, 88px)/1 var(--serif); letter-spacing: -.03em; margin: 18px 0 20px; }
   h2 em { font-style: italic; color: var(--rose); }
-  .center { text-align: center; max-width: 660px; margin: 0 auto 56px; }
+  .center { text-align: center; max-width: 680px; margin: 0 auto 60px; }
   .center p { color: var(--muted); margin: 0; }
 
-  /* Treatment finder */
-  .finder { background: #fff; border-radius: 40px; padding: 56px; box-shadow: 0 40px 80px -50px rgba(53,42,43,.35); }
-  .goals { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 44px; }
-  .goal { padding: 14px 26px; border-radius: 999px; background: var(--blush); border: 0; cursor: pointer; font: 400 15px var(--sans); letter-spacing: .06em; transition: background .3s, color .3s; }
-  .goal[aria-pressed="true"] { background: var(--rose); color: #fff; }
-  .match { display: grid; grid-template-columns: 1fr 1.1fr; gap: 50px; align-items: center; }
-  .match .frame { aspect-ratio: 1; border-radius: 50%; }
-  .match small { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--sage); }
-  .match h3 { font: 500 clamp(36px, 4vw, 54px)/1.05 var(--serif); margin: 10px 0 14px; }
-  .match p { color: var(--muted); margin: 0 0 24px; }
-  .meta { display: flex; gap: 30px; margin-bottom: 28px; }
-  .meta b { display: block; font: 500 28px var(--serif); color: var(--rose); }
-  .meta span { font-size: 13px; color: var(--muted); }
-  #matchBody { transition: opacity .3s; }
-  @media (max-width: 860px) { .finder { padding: 28px; border-radius: 28px; } .match { grid-template-columns: 1fr; gap: 24px; } .match .frame { max-width: 280px; margin: 0 auto; } }
+  /* Skin journey */
+  .journey { display: grid; grid-template-columns: 1.1fr .9fr; gap: 0; background: var(--paper); border-radius: 40px; overflow: hidden; box-shadow: 0 50px 90px -60px rgba(43,33,36,.5); }
+  .j-pic { position: relative; min-height: 520px; overflow: hidden; }
+  .j-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter .4s; }
+  .j-glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 40%, rgba(255,232,220,.75), transparent 60%); mix-blend-mode: soft-light; opacity: var(--g, .2); transition: opacity .4s; }
+  .j-week { position: absolute; left: 22px; top: 22px; background: rgba(248,244,240,.88); backdrop-filter: blur(10px); padding: 10px 16px; border-radius: 999px; font-weight: 500; font-size: 14px; }
+  .j-copy { padding: 56px; display: flex; flex-direction: column; justify-content: center; }
+  .j-copy h3 { font: 300 44px/1.05 var(--serif); margin: 14px 0 10px; }
+  .j-copy p { color: var(--muted); margin: 0 0 24px; min-height: 84px; }
+  .j-range { width: 100%; accent-color: var(--rose); }
+  .j-marks { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .meters { display: grid; gap: 14px; margin-top: 30px; }
+  .meter label { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+  .meter label b { font-weight: 500; }
+  .meter .bar { height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+  .meter .bar i { display: block; height: 100%; width: var(--w, 20%); background: linear-gradient(90deg, var(--blush), var(--rose)); border-radius: 6px; transition: width .5s cubic-bezier(.2,.8,.2,1); }
+  @media (max-width: 900px) { .journey { grid-template-columns: 1fr; border-radius: 28px; } .j-pic { min-height: 340px; } .j-copy { padding: 28px; } }
 
-  .philo { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
-  .philo .frame { aspect-ratio: 4 / 5; border-radius: 300px 300px 24px 24px; }
-  .steps { list-style: none; padding: 0; margin: 30px 0 0; }
-  .steps li { display: grid; grid-template-columns: 70px 1fr; padding: 20px 0; border-top: 1px solid var(--line); }
-  .steps li b { font: italic 500 30px var(--serif); color: var(--rose); }
-  .steps li strong { font-weight: 500; display: block; }
-  .steps li span { color: var(--muted); font-size: 15px; }
-  @media (max-width: 860px) { .philo { grid-template-columns: 1fr; gap: 40px; } }
+  .treats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .treat { background: var(--paper); border-radius: 28px; overflow: hidden; transition: transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .6s; }
+  .treat:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -30px rgba(43,33,36,.4); }
+  .treat .frame { aspect-ratio: 4 / 4.6; border-radius: 200px 200px 0 0; margin: 10px 10px 0; }
+  .treat .t { padding: 20px 22px 24px; }
+  .treat h3 { font: 400 28px var(--serif); margin: 0 0 4px; }
+  .treat p { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; }
+  .treat .m { display: flex; justify-content: space-between; font-size: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .treat .m b { font-weight: 500; }
+  @media (max-width: 1000px) { .treats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .treats { grid-template-columns: 1fr; } }
 
-  .menu { max-width: 760px; margin: 0 auto; }
-  .menu div { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
-  .menu strong { font: 500 26px var(--serif); }
-  .menu span { color: var(--muted); font-size: 14px; display: block; }
-  .menu b { font: 500 26px var(--serif); color: var(--rose); white-space: nowrap; }
+  .member { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .card { aspect-ratio: 1.6; border-radius: 26px; padding: 30px; color: var(--paper); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;
+    background: radial-gradient(circle at 80% 10%, rgba(233,199,189,.65), transparent 50%), linear-gradient(135deg, #4a3439, var(--plum) 60%, #1f1619); box-shadow: 0 40px 80px -30px rgba(43,33,36,.6); transform: rotate(-4deg); }
+  .card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.18) 45%, transparent 60%); animation: sheen 5s ease-in-out infinite; }
+  @keyframes sheen { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+  .card .top { display: flex; justify-content: space-between; align-items: center; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+  .card .lg { font: 300 30px var(--serif); letter-spacing: .3em; }
+  .card .nm { font: italic 300 40px var(--serif); }
+  .perks { list-style: none; padding: 0; margin: 24px 0 30px; display: grid; gap: 12px; }
+  .perks li { display: flex; gap: 12px; align-items: center; }
+  .perks li::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--blush); flex: none; box-shadow: inset 0 0 0 6px var(--paper); }
+  @media (max-width: 900px) { .member { grid-template-columns: 1fr; gap: 40px; } .card { transform: none; } }
 
-  .closing { background: var(--blush); border-radius: 300px 300px 40px 40px; padding: 110px 40px 90px; text-align: center; }
-  .closing p { color: var(--muted); max-width: 480px; margin: 0 auto 30px; }
-  @media (max-width: 600px) { .closing { border-radius: 160px 160px 28px 28px; padding: 80px 20px 60px; } }
-  footer { padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
+  .closing { position: relative; border-radius: 40px; overflow: hidden; min-height: 460px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--paper); }
+  .closing .frame { position: absolute; inset: 0; }
+  .closing::after { content: ""; position: absolute; inset: 0; background: rgba(43,33,36,.5); }
+  .closing > div:last-child { position: relative; z-index: 1; padding: 40px 24px; }
+  .closing h2 em { color: var(--blush); }
+  .closing p { opacity: .85; margin: 0 auto 30px; max-width: 440px; }
+  footer { padding: 36px 0 50px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
@@ -93,77 +120,79 @@
 <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
 <header class="nav">
   <div class="wrap">
-    <div class="l"><a href="#finder">Treatments</a><a href="#about">Philosophy</a></div>
     <a class="logo" href="#">LUMEN</a>
-    <div class="r"><a href="#prices">Prices</a><a class="btn rose" href="#book">Book</a></div>
+    <nav class="links"><a href="#journey">Results</a><a href="#treatments">Treatments</a><a href="#membership">Membership</a><a class="btn ink" href="#">Book a consultation</a></nav>
   </div>
 </header>
 
 <main>
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow">Advanced skin clinic · Harrogate</span>
-      <h1>Skin that feels <em>like you</em> again.</h1>
-      <p>Expert facials, peels and skin treatments, tailored to you after a free consultation in our calm, private clinic.</p>
-      <div class="ctas"><a class="btn rose" href="#book">Book a consultation</a><a class="btn soft" href="#finder">Find your treatment</a></div>
-      <div class="arches">
-        <div class="frame arch side"><img src="../assets/photos/lumen-4.jpg" alt="Skincare products laid out on a towel"></div>
-        <div class="arch-wrap"><div class="frame arch"><img src="../assets/photos/lumen-hero.jpg" alt="Client relaxing during a facial" fetchpriority="high"></div><div class="note"><b>Free</b> first consultation</div></div>
-        <div class="frame arch side"><img src="../assets/photos/lumen-1.jpg" alt="Skincare bottle with towel and tulips"></div>
+      <div class="hero-copy">
+        <span class="eyebrow">Advanced aesthetics · Harrogate</span>
+        <h1>Your skin, <em>quietly</em> transformed.</h1>
+        <p>Doctor-led skin treatments that look like you, only rested. Every plan begins with a free, unhurried consultation.</p>
+        <div class="ctas"><a class="btn ink" href="#">Book a free consultation</a><a class="btn soft" href="#journey">See the results</a></div>
+        <div class="awards"><div><b>Doctor-led</b>every treatment</div><div><b>2,400+</b>treatments a year</div><div><b>Free</b>first consultation</div></div>
+      </div>
+      <div class="portrait">
+        <div class="frame"><img src="../assets/photos/lumen-hero.jpg" alt="Client relaxing during a facial treatment" fetchpriority="high"></div>
+        <div class="chip c1"><i></i><div><b>Next available</b><span>Thursday, 2:30pm</span></div></div>
+        <div class="chip c2"><b>Glow course</b><span>Session 3 of 6</span><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
       </div>
     </div>
   </section>
 
-  <section id="finder">
+  <div class="marquee" aria-hidden="true"><div><span>Skin boosters</span><span>Chemical peels</span><span>Microneedling</span><span>LED therapy</span><span>Signature facials</span><span>Skin boosters</span><span>Chemical peels</span><span>Microneedling</span><span>LED therapy</span><span>Signature facials</span></div></div>
+
+  <section id="journey">
     <div class="wrap">
-      <div class="center"><span class="eyebrow">Treatment finder</span><h2>What's your <em>skin goal?</em></h2><p>Choose what matters most and we'll suggest where to start.</p></div>
-      <div class="finder" data-reveal>
-        <div class="goals">
-          <button class="goal" aria-pressed="true" data-k="glow">Glow</button>
-          <button class="goal" aria-pressed="false" data-k="smooth">Smooth lines</button>
-          <button class="goal" aria-pressed="false" data-k="calm">Calm redness</button>
-          <button class="goal" aria-pressed="false" data-k="clear">Clear breakouts</button>
-        </div>
-        <div class="match" id="matchBody">
-          <div class="frame"><img id="mImg" src="../assets/photos/lumen-2.jpg" alt=""></div>
-          <div><small id="mTag">Our recommendation</small><h3 id="mName">Signature facial</h3><p id="mText">A deep cleanse, gentle exfoliation and layered hydration for an instant, lit-from-within glow.</p>
-            <div class="meta"><div><b id="mTime">60 min</b><span>treatment</span></div><div><b id="mPrice">£65</b><span>per session</span></div></div>
-            <a class="btn rose" href="#book">Book this treatment</a></div>
+      <div class="center"><span class="eyebrow">Your skin journey</span><h2>Results that <em>build</em> over time.</h2><p>Drag through a typical 12-week Glow course to see how skin changes, session by session.</p></div>
+      <div class="journey" data-reveal>
+        <div class="j-pic"><img id="jImg" src="../assets/photos/lumen-hero.jpg" alt="Client during treatment"><div class="j-glow" id="jGlow"></div><span class="j-week" id="jWeek">Week 0 · Consultation</span></div>
+        <div class="j-copy">
+          <span class="eyebrow" id="jTag">Starting point</span>
+          <h3 id="jTitle">Skin analysis</h3>
+          <p id="jText">A 30-minute consultation with a skin doctor, including a close-up skin scan and a plan built around your goals.</p>
+          <input class="j-range" id="jRange" type="range" min="0" max="3" step="1" value="0" aria-label="Weeks into treatment">
+          <div class="j-marks"><span>Week 0</span><span>Week 4</span><span>Week 8</span><span>Week 12</span></div>
+          <div class="meters">
+            <div class="meter"><label><span>Hydration</span><b id="m1v">Low</b></label><div class="bar"><i id="m1"></i></div></div>
+            <div class="meter"><label><span>Radiance</span><b id="m2v">Dull</b></label><div class="bar"><i id="m2"></i></div></div>
+            <div class="meter"><label><span>Texture</span><b id="m3v">Uneven</b></label><div class="bar"><i id="m3"></i></div></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="about" style="padding-top:0">
-    <div class="wrap philo">
-      <div class="frame" data-reveal><img src="../assets/photos/lumen-3.jpg" alt="Serum dropper held in hand" loading="lazy"></div>
+  <section id="treatments" style="padding-top:0">
+    <div class="wrap">
+      <div class="center"><span class="eyebrow">Treatments</span><h2>Considered, <em>never</em> overdone.</h2></div>
+      <div class="treats">
+        <article class="treat" data-reveal><div class="frame"><img src="../assets/photos/lumen-2.jpg" alt="Skincare products on stones" loading="lazy"></div><div class="t"><h3>Signature facial</h3><p>Deep cleanse and layered hydration.</p><div class="m"><span>60 min</span><b>£85</b></div></div></article>
+        <article class="treat" data-reveal><div class="frame"><img src="../assets/photos/lumen-3.jpg" alt="Serum dropper" loading="lazy"></div><div class="t"><h3>Skin boosters</h3><p>Deep hydration from within.</p><div class="m"><span>45 min</span><b>£220</b></div></div></article>
+        <article class="treat" data-reveal><div class="frame"><img src="../assets/photos/lumen-4.jpg" alt="Skincare laid out on a towel" loading="lazy"></div><div class="t"><h3>Microneedling</h3><p>Smoother texture, softer lines.</p><div class="m"><span>75 min</span><b>£180</b></div></div></article>
+        <article class="treat" data-reveal><div class="frame"><img src="../assets/photos/lumen-1.jpg" alt="Skincare bottle with tulips" loading="lazy"></div><div class="t"><h3>LED therapy</h3><p>Calms redness, no downtime.</p><div class="m"><span>30 min</span><b>£55</b></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="membership" style="padding-top:0">
+    <div class="wrap member">
+      <div class="card" data-reveal><div class="top"><span class="lg">LUMEN</span><span>Member</span></div><div><div class="nm">The Glow Club</div><div style="font-size:13px;letter-spacing:.2em;opacity:.8">£79 / MONTH</div></div></div>
       <div>
-        <span class="eyebrow">Our philosophy</span>
-        <h2>Gentle. Effective. <em>Personal.</em></h2>
-        <p style="color:var(--muted)">We only recommend what your skin actually needs. No pressure, no upselling, just visible results.</p>
-        <ul class="steps">
-          <li data-reveal><b>i.</b><div><strong>Consult</strong><span>A relaxed 30-minute skin analysis</span></div></li>
-          <li data-reveal><b>ii.</b><div><strong>Treat</strong><span>A plan built around your goals</span></div></li>
-          <li data-reveal><b>iii.</b><div><strong>Glow</strong><span>Aftercare and a home routine included</span></div></li>
-        </ul>
+        <span class="eyebrow">Membership</span>
+        <h2>Glow, <em>all year.</em></h2>
+        <p style="color:var(--muted)">One monthly treatment, member prices and priority booking, for less than the price of a single visit.</p>
+        <ul class="perks"><li>A signature facial or LED session every month</li><li>15% off all other treatments and skincare</li><li>Priority evening and weekend booking</li></ul>
+        <a class="btn ink" href="#">Join the Glow Club</a>
       </div>
     </div>
   </section>
 
-  <section id="prices" style="padding-top:0">
-    <div class="wrap">
-      <div class="center"><span class="eyebrow">Price list</span><h2>Treatments</h2></div>
-      <div class="menu">
-        <div data-reveal><span><strong>Signature facial</strong><span>60 minutes · all skin types</span></span><b>£65</b></div>
-        <div data-reveal><span><strong>Hydrating peel</strong><span>45 minutes · no downtime</span></span><b>£80</b></div>
-        <div data-reveal><span><strong>LED light therapy</strong><span>30 minutes · calming</span></span><b>£45</b></div>
-        <div data-reveal><span><strong>Microneedling</strong><span>75 minutes · collagen boosting</span></span><b>£120</b></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="book" style="padding-top:0">
-    <div class="wrap"><div class="closing"><span class="eyebrow">New clients</span><h2>Your first consultation is <em>free.</em></h2><p>Thirty minutes with a skin therapist to talk through your goals. No obligation.</p><a class="btn rose" href="#">Book online</a></div></div>
+  <section style="padding-top:0">
+    <div class="wrap"><div class="closing"><div class="frame"><img src="../assets/photos/lumen-4.jpg" alt="" loading="lazy"></div><div><span class="eyebrow" style="color:var(--blush)">New clients</span><h2>Begin with a <em>conversation.</em></h2><p>Your first consultation is free, with no pressure to book anything.</p><a class="btn soft" href="#">Book a free consultation</a></div></div></div>
   </section>
 </main>
 <footer><div class="wrap"><span>© Lumen Skin Clinic (fictional business)</span><span>hello@example.com</span></div></footer>
@@ -174,25 +203,22 @@
 <script src="../vendor/lenis.min.js"></script>
 <script src="motion.js"></script>
 <script>
-  // Treatment finder
-  const T = {
-    glow:   ["Signature facial", "A deep cleanse, gentle exfoliation and layered hydration for an instant, lit-from-within glow.", "60 min", "£65", "lumen-2.jpg"],
-    smooth: ["Microneedling", "Stimulates your skin's own collagen to soften fine lines and refine texture over a course of sessions.", "75 min", "£120", "lumen-3.jpg"],
-    calm:   ["LED light therapy", "Soothing red light to calm redness and sensitivity, with zero downtime. Perfect after a busy week.", "30 min", "£45", "lumen-1.jpg"],
-    clear:  ["Hydrating peel", "A gentle acid peel that clears congestion and evens tone without the peeling you'd expect.", "45 min", "£80", "lumen-4.jpg"],
-  };
-  const body = document.getElementById("matchBody"), goals = document.querySelectorAll(".goal");
-  goals.forEach(g => g.addEventListener("click", () => {
-    goals.forEach(x => x.setAttribute("aria-pressed", x === g));
-    const [n, t, time, p, img] = T[g.dataset.k];
-    body.style.opacity = 0;
-    setTimeout(() => {
-      document.getElementById("mName").textContent = n; document.getElementById("mText").textContent = t;
-      document.getElementById("mTime").textContent = time; document.getElementById("mPrice").textContent = p;
-      document.getElementById("mImg").src = "../assets/photos/" + img;
-      body.style.opacity = 1;
-    }, 250);
-  }));
+  // Skin journey slider (illustrative)
+  const J = [
+    ["Week 0 · Consultation", "Starting point", "Skin analysis", "A 30-minute consultation with a skin doctor, including a close-up skin scan and a plan built around your goals.", [22, "Low"], [18, "Dull"], [25, "Uneven"], .1, "lumen-hero.jpg"],
+    ["Week 4 · Session 2", "Early changes", "Deep hydration", "Skin boosters and a signature facial restore moisture. Skin feels plumper and make-up sits better.", [58, "Improving"], [45, "Brighter"], [40, "Softer"], .35, "lumen-2.jpg"],
+    ["Week 8 · Session 4", "Visible glow", "Refine and renew", "Microneedling smooths texture and fades marks. Friends start to ask what you've changed.", [78, "Good"], [74, "Radiant"], [70, "Smooth"], .6, "lumen-3.jpg"],
+    ["Week 12 · Complete", "Your new normal", "Lasting results", "Your skin is healthier, brighter and more even. We build a light plan to keep it that way.", [92, "Excellent"], [90, "Glowing"], [88, "Refined"], .85, "lumen-1.jpg"],
+  ];
+  const r = document.getElementById("jRange"), $ = id => document.getElementById(id);
+  function setJ(i) {
+    const [wk, tag, t, txt, a, b, c, g, img] = J[i];
+    $("jWeek").textContent = wk; $("jTag").textContent = tag; $("jTitle").textContent = t; $("jText").textContent = txt;
+    [[a, "m1"], [b, "m2"], [c, "m3"]].forEach(([[w, l], id]) => { $(id).style.setProperty("--w", w + "%"); $(id + "v").textContent = l; });
+    $("jGlow").style.setProperty("--g", g);
+    if (!$("jImg").src.endsWith(img)) $("jImg").src = "../assets/photos/" + img;
+  }
+  r.addEventListener("input", () => setJ(+r.value)); setJ(0);
 </script>
 </body>
 </html>
