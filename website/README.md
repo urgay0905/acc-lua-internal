@@ -7,7 +7,7 @@ A single-page site for a web design business. Everything (HTML, CSS, JS) is in `
 Search `index.html` for these and replace them:
 
 - **Business name**: Veyro Digital. The logo files are in `assets/` (`logo-mark.png` for the top bar and favicon, `logo.png` for the full logo).
-- **Contact**: veyrodigital@gmail.com and 07873 811503. The email appears in the contact section, the footer and `CONTACT_EMAIL` near the bottom of `index.html` (where the form sends messages).
+- **Contact**: veyrodigital08@gmail.com and 07873 811503. The email appears in the contact section, the footer and `CONTACT_EMAIL` near the bottom of `index.html` (where the form sends messages).
 - **Prices**: introductory launch prices in GBP (Starter £299, Business £699, Store £1,199+, care plan £25/month). Raise them in the Pricing section as you get clients.
 - **Work section**: the three projects are sample concepts. Replace them with real client work as you finish it.
 
