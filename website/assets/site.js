@@ -332,18 +332,37 @@
   $$(".svc-icon, .hw-icon").forEach(ic => gsap.from(ic, { scale: .3, rotate: -25, opacity: 0, duration: .9, ease: "back.out(2.2)", scrollTrigger: { trigger: ic, start: "top 88%" } }));
   $$(".svc ul li, .hw ul li").forEach(li => gsap.from(li, { x: -10, opacity: 0, duration: .6, ease: "power3.out", scrollTrigger: { trigger: li, start: "top 94%" } }));
 
-  // ---------- Prices count up ----------
-  $$(".price").forEach(el => {
-    const tn = Array.from(el.childNodes).find(n => n.nodeType === 3 && /\d/.test(n.textContent));
-    if (!tn) return;
-    const m = tn.textContent.match(/^(\D*)([\d,]+)(.*)$/s);
-    if (!m) return;
-    const target = parseInt(m[2].replace(/,/g, ""), 10);
-    const obj = { v: 0 };
-    tn.textContent = m[1] + "0" + m[3];
-    gsap.to(obj, { v: target, duration: 1.6, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" },
-      onUpdate: () => { tn.textContent = m[1] + Math.round(obj.v).toLocaleString("en-GB") + m[3]; } });
+  // ---------- Prices: rolling digits (slot-machine style) ----------
+  $$("[data-odo]").forEach(el => {
+    const text = el.textContent.trim();
+    el.setAttribute("aria-label", text);
+    el.innerHTML = "";
+    const strips = [];
+    for (const ch of text) {
+      if (/\d/.test(ch)) {
+        const col = document.createElement("span"); col.className = "odo-col"; col.setAttribute("aria-hidden", "true");
+        const strip = document.createElement("span"); strip.className = "odo-strip";
+        for (let r = 0; r < 2; r++) for (let d = 0; d < 10; d++) { const s = document.createElement("span"); s.textContent = d; strip.appendChild(s); }
+        col.appendChild(strip); el.appendChild(col); strips.push({ strip, d: +ch });
+      } else {
+        const s = document.createElement("span"); s.textContent = ch; s.setAttribute("aria-hidden", "true"); el.appendChild(s);
+      }
+    }
+    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 90%" } });
+    strips.forEach(({ strip, d }, i) => {
+      tl.fromTo(strip, { yPercent: 0 }, { yPercent: -((10 + d) / 20) * 100, duration: 1.6 + i * .25, ease: "power4.out" }, i * .08);
+    });
   });
+  // Promise stats count up
+  $$("[data-countup]").forEach(el => {
+    const end = +el.dataset.countup, pre = el.dataset.pre || "", suf = el.dataset.suf || "", o = { v: 0 };
+    if (end === 0) return;
+    el.textContent = pre + "0" + suf;
+    gsap.to(o, { v: end, duration: 1.8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" }, onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; } });
+  });
+  // Ticks slide in on each plan
+  $$(".pp").forEach(p => gsap.from($$(".pp-list li", p), { x: -16, opacity: 0, duration: .6, stagger: .07, ease: "power3.out", scrollTrigger: { trigger: p, start: "top 75%" } }));
+  gsap.from(".pp-badge", { y: 14, scale: .7, opacity: 0, duration: .9, ease: "back.out(2.4)", scrollTrigger: { trigger: ".pp-grid", start: "top 75%" } });
 
   // ---------- Closing band: scale in ----------
   $$(".band").forEach(b => gsap.from(b, { scale: .94, borderRadius: 48, ease: "none", scrollTrigger: { trigger: b, start: "top bottom", end: "top 60%", scrub: true } }));
