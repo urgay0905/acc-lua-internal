@@ -94,6 +94,38 @@
   });
   window.addEventListener("pageshow", ev => { if (ev.persisted) $$(".page-wipe").forEach(w => w.remove()); });
 
+  // ---------- Floating quote + back-to-top ----------
+  const contactEl = document.getElementById("contact");
+  const fab = document.createElement("div");
+  fab.className = "fab";
+  fab.innerHTML = `<button class="fab-top" type="button" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+    <a class="btn btn-primary" href="${contactEl ? "#contact" : "index.html#contact"}">Get a free quote <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>`;
+  document.body.appendChild(fab);
+  $(".fab-top", fab).addEventListener("click", () => { if (lenis) lenis.scrollTo(0, { duration: 1.4 }); else window.scrollTo({ top: 0, behavior: "smooth" }); });
+  const fabCheck = () => {
+    const past = window.scrollY > innerHeight * .9;
+    const atContact = contactEl && contactEl.getBoundingClientRect().top < innerHeight * .9 && contactEl.getBoundingClientRect().bottom > 0;
+    fab.classList.toggle("show", past && !atContact);
+  };
+  if (lenis) lenis.on("scroll", fabCheck); else window.addEventListener("scroll", fabCheck, { passive: true });
+  fabCheck();
+
+  // ---------- "Get this style": fill the contact form with the chosen concept ----------
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-concept]");
+    const msg = document.querySelector("#contactForm textarea[name=message]");
+    if (!a || !msg) return;
+    msg.value = `I like the ${a.dataset.concept} concept and would like something similar for my business.\n\n`;
+    setTimeout(() => { if (window.VeyroFX) VeyroFX.pop(msg); }, 1200);
+  });
+
+  // ---------- Copy buttons ----------
+  $$("[data-copy]").forEach(btn => btn.addEventListener("click", () => {
+    const text = btn.dataset.copy, done = () => { btn.textContent = "Copied ✓"; btn.classList.add("done"); setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1800); };
+    const fallback = () => { const r = document.createRange(), el = btn.previousElementSibling; r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Press Ctrl+C"; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  }));
+
   // ---------- Buttons: ripple + pop on click, magnetic hover ----------
   function pop(el) {
     if (!animate) return;
