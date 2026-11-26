@@ -30,3 +30,7 @@ Then connect your own domain in the host's settings.
 ## Contact form
 
 The form opens the visitor's email app with their message filled in. To get messages without that step, point the form at a free form service such as Formspree or Netlify Forms.
+
+## Animation
+
+The site uses three free animation libraries, stored in `vendor/` so the site doesn't rely on another server: GSAP and ScrollTrigger for animations, and Lenis for smooth scrolling. All the motion lives in `assets/site.js`. It switches off automatically for visitors whose device is set to "reduce motion", and if a library fails to load the site still works without animation.
