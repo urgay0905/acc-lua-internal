@@ -506,17 +506,46 @@
   }
 
 
-  /* ---- Concepts intro: title, a quick reel of all six designs, then the reel opens into the page ---- */
-  .intro { display: none; }
-  html.js .intro { display: block; position: fixed; inset: 0; z-index: 300; background: var(--bg); color: var(--text); overflow: hidden; }
-  .intro-top { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; letter-spacing: .02em; }
+  /* ---- Concepts intro (pure CSS so it plays even if scripts are slow or blocked):
+     title rises, the six designs flick through a frame, then the frame opens into the page ---- */
+  .intro { position: fixed; inset: 0; z-index: 300; background: var(--bg); color: var(--text); overflow: hidden;
+    animation: introOut .6s ease 3.35s forwards; }
+  .intro-top { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px;
+    opacity: 0; animation: introFade .8s ease .05s forwards, introFadeOut .4s ease 2.45s forwards; }
   .intro-word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; overflow: hidden; pointer-events: none; z-index: 2; mix-blend-mode: difference; color: #fff; }
-  .intro-word span { display: inline-block; font-size: clamp(64px, 15vw, 230px); font-weight: 800; letter-spacing: -.06em; line-height: .95; }
-  .intro-reel { position: absolute; left: 50%; top: 50%; width: min(440px, 72vw); aspect-ratio: 16 / 10; transform: translate(-50%, -50%); border-radius: 18px; overflow: hidden;
-    box-shadow: 0 40px 80px -30px rgba(10,20,50,.45); background: var(--surface-2); }
+  .intro-word span { display: inline-block; font-size: clamp(64px, 15vw, 230px); font-weight: 800; letter-spacing: -.06em; line-height: .95;
+    transform: translateY(105%); animation: introRise 1s cubic-bezier(.16,1,.3,1) .1s forwards, introLeave .7s cubic-bezier(.7,0,.84,0) 2.45s forwards; }
+  .intro-reel { position: absolute; left: 50%; top: 50%; width: min(440px, 72vw); height: calc(min(440px, 72vw) * .625); transform: translate(-50%, -50%) scale(.6); opacity: 0;
+    border-radius: 18px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(10,20,50,.45); background: var(--surface-2);
+    animation: introReelIn 1s cubic-bezier(.16,1,.3,1) .35s forwards, introReelOpen .9s cubic-bezier(.87,0,.13,1) 2.5s forwards; }
   .intro-reel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; max-width: none; opacity: 0; }
-  .intro-reel img:first-child { opacity: 1; }
-  .intro-foot { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); width: min(440px, 72vw); display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .intro-foot { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); width: min(440px, 72vw); display: flex; justify-content: space-between;
+    font-size: 13px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; opacity: 0; animation: introFade .6s ease .6s forwards, introFadeOut .4s ease 2.45s forwards; }
+  .intro-name, .intro-count { position: relative; display: block; height: 1.4em; min-width: 9em; }
+  .intro-count { min-width: 4em; text-align: right; }
+  .intro-name span, .intro-count span { position: absolute; left: 0; right: 0; opacity: 0; white-space: nowrap; }
+  .intro-reel img:nth-child(1), .intro-name span:nth-child(1), .intro-count span:nth-child(1) { animation: introShow 1ms 0.00s forwards; }
+  .intro-reel img:nth-child(2), .intro-name span:nth-child(2), .intro-count span:nth-child(2) { animation: introShow 1ms 1.18s forwards; }
+  .intro-reel img:nth-child(3), .intro-name span:nth-child(3), .intro-count span:nth-child(3) { animation: introShow 1ms 1.46s forwards; }
+  .intro-reel img:nth-child(4), .intro-name span:nth-child(4), .intro-count span:nth-child(4) { animation: introShow 1ms 1.74s forwards; }
+  .intro-reel img:nth-child(5), .intro-name span:nth-child(5), .intro-count span:nth-child(5) { animation: introShow 1ms 2.02s forwards; }
+  .intro-reel img:nth-child(6), .intro-name span:nth-child(6), .intro-count span:nth-child(6) { animation: introShow 1ms 2.30s forwards; }
+  .intro-name span:nth-child(1), .intro-count span:nth-child(1) { animation: introShow 1ms 0.00s forwards, introHide 1ms 1.18s forwards; }
+  .intro-name span:nth-child(2), .intro-count span:nth-child(2) { animation: introShow 1ms 1.18s forwards, introHide 1ms 1.46s forwards; }
+  .intro-name span:nth-child(3), .intro-count span:nth-child(3) { animation: introShow 1ms 1.46s forwards, introHide 1ms 1.74s forwards; }
+  .intro-name span:nth-child(4), .intro-count span:nth-child(4) { animation: introShow 1ms 1.74s forwards, introHide 1ms 2.02s forwards; }
+  .intro-name span:nth-child(5), .intro-count span:nth-child(5) { animation: introShow 1ms 2.02s forwards, introHide 1ms 2.30s forwards; }
+  @keyframes introShow { to { opacity: 1; } }
+  @keyframes introHide { to { opacity: 0; } }
+  @keyframes introFade { to { opacity: 1; } }
+  @keyframes introFadeOut { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes introRise { to { transform: translateY(0); } }
+  @keyframes introLeave { from { transform: translateY(0); } to { transform: translateY(-105%); } }
+  @keyframes introReelIn { to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  @keyframes introReelOpen { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; width: 100vw; height: 100vh; border-radius: 0; } }
+  @keyframes introOut { to { opacity: 0; visibility: hidden; } }
+  .intro.skip { display: none; }
+  @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
   .page-wipe { position: fixed; inset: 0; z-index: 400; background: var(--bg); transform: translateY(100%); pointer-events: none; }
   @media (prefers-reduced-motion: reduce) { html.js .intro { display: none; } }
 

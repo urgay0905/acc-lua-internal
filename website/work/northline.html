@@ -52,11 +52,11 @@
   .hero-pic .frame { aspect-ratio: 1 / 1.05; border-radius: 34px; }
   .van { position: absolute; left: -40px; bottom: 34px; width: 280px; background: #fff; color: var(--ink); border-radius: 22px; padding: 18px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.5); z-index: 1; }
   .van-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .van-top i { width: 40px; height: 40px; border-radius: 12px; background: var(--amber); display: grid; place-items: center; font-style: normal; font-size: 20px; }
+  .van-top i { width: 40px; height: 40px; border-radius: 12px; background: var(--amber); color: var(--teal); display: grid; place-items: center; }
   .van-top b { display: block; font-size: 15px; } .van-top span { font-size: 13px; color: var(--muted); }
   .route { position: relative; height: 6px; border-radius: 6px; background: var(--line); }
   .route::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--p, 20%); border-radius: 6px; background: var(--accent); transition: width 1s; }
-  .route::after { content: "🚐"; position: absolute; top: 50%; left: var(--p, 20%); transform: translate(-50%, -55%); font-size: 18px; transition: left 1s; }
+  .route::after { content: ""; position: absolute; top: 50%; left: var(--p, 20%); width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 0 0 4px rgba(13,138,132,.25); transform: translate(-50%, -50%); transition: left 1s; }
   .eta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 10px; }
   .temp { position: absolute; right: -20px; top: 30px; background: var(--teal-2); color: #fff; border-radius: 20px; padding: 14px 18px; box-shadow: 0 20px 40px -16px rgba(0,0,0,.5); z-index: 1; display: flex; align-items: center; gap: 12px; }
   .temp b { font-size: 30px; font-weight: 800; color: var(--amber); letter-spacing: -.04em; }
@@ -100,9 +100,20 @@
   .result small { color: var(--muted); font-weight: 600; }
   .result .range { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -.05em; line-height: 1.05; color: var(--teal); }
   .result p { margin: 0; color: var(--muted); font-size: 14px; }
-  .result .btn { margin-top: auto; }
+  .result .btn { margin-top: 18px; }
+  .result { justify-content: center; }
+  .inc { list-style: none; padding: 16px 0 0; margin: 10px 0 0; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 14px; font-weight: 600; }
+  .inc li::before { content: "✓"; color: var(--accent); margin-right: 8px; font-weight: 800; }
   @media (max-width: 900px) { .estimator { grid-template-columns: 1fr; padding: 26px; border-radius: 24px; } .jobs { grid-template-columns: 1fr; } }
 
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; }
+  .steps::before { content: ""; position: absolute; top: 28px; left: 6%; right: 6%; height: 2px; background: repeating-linear-gradient(90deg, var(--aqua) 0 10px, transparent 10px 18px); }
+  .steps li { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 74px 22px 24px; }
+  .steps span { position: absolute; top: 6px; left: 22px; width: 46px; height: 46px; border-radius: 50%; background: var(--teal); color: var(--aqua); display: grid; place-items: center; font-weight: 800; font-size: 18px; box-shadow: 0 0 0 6px var(--bg); }
+  .steps b { display: block; font-size: 18px; letter-spacing: -.02em; }
+  .steps p { margin: 6px 0 0; color: var(--muted); font-size: 14.5px; }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } .steps::before { display: none; } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
   .proof { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
   .proof .frame { aspect-ratio: 4 / 4.4; border-radius: 30px; }
   .checks { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 14px; }
@@ -142,9 +153,9 @@
         <div class="post-msg" id="postMsg" role="status"></div>
       </div>
       <div class="hero-pic">
-        <div class="frame"><img src="../assets/photos/northline-2.jpg" alt="Copper heating pipes and valves" fetchpriority="high"></div>
+        <div class="frame"><img src="../assets/photos/northline-hero.jpg" alt="Bright modern bathroom with a glass walk-in shower" fetchpriority="high"></div>
         <div class="temp"><b id="tmp">21°</b><span>Heating<br>back on</span></div>
-        <div class="van" id="van"><div class="van-top"><i>🔧</i><div><b>Dan is on his way</b><span>Boiler repair · Van 04</span></div></div><div class="route" id="route"></div><div class="eta"><span>Left depot</span><span id="eta">Arriving in 14 min</span></div></div>
+        <div class="van" id="van"><div class="van-top"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7a4 4 0 0 0-5.6 5.6L3 18l3 3 5.4-5.4A4 4 0 0 0 17 10l-2.5 2.5-3-3z"/></svg></i><div><b>Dan is on his way</b><span>Boiler repair · Van 04</span></div></div><div class="route" id="route"></div><div class="eta"><span>Left depot</span><span id="eta">Arriving in 14 min</span></div></div>
       </div>
     </div>
   </section>
@@ -154,10 +165,10 @@
     <div class="wrap">
       <div class="head"><div><span class="k">What we fix</span><h2>From a drip to a <span>full refit.</span></h2></div><p>Fixed prices, tidy work and a 12-month guarantee on everything we do.</p></div>
       <div class="svcs">
-        <div class="svc" data-reveal><div class="ic" style="background:#fff2db">🔥</div><h3>Boilers</h3><p>Repairs, servicing and A-rated installs in a day.</p><b>Service from £75</b></div>
-        <div class="svc" data-reveal><div class="ic" style="background:#dcf5f2">🚿</div><h3>Bathrooms</h3><p>Design, supply and fit, usually in 8 working days.</p><b>From £4,500</b></div>
-        <div class="svc" data-reveal><div class="ic" style="background:#e3eefc">💧</div><h3>Leaks</h3><p>Burst pipes and leaks traced and fixed fast.</p><b>Same-day call-out</b></div>
-        <div class="svc" data-reveal><div class="ic" style="background:#f3e8ff">🌡️</div><h3>Heating</h3><p>Radiators, smart thermostats and power flushes.</p><b>From £95</b></div>
+        <div class="svc" data-reveal><div class="ic" style="background:#fff2db;color:#c2620a"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3 4 4.5 4 8.5a4 4 0 0 1-8 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 0-7.5z"/><path d="M8 21h8"/></svg></div><h3>Boilers</h3><p>Repairs, servicing and A-rated installs in a day.</p><b>Service from £75</b></div>
+        <div class="svc" data-reveal><div class="ic" style="background:#dcf5f2;color:#0d8a84"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a4 4 0 0 1 4 4v1"/><path d="M10 13h8a2 2 0 0 0 0-4H10z"/><path d="M11 16v1M14 16v2M17 16v1M12.5 19v1M15.5 19v1"/></svg></div><h3>Bathrooms</h3><p>Design, supply and fit, usually in 8 working days.</p><b>From £4,500</b></div>
+        <div class="svc" data-reveal><div class="ic" style="background:#e3eefc;color:#2563eb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></div><h3>Leaks</h3><p>Burst pipes and leaks traced and fixed fast.</p><b>Same-day call-out</b></div>
+        <div class="svc" data-reveal><div class="ic" style="background:#f3e8ff;color:#7c3aed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 9v7"/></svg></div><h3>Heating</h3><p>Radiators, smart thermostats and power flushes.</p><b>From £95</b></div>
       </div>
     </div>
   </section>
@@ -177,8 +188,20 @@
           </div>
           <div class="sizes"><button class="size" aria-pressed="false" data-m="1">1–2 bed</button><button class="size" aria-pressed="true" data-m="1.15">3–4 bed</button><button class="size" aria-pressed="false" data-m="1.35">5+ bed</button></div>
         </div>
-        <div class="result"><small>Typical price</small><div class="range" id="range">£86 – £109</div><p>Includes parts, labour and VAT.</p><a class="btn teal" href="#">Book a free visit</a></div>
+        <div class="result"><small>Typical price</small><div class="range" id="range">£86 – £109</div><p>Includes parts, labour and VAT. Fixed price confirmed after a free visit.</p><ul class="inc"><li>No call-out fee</li><li>12-month guarantee</li><li>Card or bank transfer</li></ul><a class="btn teal" href="#">Book a free visit</a></div>
       </div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><div><span class="k">How a job works</span><h2>Booked to <span>sorted</span> in four steps.</h2></div><p>Clear updates at every stage, so you're never left waiting in for someone.</p></div>
+      <ol class="steps">
+        <li data-reveal><span>1</span><b>Tell us the problem</b><p>Online in 60 seconds or by phone, 7am to 9pm.</p></li>
+        <li data-reveal><span>2</span><b>Get a fixed price</b><p>We quote before we start. No surprises later.</p></li>
+        <li data-reveal><span>3</span><b>Track your engineer</b><p>A live text with their arrival time when they set off.</p></li>
+        <li data-reveal><span>4</span><b>Job done, guaranteed</b><p>Tidy finish and a 12-month guarantee on all work.</p></li>
+      </ol>
     </div>
   </section>
 

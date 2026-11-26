@@ -213,30 +213,15 @@
 
   // ---------- Intro (hero) ----------
   const heroH1 = $(".hero h1, .page-hero h1");
-  // ---------- Concepts page opening animation ----------
+  // ---------- Concepts page opening animation (the animation itself is CSS) ----------
   const introEl = $("#intro");
   let introDelay = .1;
   if (introEl) {
     introDelay = 3.1;
     if (lenis) lenis.stop();
-    const reel = $(".intro-reel", introEl), shots = $$(".intro-reel img", introEl);
-    const names = ["Stonecrest Homes", "Fade Room", "Northline", "Lumen Skin Clinic", "Pulse Fitness", "Harbour & Co."];
-    const nameEl = $(".intro-name", introEl), cnt = $(".intro-count", introEl);
-    const it = gsap.timeline({ defaults: { ease: "power4.out" } });
-    it.from(".intro-top", { y: -20, opacity: 0, duration: .8 }, 0)
-      .from(".intro-word span", { yPercent: 105, duration: 1 }, .1)
-      .from(reel, { scale: .6, opacity: 0, duration: 1, ease: "expo.out" }, .35)
-      .from(".intro-foot", { opacity: 0, y: 10, duration: .6 }, .6);
-    shots.forEach((img, i) => {
-      if (i === 0) return;
-      it.add(() => { shots.forEach((s, j) => s.style.opacity = j === i ? 1 : 0); nameEl.textContent = names[i]; cnt.textContent = `0${i + 1} / 06`; }, .9 + i * .28);
-    });
-    it.to(".intro-word span", { yPercent: -105, duration: .7, ease: "power3.in" }, 2.45)
-      .to([".intro-top", ".intro-foot"], { opacity: 0, duration: .4 }, 2.45)
-      .to(reel, { width: innerWidth, height: innerHeight, borderRadius: 0, duration: .9, ease: "expo.inOut" }, 2.5)
-      .to(introEl, { opacity: 0, duration: .5, ease: "power1.out" }, 3.2)
-      .add(() => { introEl.remove(); if (lenis) lenis.start(); ST.refresh(); });
-    introEl.addEventListener("click", () => it.progress(.96));  // tap to skip
+    const done = () => { if (!introEl.isConnected) return; introEl.remove(); if (lenis) lenis.start(); ST.refresh(); };
+    setTimeout(done, 3950);
+    introEl.addEventListener("click", () => { introEl.classList.add("skip"); done(); });  // tap to skip
     gsap.from(".showcase", { scale: .9, y: 80, opacity: 0, duration: 1.6, ease: "expo.out", delay: 3.4 });
   }
   const intro = gsap.timeline({ defaults: { ease: "power4.out" }, delay: introDelay });
@@ -360,7 +345,13 @@
       tl.fromTo(strip, { yPercent: 0 }, { yPercent: -((10 + d) / 20) * 100, duration: 2.2 + i * .3, ease: "power4.out" }, i * .12);
     });
     tl.progress(1);  // show the real price until it is in view
-    ST.create({ trigger: el, start: "top 80%", end: "bottom top", onEnter: () => tl.restart(), onEnterBack: () => tl.restart() });
+    if ("IntersectionObserver" in window) {
+      let seen = false;
+      new IntersectionObserver(entries => entries.forEach(en => {
+        if (en.intersectionRatio >= .6 && !seen) { seen = true; tl.restart(); }
+        else if (!en.isIntersecting && en.intersectionRatio === 0) seen = false;   // replay next time it comes into view
+      }), { threshold: [0, .6] }).observe(el);
+    } else tl.restart();
     const card = el.closest(".pp, .pp-care");
     if (card && finePointer) card.addEventListener("pointerenter", () => { if (!tl.isActive()) tl.restart(); });
   });

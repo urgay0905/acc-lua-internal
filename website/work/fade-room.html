@@ -7,111 +7,106 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../vendor/lenis.css">
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Classic barbershop, modern cut: bottle green, cream, barber-pole red */
-  :root { --green: #0f3b2e; --green-2: #16503f; --cream: #f2ebdd; --paper: #faf6ee; --red: #c8313a; --ink: #12201b; --muted: #5f6b64; --line: #ddd3c0; --accent: #c8313a;
-    --display: "Big Shoulders Display", Impact, sans-serif; --sans: "DM Sans", system-ui, sans-serif;
-    --pole: repeating-linear-gradient(-45deg, var(--red) 0 14px, #fff 14px 28px, #1d4fa0 28px 42px, #fff 42px 56px); }
-  body { background: var(--cream); color: var(--ink); font: 400 16px/1.65 var(--sans); }
-  .d { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; }
-  .btn { padding: 16px 28px; border-radius: 10px; font: 700 15px var(--sans); }
-  .btn.red { background: var(--red); color: #fff; }
-  .btn.cream { background: var(--cream); color: var(--green); }
-  .btn.green { background: var(--green); color: var(--cream); }
-  .btn.ghost { box-shadow: inset 0 0 0 2px currentColor; background: transparent; }
-  .pole-bar { height: 10px; background: var(--pole); background-size: 79px 79px; animation: pole 2.4s linear infinite; }
-  @keyframes pole { to { background-position: 79px 0; } }
+  /* Modern grooming studio: warm charcoal, bone, soft sage */
+  :root { --char: #151412; --char-2: #1e1c19; --bone: #ece6dc; --paper: #f6f2eb; --sage: #a7b4a0; --ink: #151412; --muted: #8b857b; --line: rgba(236,230,220,.14); --accent: #a7b4a0;
+    --serif: "Instrument Serif", Georgia, serif; --sans: "Inter Tight", system-ui, sans-serif; }
+  body { background: var(--char); color: var(--bone); font: 400 16px/1.65 var(--sans); }
+  .serif { font-family: var(--serif); font-weight: 400; font-style: italic; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--sage); }
+  .btn { padding: 15px 26px; border-radius: 999px; font: 600 14px var(--sans); letter-spacing: .02em; }
+  .btn.bone { background: var(--bone); color: var(--char); }
+  .btn.sage { background: var(--sage); color: var(--char); }
+  .btn.line { box-shadow: inset 0 0 0 1px rgba(236,230,220,.4); color: var(--bone); background: transparent; }
 
-  .nav { position: sticky; top: 0; z-index: 50; background: var(--green); color: var(--cream); }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; font: 900 30px var(--display); text-transform: uppercase; letter-spacing: .02em; }
-  .logo i { width: 14px; height: 38px; border-radius: 7px; background: var(--pole); background-size: 40px 40px; animation: pole 1.6s linear infinite; box-shadow: 0 0 0 3px var(--cream); }
-  .links { display: flex; gap: 30px; align-items: center; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }
-  .links a:not(.btn) { text-decoration: none; opacity: .8; }
+  .nav { position: absolute; top: 34px; left: 0; right: 0; z-index: 50; }
+  .nav.scrolled { position: fixed; top: 0; background: rgba(21,20,18,.8); backdrop-filter: blur(16px); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .logo { font: 400 30px var(--serif); text-decoration: none; letter-spacing: -.01em; }
+  .logo span { font-style: italic; color: var(--sage); }
+  .links { display: flex; gap: 32px; align-items: center; font-size: 14px; font-weight: 500; }
+  .links a:not(.btn) { text-decoration: none; color: rgba(236,230,220,.75); }
   @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
 
-  .hero { background: var(--green); color: var(--cream); padding: 50px 0 0; overflow: hidden; }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: end; }
-  .hero h1 { font: 900 clamp(76px, 12vw, 190px)/.82 var(--display); text-transform: uppercase; margin: 16px 0 26px; letter-spacing: -.005em; }
-  .hero h1 span { color: transparent; -webkit-text-stroke: 2px var(--cream); }
-  .hero h1 em { font-style: normal; color: #f2a6aa; }
-  .hero p { color: #c5d3cb; font-size: 18px; max-width: 440px; margin: 0 0 30px; }
-  .open { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
-  .open i { width: 9px; height: 9px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 0 rgba(74,222,128,.6); animation: ping 1.8s infinite; }
-  @keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
-  .ctas { display: flex; gap: 12px; flex-wrap: wrap; padding-bottom: 60px; }
-  .hero-pic { position: relative; align-self: stretch; min-height: 520px; }
-  .hero-pic .frame { position: absolute; inset: 0 0 0 0; border-radius: 220px 220px 0 0; }
-  .hero-pic .pole-side { position: absolute; left: -26px; top: 70px; bottom: 70px; width: 18px; border-radius: 9px; background: var(--pole); background-size: 50px 50px; animation: pole 1.8s linear infinite; box-shadow: 0 0 0 4px var(--cream); z-index: 1; }
-  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } .hero-pic { min-height: 380px; } .ctas { padding-bottom: 0; } .hero-pic .pole-side { left: 14px; } }
+  .hero { position: relative; min-height: max(720px, 100svh); display: flex; align-items: flex-end; overflow: hidden; }
+  .hero > .frame { position: absolute; inset: 0; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,20,18,.92) 0%, rgba(21,20,18,.55) 50%, rgba(21,20,18,.25)), linear-gradient(0deg, rgba(21,20,18,1) 0%, transparent 35%); }
+  .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr .8fr; gap: 50px; align-items: end; padding-top: 160px; padding-bottom: 70px; }
+  .hero h1 { font: 400 clamp(60px, 8.6vw, 136px)/.92 var(--serif); letter-spacing: -.03em; margin: 20px 0 26px; }
+  .hero h1 em { color: var(--sage); }
+  .hero p { color: rgba(236,230,220,.75); font-size: 18px; max-width: 450px; margin: 0 0 32px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stars { display: flex; gap: 30px; margin-top: 46px; }
+  .stars div { font-size: 13px; color: var(--muted); }
+  .stars b { display: block; font: 400 32px var(--serif); color: var(--bone); }
 
-  /* Live chair board */
-  .board { margin-top: -1px; background: var(--green-2); color: var(--cream); }
-  .board .wrap { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: 0; align-items: stretch; }
-  .board .label { padding: 22px 26px 22px 0; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(242,235,221,.18); }
-  .board .label b { font: 900 24px var(--display); text-transform: uppercase; }
-  .board .label span { font-size: 13px; color: #a9bdb2; }
-  .chair { padding: 22px 24px; border-right: 1px solid rgba(242,235,221,.18); }
-  .chair:last-child { border-right: 0; }
-  .chair b { display: block; font-size: 16px; }
-  .chair span { font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }
-  .chair span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; }
-  .chair.busy span::before { background: #f2a6aa; }
-  .chair.busy span { color: #f2a6aa; } .chair:not(.busy) span { color: #86efac; }
-  @media (max-width: 860px) { .board .wrap { grid-template-columns: 1fr 1fr; } .board .label { grid-column: 1 / -1; border-right: 0; border-bottom: 1px solid rgba(242,235,221,.18); padding: 18px 0; } .chair { padding: 16px 0 16px 0; border-right: 0; } }
+  .glass { background: rgba(30,28,25,.55); backdrop-filter: blur(22px) saturate(1.3); border: 1px solid var(--line); border-radius: 28px; padding: 26px; }
+  .glass h3 { margin: 0 0 4px; font: 400 28px var(--serif); }
+  .glass > p { margin: 0 0 18px; font-size: 14px; color: var(--muted); }
+  .step { margin-bottom: 18px; }
+  .step small { display: block; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .opts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .opt { padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--bone); cursor: pointer; font-size: 13.5px; font-weight: 500; transition: all .25s; }
+  .opt:hover { border-color: rgba(236,230,220,.4); }
+  .opt[aria-pressed="true"] { background: var(--bone); color: var(--char); border-color: var(--bone); }
+  .bk-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .bk-foot b { display: block; font: 400 24px var(--serif); }
+  .bk-foot span { font-size: 13px; color: var(--muted); }
+  @media (max-width: 960px) { .hero .wrap { grid-template-columns: 1fr; padding-top: 140px; } }
 
-  section { padding: 120px 0; }
-  @media (max-width: 600px) { section { padding: 76px 0; } }
-  .k { font-weight: 700; font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
-  h2 { font: 900 clamp(52px, 7vw, 110px)/.88 var(--display); text-transform: uppercase; margin: 12px 0 26px; }
-  h2 span { color: var(--red); }
+  section { padding: 130px 0; }
+  @media (max-width: 600px) { section { padding: 80px 0; } }
+  h2 { font: 400 clamp(42px, 5.6vw, 84px)/1 var(--serif); letter-spacing: -.025em; margin: 16px 0 20px; }
+  h2 em { color: var(--sage); }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+  .head p { color: var(--muted); max-width: 400px; margin: 0; }
 
-  /* Before / after */
-  .ba-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
-  .compare { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; border-radius: 22px; user-select: none; touch-action: pan-y; }
-  .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .compare .before { filter: grayscale(1) contrast(.9) brightness(1.05); clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
-  .compare .handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 10px; margin-left: -5px; background: var(--pole); background-size: 30px 30px; pointer-events: none; animation: pole 1.4s linear infinite; }
-  .compare .lbl { position: absolute; top: 16px; padding: 7px 12px; border-radius: 8px; background: var(--paper); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; pointer-events: none; }
-  .compare .l { left: 16px; } .compare .r { right: 16px; background: var(--red); color: #fff; }
-  .compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
-  @media (max-width: 900px) { .ba-wrap { grid-template-columns: 1fr; gap: 30px; } }
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .svc { position: relative; border-radius: 26px; overflow: hidden; aspect-ratio: 3 / 4; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; }
+  .svc .frame { position: absolute; inset: 0; }
+  .svc .frame img { transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .svc:hover .frame img { transform: scale(1.06); }
+  .svc::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(21,20,18,.92)); }
+  .svc > *:not(.frame) { position: relative; z-index: 1; }
+  .svc > .num { position: absolute; }
+  .svc .num { position: absolute; top: 24px; left: 28px; font: italic 400 22px var(--serif); color: var(--sage); }
+  .svc h3 { font: 400 34px var(--serif); margin: 0 0 6px; }
+  .svc p { margin: 0 0 16px; color: rgba(236,230,220,.72); font-size: 15px; }
+  .svc .price { display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; }
+  .svc .price b { font-weight: 600; color: var(--bone); }
+  @media (max-width: 900px) { .services { grid-template-columns: 1fr; } .svc { aspect-ratio: 4 / 3.4; } }
 
-  /* Price ticket */
-  .ticket { background: var(--paper); border-radius: 26px; padding: 50px; position: relative; box-shadow: 0 30px 60px -40px rgba(15,59,46,.5); }
-  .ticket::before, .ticket::after { content: ""; position: absolute; top: 50%; width: 36px; height: 36px; border-radius: 50%; background: var(--cream); transform: translateY(-50%); }
-  .ticket::before { left: -18px; } .ticket::after { right: -18px; }
-  .prices { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; }
-  .row { display: flex; align-items: baseline; gap: 12px; padding: 20px 0; border-bottom: 2px dashed var(--line); }
-  .row strong { font: 900 26px var(--display); text-transform: uppercase; }
-  .row span { display: block; color: var(--muted); font-size: 14px; }
-  .row i { flex: 1; }
-  .row b { font: 900 34px var(--display); color: var(--red); }
-  @media (max-width: 760px) { .prices { grid-template-columns: 1fr; } .ticket { padding: 26px; } }
+  .light { background: var(--paper); color: var(--ink); border-radius: 44px 44px 0 0; }
+  .light .eyebrow { color: #6e7d67; }
+  .light h2 em { color: #6e7d67; }
+  .menu { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; }
+  .item { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 24px 0; border-bottom: 1px solid #ddd5c8; }
+  .item strong { font: 400 28px var(--serif); display: block; }
+  .item span { color: #8b857b; font-size: 14px; }
+  .item b { font: 400 28px var(--serif); white-space: nowrap; }
+  @media (max-width: 760px) { .menu { grid-template-columns: 1fr; } }
 
-  .styles { overflow: hidden; background: var(--red); color: #fff; padding: 22px 0; }
-  .styles-track { display: flex; gap: 40px; width: max-content; animation: slide 26s linear infinite; font: 900 46px var(--display); text-transform: uppercase; white-space: nowrap; }
-  .styles-track span::after { content: "✂"; margin-left: 40px; font-size: .55em; vertical-align: middle; }
-  @keyframes slide { to { transform: translateX(-50%); } }
+  .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 70px; }
+  .member { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; color: var(--bone); }
+  .member .frame { position: absolute; inset: 0; }
+  .member .frame img { filter: grayscale(1); transition: filter .8s, transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .member:hover .frame img { filter: grayscale(0); transform: scale(1.04); }
+  .member .cap { position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-radius: 18px; background: rgba(21,20,18,.6); backdrop-filter: blur(14px); }
+  .member .cap b { font: 400 24px var(--serif); display: block; line-height: 1.1; }
+  .member .cap span { font-size: 13px; color: rgba(236,230,220,.7); }
+  .member .cap i { font-style: normal; font-size: 12px; font-weight: 600; color: var(--char); background: var(--sage); padding: 6px 10px; border-radius: 999px; }
+  @media (max-width: 860px) { .team { grid-template-columns: 1fr; } .member { aspect-ratio: 4 / 3.6; } }
 
-  .crew { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .card { background: var(--paper); border-radius: 22px; overflow: hidden; }
-  .card .frame { aspect-ratio: 1; }
-  .card div.t { padding: 20px 22px; display: flex; justify-content: space-between; align-items: center; }
-  .card b { font: 900 30px var(--display); text-transform: uppercase; display: block; line-height: 1; }
-  .card span { color: var(--muted); font-size: 14px; }
-  .card .btn { padding: 10px 16px; font-size: 13px; }
-  @media (max-width: 760px) { .crew { grid-template-columns: 1fr; } }
-
-  .final { background: var(--green); color: var(--cream); border-radius: 30px; overflow: hidden; display: grid; grid-template-columns: 1.2fr .8fr; }
-  .final .copy { padding: 70px 60px; }
-  .final h2 span { color: #f2a6aa; }
-  .final .frame { min-height: 380px; }
-  @media (max-width: 860px) { .final { grid-template-columns: 1fr; } .final .copy { padding: 40px 24px; } .final .frame { min-height: 260px; } }
-  footer { padding: 30px 0 46px; color: var(--muted); font-size: 14px; }
+  .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .visit .frame { aspect-ratio: 5 / 4; border-radius: 28px; }
+  .hours { width: 100%; border-collapse: collapse; margin: 22px 0 30px; }
+  .hours td { padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .hours td:last-child { text-align: right; }
+  @media (max-width: 900px) { .visit { grid-template-columns: 1fr; gap: 34px; } }
+  footer { padding: 34px 0 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
@@ -121,90 +116,85 @@
 <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#"><i></i>Fade Room</a>
-    <nav class="links"><a href="#cuts">Cuts</a><a href="#prices">Prices</a><a href="#crew">Barbers</a><a class="btn red" href="#crew">Book a chair</a></nav>
+    <a class="logo" href="#">Fade <span>Room</span></a>
+    <nav class="links"><a href="#services">Services</a><a href="#menu">Prices</a><a href="#visit">Studio</a><a class="btn bone" href="#">Book now</a></nav>
   </div>
 </header>
 
 <main>
-  <section class="hero" style="padding-bottom:0">
+  <section class="hero" style="padding:0">
+    <div class="frame"><img src="../assets/photos/fade-hero.jpg" alt="Inside the Fade Room studio with leather chairs" data-parallax fetchpriority="high"></div>
     <div class="wrap">
       <div>
-        <span class="open"><i></i>Open now · walk-ins welcome</span>
-        <h1>Fresh <span>fades.</span><br><em>Zero</em> wait.</h1>
-        <p>Proper barbering on Mill Street since 2016. Skin fades, beard work and hot towels. Book a chair online, then walk straight in.</p>
-        <div class="ctas"><a class="btn red" href="#crew">Book a chair</a><a class="btn ghost" href="#prices">See prices</a></div>
+        <span class="eyebrow">Grooming studio · Mill Street</span>
+        <h1>Sharp cuts, <em>slow</em> service.</h1>
+        <p>Precision fades and classic cuts in a calm, modern studio. Every appointment is 45 unhurried minutes with a master barber.</p>
+        <div class="ctas"><a class="btn bone" href="#">Book your chair</a><a class="btn line" href="#services">Explore services</a></div>
+        <div class="stars"><div><b>4.9</b>average rating</div><div><b>45 min</b>every appointment</div><div><b>Since 2016</b>on Mill Street</div></div>
       </div>
-      <div class="hero-pic"><div class="pole-side"></div><div class="frame"><img src="../assets/photos/fade-1.jpg" alt="Barber finishing a fade" fetchpriority="high"></div></div>
-    </div>
-  </section>
-  <div class="pole-bar" aria-hidden="true"></div>
-
-  <div class="board">
-    <div class="wrap">
-      <div class="label"><b>Chairs right now</b><span>Updated live</span></div>
-      <div class="chair"><b>Jay</b><span>Free now</span></div>
-      <div class="chair busy"><b>Marcus</b><span>Free at 11:40</span></div>
-      <div class="chair"><b>Leo</b><span>Free now</span></div>
-      <div class="chair busy"><b>Sam</b><span>Free at 12:15</span></div>
-    </div>
-  </div>
-
-  <section id="cuts">
-    <div class="wrap ba-wrap">
-      <div><span class="k">Before &amp; after</span><h2>Walk in. <span>Walk out</span> new.</h2><p style="color:var(--muted);font-size:17px">Drag the barber pole to see the difference a proper fade makes. Every cut is finished by hand and checked twice.</p></div>
-      <div class="compare" data-reveal style="--pos:50%">
-        <img src="../assets/photos/fade-2.jpg" alt="Finished fade and beard line-up">
-        <img class="before" src="../assets/photos/fade-2.jpg" alt="">
-        <span class="lbl l">Before</span><span class="lbl r">After</span>
-        <div class="handle"></div>
-        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
-      </div>
+      <form class="glass" onsubmit="return false" aria-label="Quick booking">
+        <h3>Book in seconds</h3>
+        <p>Live availability for today</p>
+        <div class="step"><small>Service</small><div class="opts" data-group="service">
+          <button class="opt" type="button" aria-pressed="true" data-v="Signature cut" data-p="£28">Signature cut</button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Skin fade" data-p="£26">Skin fade</button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Beard sculpt" data-p="£18">Beard</button>
+        </div></div>
+        <div class="step"><small>Barber</small><div class="opts" data-group="barber">
+          <button class="opt" type="button" aria-pressed="true" data-v="Jay">Jay</button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Marcus">Marcus</button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Leo">Leo</button>
+        </div></div>
+        <div class="step"><small>Time</small><div class="opts" data-group="time">
+          <button class="opt" type="button" aria-pressed="false" data-v="10:15">10:15</button>
+          <button class="opt" type="button" aria-pressed="true" data-v="11:30">11:30</button>
+          <button class="opt" type="button" aria-pressed="false" data-v="14:45">14:45</button>
+          <button class="opt" type="button" aria-pressed="false" data-v="16:30">16:30</button>
+        </div></div>
+        <div class="bk-foot"><div><b id="sumA">Signature cut · £28</b><span id="sumB">Jay, today at 11:30</span></div><button class="btn sage" id="confirm" type="button">Confirm</button></div>
+      </form>
     </div>
   </section>
 
-  <div class="styles" aria-hidden="true"><div class="styles-track">
-    <span>Skin fade</span><span>Taper</span><span>Crop</span><span>Buzz cut</span><span>Beard sculpt</span><span>Hot towel</span>
-    <span>Skin fade</span><span>Taper</span><span>Crop</span><span>Buzz cut</span><span>Beard sculpt</span><span>Hot towel</span>
-  </div></div>
-
-  <section id="prices">
+  <section id="services">
     <div class="wrap">
-      <span class="k">The price list</span><h2>No <span>surprises.</span></h2>
-      <div class="ticket" data-reveal>
-        <div class="prices">
-          <div class="row"><div><strong>Skin fade</strong><span>Clippers to skin, styled</span></div><i></i><b>£22</b></div>
-          <div class="row"><div><strong>Scissor cut</strong><span>Wash, cut and style</span></div><i></i><b>£20</b></div>
-          <div class="row"><div><strong>Beard sculpt</strong><span>Shape, line-up, hot oil</span></div><i></i><b>£12</b></div>
-          <div class="row"><div><strong>Hot towel shave</strong><span>Straight razor, 30 min</span></div><i></i><b>£18</b></div>
-          <div class="row"><div><strong>The works</strong><span>Cut, beard and hot towel</span></div><i></i><b>£38</b></div>
-          <div class="row"><div><strong>Little legends</strong><span>Under 12s, any style</span></div><i></i><b>£14</b></div>
-        </div>
+      <div class="head"><div><span class="eyebrow">Signature services</span><h2>Crafted, <em>never</em> rushed.</h2></div><p>Every service starts with a consultation and ends with a hot towel and a finish using premium products.</p></div>
+      <div class="services">
+        <article class="svc" data-reveal><div class="frame"><img src="../assets/photos/fade-1.jpg" alt="Barber finishing a textured cut" loading="lazy"></div><span class="num">01</span><h3>The signature cut</h3><p>Consultation, precision cut, wash and style.</p><div class="price"><span>45 min</span><b>£28</b></div></article>
+        <article class="svc" data-reveal><div class="frame"><img src="../assets/photos/fade-2.jpg" alt="Barber detailing a fade and beard" loading="lazy"></div><span class="num">02</span><h3>Skin fade</h3><p>A seamless fade to skin, finished by hand.</p><div class="price"><span>45 min</span><b>£26</b></div></article>
+        <article class="svc" data-reveal><div class="frame"><img src="../assets/photos/fade-5.jpg" alt="Client during a hot towel shave" loading="lazy"></div><span class="num">03</span><h3>Hot towel shave</h3><p>A traditional straight-razor ritual.</p><div class="price"><span>40 min</span><b>£24</b></div></article>
       </div>
     </div>
   </section>
 
-  <section id="crew" style="padding-top:0">
+  <section class="light" id="menu">
     <div class="wrap">
-      <span class="k">Pick your barber</span><h2>The <span>crew.</span></h2>
-      <div class="crew">
-        <div class="card" data-reveal><div class="frame"><img src="../assets/photos/fade-2.jpg" alt="Jay shaping a beard" loading="lazy"></div><div class="t"><div><b>Jay</b><span>Fades &amp; beards</span></div><a class="btn green" href="#">Book Jay</a></div></div>
-        <div class="card" data-reveal><div class="frame"><img src="../assets/photos/fade-5.jpg" alt="Marcus giving a hot towel shave" loading="lazy"></div><div class="t"><div><b>Marcus</b><span>Shaves &amp; classics</span></div><a class="btn green" href="#">Book Marcus</a></div></div>
-        <div class="card" data-reveal><div class="frame"><img src="../assets/photos/fade-3.jpg" alt="Leo's barber tools" loading="lazy"></div><div class="t"><div><b>Leo</b><span>Crops &amp; texture</span></div><a class="btn green" href="#">Book Leo</a></div></div>
+      <div class="head"><div><span class="eyebrow">The full menu</span><h2>Simple, <em>honest</em> prices.</h2></div><p style="color:#8b857b">Book online, pay in the studio. Card or contactless.</p></div>
+      <div class="menu">
+        <div class="item" data-reveal><div><strong>Signature cut</strong><span>Cut, wash and style · 45 min</span></div><b>£28</b></div>
+        <div class="item" data-reveal><div><strong>Skin fade</strong><span>Fade to skin, finished by hand · 45 min</span></div><b>£26</b></div>
+        <div class="item" data-reveal><div><strong>Beard sculpt</strong><span>Shape, line-up and hot towel · 30 min</span></div><b>£18</b></div>
+        <div class="item" data-reveal><div><strong>Hot towel shave</strong><span>Straight razor · 40 min</span></div><b>£24</b></div>
+        <div class="item" data-reveal><div><strong>The full ritual</strong><span>Cut, beard and shave · 90 min</span></div><b>£46</b></div>
+        <div class="item" data-reveal><div><strong>Young gents</strong><span>Under 12s · 30 min</span></div><b>£16</b></div>
+      </div>
+      <div class="team">
+        <div class="member" data-reveal><div class="frame"><img src="../assets/photos/fade-2.jpg" alt="Jay at work" loading="lazy"></div><div class="cap"><div><b>Jay</b><span>Founder · fades</span></div><i>Free 11:30</i></div></div>
+        <div class="member" data-reveal><div class="frame"><img src="../assets/photos/fade-5.jpg" alt="Marcus giving a shave" loading="lazy"></div><div class="cap"><div><b>Marcus</b><span>Shaves &amp; classics</span></div><i>Free 14:45</i></div></div>
+        <div class="member" data-reveal><div class="frame"><img src="../assets/photos/fade-1.jpg" alt="Leo cutting hair" loading="lazy"></div><div class="cap"><div><b>Leo</b><span>Texture &amp; crops</span></div><i>Free 10:15</i></div></div>
       </div>
     </div>
   </section>
 
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="final" data-reveal>
-        <div class="copy"><span class="k" style="color:#f2a6aa">14 Mill Street</span><h2>Grab a <span>chair.</span></h2><p style="color:#c5d3cb">Mon–Fri 9am–7pm · Sat 8am–6pm · Sun 10am–4pm</p><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px"><a class="btn red" href="#">Book online</a><a class="btn ghost" href="#">01632 960 418</a></div></div>
-        <div class="frame"><img src="../assets/photos/fade-hero.jpg" alt="Inside the barbershop" loading="lazy"></div>
-      </div>
+  <section id="visit">
+    <div class="wrap visit">
+      <div class="frame" data-reveal><img src="../assets/photos/fade-3.jpg" alt="Barber tools laid out on the counter" loading="lazy"></div>
+      <div><span class="eyebrow">The studio</span><h2>14 Mill <em>Street.</em></h2><p style="color:var(--muted)">Two minutes from the station. Espresso on arrival, something stronger after 4pm.</p>
+        <table class="hours"><tr><td>Monday – Friday</td><td>9am – 7pm</td></tr><tr><td>Saturday</td><td>8am – 6pm</td></tr><tr><td>Sunday</td><td>10am – 4pm</td></tr></table>
+        <a class="btn bone" href="#">Book your chair</a></div>
     </div>
   </section>
 </main>
-<div class="pole-bar" aria-hidden="true"></div>
 <footer><div class="wrap"><span>© Fade Room (fictional business)</span><span>01632 960 418</span></div></footer>
 </div>
 
@@ -213,10 +203,18 @@
 <script src="../vendor/lenis.min.js"></script>
 <script src="motion.js"></script>
 <script>
-  document.querySelectorAll(".compare").forEach(c => {
-    const r = c.querySelector("input"), set = () => c.style.setProperty("--pos", r.value + "%");
-    r.addEventListener("input", set); set();
+  const pick = {};
+  document.querySelectorAll("[data-group]").forEach(g => {
+    const b = g.querySelectorAll(".opt"), sel = () => { pick[g.dataset.group] = g.querySelector('[aria-pressed="true"]'); };
+    b.forEach(x => x.addEventListener("click", () => { b.forEach(y => y.setAttribute("aria-pressed", y === x)); sel(); render(); })); sel();
   });
+  function render() {
+    document.getElementById("sumA").textContent = `${pick.service.dataset.v} · ${pick.service.dataset.p}`;
+    document.getElementById("sumB").textContent = `${pick.barber.dataset.v}, today at ${pick.time.dataset.v}`;
+    document.getElementById("confirm").textContent = "Confirm";
+  }
+  render();
+  document.getElementById("confirm").addEventListener("click", e => { e.currentTarget.textContent = "Booked ✓"; });
 </script>
 </body>
 </html>
