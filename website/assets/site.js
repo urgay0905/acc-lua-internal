@@ -85,10 +85,11 @@
     }
     if (!samePage && /\.html?$|\/$/.test(url.pathname) && animate) {
       e.preventDefault();
-      gsap.to("body", { opacity: 0, y: -6, duration: .3, ease: "power2.in", onComplete: () => { location.href = url.href; } });
+      const wipe = document.createElement("div"); wipe.className = "page-wipe"; document.body.appendChild(wipe);
+      gsap.to(wipe, { yPercent: 0, duration: .6, ease: "expo.inOut", onComplete: () => { location.href = url.href; } });
     }
   });
-  window.addEventListener("pageshow", ev => { if (ev.persisted && gsap) gsap.set("body", { opacity: 1, y: 0 }); });
+  window.addEventListener("pageshow", ev => { if (ev.persisted) $$(".page-wipe").forEach(w => w.remove()); });
 
   // ---------- Buttons: ripple + pop on click, magnetic hover ----------
   function pop(el) {
@@ -216,22 +217,27 @@
   const introEl = $("#intro");
   let introDelay = .1;
   if (introEl) {
-    introDelay = 2.35;
+    introDelay = 3.1;
     if (lenis) lenis.stop();
-    const word = $(".intro-word", introEl);
-    word.innerHTML = word.textContent.split("").map(ch => `<span>${ch}</span>`).join("");
-    const cnt = $(".intro-count", introEl), o = { v: 0 };
+    const reel = $(".intro-reel", introEl), shots = $$(".intro-reel img", introEl);
+    const names = ["Stonecrest Homes", "Fade Room", "Northline", "Lumen Skin Clinic", "Pulse Fitness", "Harbour & Co."];
+    const nameEl = $(".intro-name", introEl), cnt = $(".intro-count", introEl);
     const it = gsap.timeline({ defaults: { ease: "power4.out" } });
-    it.from(".intro-logo", { scale: .4, opacity: 0, rotate: -20, duration: .9, ease: "back.out(2)" })
-      .from(".intro-word span", { yPercent: 110, duration: .9, stagger: .045 }, .2)
-      .from(".intro-meta", { opacity: 0, duration: .5 }, .4)
-      .to(".intro-bar span", { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, .45)
-      .to(o, { v: 100, duration: 1.3, ease: "power2.inOut", onUpdate: () => { cnt.textContent = String(Math.round(o.v)).padStart(2, "0"); } }, .45)
-      .to(".intro-inner", { y: -30, opacity: 0, duration: .5, ease: "power2.in" }, 1.85)
-      .to(introEl, { clipPath: "inset(0 0 100% 0)", duration: .9, ease: "expo.inOut" }, 1.95)
+    it.from(".intro-top", { y: -20, opacity: 0, duration: .8 }, 0)
+      .from(".intro-word span", { yPercent: 105, duration: 1 }, .1)
+      .from(reel, { scale: .6, opacity: 0, duration: 1, ease: "expo.out" }, .35)
+      .from(".intro-foot", { opacity: 0, y: 10, duration: .6 }, .6);
+    shots.forEach((img, i) => {
+      if (i === 0) return;
+      it.add(() => { shots.forEach((s, j) => s.style.opacity = j === i ? 1 : 0); nameEl.textContent = names[i]; cnt.textContent = `0${i + 1} / 06`; }, .9 + i * .28);
+    });
+    it.to(".intro-word span", { yPercent: -105, duration: .7, ease: "power3.in" }, 2.45)
+      .to([".intro-top", ".intro-foot"], { opacity: 0, duration: .4 }, 2.45)
+      .to(reel, { width: innerWidth, height: innerHeight, borderRadius: 0, duration: .9, ease: "expo.inOut" }, 2.5)
+      .to(introEl, { opacity: 0, duration: .5, ease: "power1.out" }, 3.2)
       .add(() => { introEl.remove(); if (lenis) lenis.start(); ST.refresh(); });
-    introEl.addEventListener("click", () => it.progress(.97));  // tap to skip
-    gsap.from(".showcase", { scale: .88, y: 80, opacity: 0, duration: 1.6, ease: "expo.out", delay: 2.9 });
+    introEl.addEventListener("click", () => it.progress(.96));  // tap to skip
+    gsap.from(".showcase", { scale: .9, y: 80, opacity: 0, duration: 1.6, ease: "expo.out", delay: 3.4 });
   }
   const intro = gsap.timeline({ defaults: { ease: "power4.out" }, delay: introDelay });
   if (!introEl) intro.from("body", { opacity: 0, duration: .4, ease: "power1.out" });

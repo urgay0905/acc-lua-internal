@@ -506,16 +506,18 @@
   }
 
 
-  /* ---- Concepts intro ---- */
+  /* ---- Concepts intro: title, a quick reel of all six designs, then the reel opens into the page ---- */
   .intro { display: none; }
-  html.js .intro { display: grid; position: fixed; inset: 0; z-index: 300; place-items: center; background: var(--bg); color: var(--text); }
-  .intro-inner { width: min(420px, 80vw); display: grid; justify-items: center; gap: 22px; }
-  .intro-logo { width: 64px; height: auto; }
-  .intro-word { font-size: clamp(44px, 9vw, 84px); font-weight: 800; letter-spacing: -.045em; line-height: 1; overflow: hidden; display: flex; }
-  .intro-word span { display: inline-block; }
-  .intro-bar { width: 100%; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
-  .intro-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--warm)); transform-origin: 0 50%; transform: scaleX(0); }
-  .intro-meta { width: 100%; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+  html.js .intro { display: block; position: fixed; inset: 0; z-index: 300; background: var(--bg); color: var(--text); overflow: hidden; }
+  .intro-top { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; letter-spacing: .02em; }
+  .intro-word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; overflow: hidden; pointer-events: none; z-index: 2; mix-blend-mode: difference; color: #fff; }
+  .intro-word span { display: inline-block; font-size: clamp(64px, 15vw, 230px); font-weight: 800; letter-spacing: -.06em; line-height: .95; }
+  .intro-reel { position: absolute; left: 50%; top: 50%; width: min(440px, 72vw); aspect-ratio: 16 / 10; transform: translate(-50%, -50%); border-radius: 18px; overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(10,20,50,.45); background: var(--surface-2); }
+  .intro-reel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; max-width: none; opacity: 0; }
+  .intro-reel img:first-child { opacity: 1; }
+  .intro-foot { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); width: min(440px, 72vw); display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .page-wipe { position: fixed; inset: 0; z-index: 400; background: var(--bg); transform: translateY(100%); pointer-events: none; }
   @media (prefers-reduced-motion: reduce) { html.js .intro { display: none; } }
 
   /* ---- Alive: drifting glows + scroll hint ---- */
