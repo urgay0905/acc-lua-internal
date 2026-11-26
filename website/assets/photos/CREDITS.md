@@ -36,3 +36,10 @@ without attribution. Source photo IDs (view at `https://unsplash.com/photos/<id>
 | harbour-2.jpg | photo-1564013799919-ab600027ffc6 |
 | harbour-3.jpg | photo-1512917774080-9991f1c4c750 |
 | harbour-int.jpg | photo-1600210492486-724fe5c67fb0 |
+| stonecrest-5.jpg | photo-1600566753190-17f0baa2a6c3 |
+| stonecrest-site.jpg | photo-1541888946425-d81bb19240f5 |
+| fade-5.jpg | photo-1503951914875-452162b0f3f1 |
+| northline-4.jpg | photo-1552321554-5fefe8c9ef14 |
+| lumen-4.jpg | photo-1598440947619-2c35fc9aa908 |
+| pulse-5.jpg | photo-1558611848-73f7eb4001a1 |
+| harbour-4.jpg | photo-1605276374104-dee2a0ed3cd6 |

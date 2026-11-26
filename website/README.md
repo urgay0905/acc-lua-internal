@@ -14,7 +14,7 @@ Search `index.html` for these and replace them:
 - **Business name**: Veyro Digital. The logo files are in `assets/` (`logo-mark.png` for the top bar and favicon, `logo.png` for the full logo).
 - **Contact**: veyrodigital08@gmail.com and 07873 811503. The email appears in the contact section, the footer and `CONTACT_EMAIL` near the bottom of `index.html` (where the form sends messages).
 - **Prices**: introductory launch prices in GBP (Starter £299, Business £699, Store £1,199+, care plan £25/month). Raise them in the Pricing section as you get clients.
-- **Concepts page** (`concepts.html`): six animated 3D example homepages for fictional businesses, in `work/`. They share `work/concept.css` (dark premium styles) and `work/fx.js` (the 3D objects, built with Three.js, plus scroll animation). Thumbnails are `assets/work-*.jpg` and photos are in `assets/photos/` (see `CREDITS.md`). Each concept's "I want something like this" button opens the contact form with that concept mentioned. The 3D pages must be opened through a web server (any host, or `python3 -m http.server` locally), not by double-clicking the file.
+- **Concepts page** (`concepts.html`): six animated example homepages for fictional businesses, in `work/`. They share `work/concept.css` (dark premium styles) and `work/motion.js` (scroll and button animation). Thumbnails are `assets/work-*.jpg` and photos are in `assets/photos/` (see `CREDITS.md`). Each concept's "I want something like this" button opens the contact form with that concept mentioned.
 
 ## Preview
 

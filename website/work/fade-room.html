@@ -18,13 +18,11 @@
   .slots { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 0 0 30px; }
   .slots span { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); font-weight: 600; font-size: 14px; background: rgba(0,0,0,.35); }
   .slots span.on { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 35%, transparent); }
-  .g-3 { grid-column: span 3; aspect-ratio: 3 / 4; }
+  .g-3 { grid-column: span 4; aspect-ratio: 3 / 4; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
-<script type="importmap">{ "imports": { "three": "../vendor/three/three.module.min.js", "three/addons/": "../vendor/three/addons/" } }</script>
 </head>
 <body>
-<canvas id="scene" aria-hidden="true"></canvas>
 <div class="page">
   <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
   <header class="nav">
@@ -48,7 +46,7 @@
           </div>
           <div class="hero-meta"><div><b>£22</b>skin fades</div><div><b>30 sec</b>online booking</div><div><b>7 days</b>a week</div></div>
         </div>
-        <div class="hero-stage" aria-hidden="true"></div>
+        <div class="hero-visual"><div class="hero-media"><img src="../assets/photos/fade-hero.jpg" alt="Barbershop interior with leather chairs and warm lights" fetchpriority="high"></div><div class="hero-badge"><i></i><div><b>Fade Room</b><span>3 chairs · walk-ins welcome</span></div></div></div>
       </div>
       <div class="scroll-cue">Scroll<i></i></div>
     </section>
@@ -58,7 +56,7 @@
       <span>Skin fades</span><span>Beard sculpting</span><span>Hot towel shaves</span><span>Scissor cuts</span><span>Kids cuts</span>
     </div></div>
 
-    <section id="prices" data-obj=".5 0 .62">
+    <section id="prices">
       <div class="wrap split">
         <div>
           <span class="kicker">The menu</span>
@@ -71,25 +69,24 @@
             <li data-reveal><div><strong>The full works</strong><span>Cut, beard and hot towel</span></div><b>£38</b></li>
           </ul>
         </div>
-        <div aria-hidden="true"></div>
+        <div class="frame" data-reveal><img src="../assets/photos/fade-4.jpg" alt="Leather barber chair" loading="lazy"><div class="tag"><b>Your chair</b>Ready when you are</div></div>
       </div>
     </section>
 
-    <section id="work" data-obj="-1.5 0 .4">
+    <section id="work">
       <div class="wrap">
         <div class="sec-head right"><span class="kicker">The craft</span><h2 class="display">Fresh from the chair.</h2><p>Every cut finished by hand, every line checked twice.</p></div>
         <div class="gallery">
           <figure class="g-3"><img src="../assets/photos/fade-1.jpg" alt="Barber styling a client's hair" loading="lazy"><figcaption><small>Cut</small><b>Textured crop</b></figcaption></figure>
           <figure class="g-3"><img src="../assets/photos/fade-2.jpg" alt="Barber shaping a beard" loading="lazy"><figcaption><small>Beard</small><b>Line-up</b></figcaption></figure>
           <figure class="g-3"><img src="../assets/photos/fade-3.jpg" alt="Barber tools on a counter" loading="lazy"><figcaption><small>Tools</small><b>The kit</b></figcaption></figure>
-          <figure class="g-3"><img src="../assets/photos/fade-4.jpg" alt="Leather barber chair" loading="lazy"><figcaption><small>The shop</small><b>Your chair</b></figcaption></figure>
         </div>
       </div>
     </section>
 
-    <section data-obj="-.52 .05 .55">
+    <section>
       <div class="wrap split">
-        <div aria-hidden="true"></div>
+        <div class="frame" data-reveal><img src="../assets/photos/fade-5.jpg" alt="Client relaxing during a hot towel shave" loading="lazy"><div class="tag"><b>Hot towel shave</b>30 minutes of calm</div></div>
         <div>
           <span class="kicker">Why Fade Room</span>
           <h2 class="display">No rush. No guesswork.</h2>
@@ -103,10 +100,9 @@
       </div>
     </section>
 
-    <section class="cta" id="book" data-obj="0 -1.6 .4">
+    <section class="cta" id="book">
       <div class="wrap">
-        <div class="cta-box photo">
-          <img src="../assets/photos/fade-hero.jpg" alt="" loading="lazy">
+        <div class="cta-box">
           <span class="kicker">Next available today</span>
           <h2 class="display">Grab a <span class="grad">chair.</span></h2>
           <p>Mon–Sat 9am – 7pm · Sun 10am – 4pm</p>
@@ -122,10 +118,6 @@
 <script src="../vendor/gsap.min.js"></script>
 <script src="../vendor/ScrollTrigger.min.js"></script>
 <script src="../vendor/lenis.min.js"></script>
-<script type="module">
-  import { start } from "./fx.js";
-  window.__fx = true;
-  start({ object: "pole", colors: { bg: "#090807", accent: "#e8bd6a", accent2: "#ff5a48" }, baseTilt: [.12, 0, -.32], spin: 1.1 });
-</script>
+<script src="motion.js"></script>
 </body>
 </html>

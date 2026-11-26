@@ -19,10 +19,8 @@
   @media (max-width: 600px) { .quote { flex-direction: column; border-radius: 22px; } }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
-<script type="importmap">{ "imports": { "three": "../vendor/three/three.module.min.js", "three/addons/": "../vendor/three/addons/" } }</script>
 </head>
 <body>
-<canvas id="scene" aria-hidden="true"></canvas>
 <div class="page">
   <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
   <header class="nav">
@@ -47,7 +45,7 @@
           </div>
           <div class="quote"><span>Enter your postcode</span><a class="btn solid" href="#help">Check availability</a></div>
         </div>
-        <div class="hero-stage" aria-hidden="true"></div>
+        <div class="hero-visual"><div class="hero-media"><img src="../assets/photos/northline-hero.jpg" alt="Bright modern bathroom with glass shower" fetchpriority="high"></div><div class="hero-badge"><i></i><div><b>Bathroom refit</b><span>Fitted in 8 working days</span></div></div></div>
       </div>
       <div class="scroll-cue">Scroll<i></i></div>
     </section>
@@ -57,7 +55,7 @@
       <span>Boiler repair</span><span>New boilers</span><span>Designer bathrooms</span><span>Underfloor heating</span><span>Leaks &amp; emergencies</span>
     </div></div>
 
-    <section id="services" data-obj="1.5 .2 .35">
+    <section id="services">
       <div class="wrap">
         <div class="sec-head"><span class="kicker">What we do</span><h2 class="display">Comfort, from the boiler to the bath.</h2><p>One trusted team for everything that keeps your home warm, dry and beautiful.</p></div>
         <div class="cards">
@@ -68,9 +66,9 @@
       </div>
     </section>
 
-    <section id="why" data-obj="-.5 0 .6">
+    <section id="why">
       <div class="wrap split">
-        <div aria-hidden="true"></div>
+        <div class="frame" data-reveal><img src="../assets/photos/northline-4.jpg" alt="Bright bathroom with plants and black and white floor" loading="lazy"><div class="tag"><b>Spotless finish</b>We tidy as we go</div></div>
         <div>
           <span class="kicker">Why Northline</span>
           <h2 class="display">Honest prices. Spotless work.</h2>
@@ -85,10 +83,9 @@
       </div>
     </section>
 
-    <section class="cta" id="help" data-obj="0 -1.6 .4">
+    <section class="cta" id="help">
       <div class="wrap">
-        <div class="cta-box photo">
-          <img src="../assets/photos/northline-hero.jpg" alt="" loading="lazy">
+        <div class="cta-box">
           <span class="kicker">Talk to an engineer</span>
           <h2 class="display">Need help <span class="grad">right now?</span></h2>
           <p>Call and speak to a real engineer, not a call centre. Or request a free quote and we'll call you back.</p>
@@ -103,10 +100,6 @@
 <script src="../vendor/gsap.min.js"></script>
 <script src="../vendor/ScrollTrigger.min.js"></script>
 <script src="../vendor/lenis.min.js"></script>
-<script type="module">
-  import { start } from "./fx.js";
-  window.__fx = true;
-  start({ object: "drop", colors: { bg: "#050a13", accent: "#ff8a3d", accent2: "#3fb6ff" }, baseTilt: [.1, 0, 0], spin: .7, envIntensity: 1 });
-</script>
+<script src="motion.js"></script>
 </body>
 </html>

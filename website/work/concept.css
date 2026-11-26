@@ -27,11 +27,20 @@ img { display: block; max-width: 100%; }
 .display { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .grad { background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-/* 3D canvas sits behind everything */
 /* keep wide decorations from making the page scroll sideways */
 .page { overflow-x: clip; }
-.hero-stage { height: min(62vh, 600px); }
-#scene { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+/* Hero photo */
+.hero-visual { position: relative; perspective: 1200px; }
+.hero-media { position: relative; aspect-ratio: 4 / 5; max-height: 74vh; width: 100%; margin-left: auto; border-radius: 28px; overflow: hidden;
+  border: 1px solid var(--line); transform-style: preserve-3d; will-change: transform;
+  box-shadow: 0 40px 120px -20px color-mix(in srgb, var(--accent) 35%, transparent), 0 0 0 1px rgba(255,255,255,.04); }
+.hero-media img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; }
+.hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--bg) 65%, transparent)); }
+.hero-badge { position: absolute; left: -28px; bottom: 36px; z-index: 2; display: flex; align-items: center; gap: 14px; padding: 14px 20px 14px 14px;
+  border-radius: 18px; background: color-mix(in srgb, var(--bg-2) 70%, transparent); border: 1px solid var(--line); backdrop-filter: blur(16px); }
+.hero-badge i { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); flex: none; }
+.hero-badge b { display: block; font: var(--display-weight) 18px var(--display); letter-spacing: -.01em; text-transform: var(--display-case); }
+.hero-badge span { font-size: 13px; color: var(--muted); }
 .page { position: relative; z-index: 1; }
 .glow { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; opacity: .22; mix-blend-mode: screen; z-index: -1; }
 .glow.a { background: var(--accent); }
@@ -85,7 +94,8 @@ h1 { font-size: clamp(48px, 7.4vw, 112px); line-height: .96; margin: 22px 0 24px
 @media (max-width: 900px) {
   .hero { min-height: auto; padding: 40px 0 90px; }
   .hero .wrap { grid-template-columns: 1fr; }
-  .hero-stage { height: 64vw; max-height: 340px; min-height: 240px; order: -1; }
+  .hero-media { aspect-ratio: 4 / 3; max-height: none; }
+  .hero-badge { left: 12px; bottom: 12px; }
   .scroll-cue { display: none; }
 }
 
