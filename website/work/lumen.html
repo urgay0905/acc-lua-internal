@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen Skin Clinic (concept design)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #fbf6f3; --blush: #f1dcd3; --rose: #b86f61; --sage: #9fae98; --ink: #2f2a28; --muted: #857a75; --line: #eadcd5; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 300 17px/1.7 Jost, system-ui, sans-serif; overflow-x: hidden; }
+  a { color: inherit; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+  .concept-bar { background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 400; text-align: center; padding: 8px 16px; }
+  .concept-bar a { color: #f1c3b6; font-weight: 500; }
+  .serif { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 26px 0; gap: 16px; }
+  .logo { font-size: 28px; letter-spacing: .18em; text-decoration: none; text-transform: uppercase; }
+  .logo small { display: block; font-family: Jost, sans-serif; font-size: 10px; letter-spacing: .5em; color: var(--muted); margin-top: -4px; }
+  .links { display: flex; gap: 32px; align-items: center; font-size: 14px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+  .links a { text-decoration: none; }
+  .btn { display: inline-block; padding: 14px 28px; border-radius: 999px; font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--ink); }
+  .btn.fill { background: var(--ink); color: var(--bg); }
+  @media (max-width: 760px) { .links a:not(.btn) { display: none; } }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding-top: 30px; padding-bottom: 90px; }
+  .eyebrow { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--rose); }
+  h1 { font-size: clamp(48px, 6.6vw, 92px); line-height: .98; margin: 18px 0 24px; letter-spacing: -.01em; }
+  h1 em { color: var(--rose); }
+  .hero p { color: var(--muted); max-width: 440px; margin: 0 0 34px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .visual { position: relative; aspect-ratio: 1; }
+  .orb { position: absolute; border-radius: 50%; }
+  .o1 { inset: 4% 10% 14% 4%; background: radial-gradient(circle at 35% 30%, #fff6f1, #f1d3c7 45%, #dca999 100%); box-shadow: 0 40px 80px rgba(184,111,97,.25); }
+  .o2 { width: 34%; aspect-ratio: 1; right: 2%; bottom: 4%; background: radial-gradient(circle at 35% 30%, #eef2ea, #c3cebd 60%, #9fae98); }
+  .o3 { width: 12%; aspect-ratio: 1; left: 8%; bottom: 6%; background: var(--rose); opacity: .8; }
+  .bottle { position: absolute; left: 38%; top: 24%; width: 18%; height: 46%; border-radius: 14px 14px 18px 18px; background: linear-gradient(90deg, #fff 0, #f7ece7 40%, #e8d2c9 100%); box-shadow: 0 20px 40px rgba(80,40,30,.18); }
+  .bottle::before { content: ""; position: absolute; left: 30%; right: 30%; top: -18%; height: 20%; border-radius: 6px 6px 0 0; background: var(--ink); }
+  .bottle::after { content: "LUMEN"; position: absolute; left: 0; right: 0; top: 44%; text-align: center; font-size: 10px; letter-spacing: .3em; color: var(--rose); }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .visual { max-width: 440px; width: 100%; margin: 0 auto; } }
+
+  section { padding: 90px 0; }
+  .center { text-align: center; max-width: 620px; margin: 0 auto 50px; }
+  h2 { font-size: clamp(38px, 4.6vw, 58px); line-height: 1.05; margin: 12px 0 14px; }
+  .center p { color: var(--muted); margin: 0; }
+  .treats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 860px) { .treats { grid-template-columns: 1fr; } }
+  .treat { background: #fff; border: 1px solid var(--line); border-radius: 200px 200px 20px 20px; padding: 56px 32px 34px; text-align: center; }
+  .treat .ic { width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%; background: var(--blush); display: grid; place-items: center; color: var(--rose); }
+  .treat h3 { font-size: 30px; margin: 0 0 8px; }
+  .treat p { color: var(--muted); font-size: 15.5px; margin: 0 0 18px; }
+  .treat b { font-weight: 500; letter-spacing: .06em; }
+  .band { background: var(--blush); border-radius: 28px; padding: 56px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+  .band h2 { margin-top: 0; }
+  .band p { color: var(--muted); margin: 0; }
+  .band .btn { justify-self: end; }
+  @media (max-width: 760px) { .band { grid-template-columns: 1fr; padding: 32px; } .band .btn { justify-self: start; } }
+  footer { padding: 40px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="concept-bar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
+<header class="wrap">
+  <nav>
+    <a class="logo serif" href="#">Lumen<small>Skin clinic</small></a>
+    <div class="links"><a href="#treatments">Treatments</a><a href="#treatments">Prices</a><a href="#book">About</a><a class="btn fill" href="#book">Book</a></div>
+  </nav>
+</header>
+<main>
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">Advanced skin care</span>
+      <h1 class="serif">Skin that feels <em>like you</em> again.</h1>
+      <p>Expert facials, peels and skin treatments, tailored after a free consultation in our calm, private clinic.</p>
+      <div class="ctas"><a class="btn fill" href="#book">Book a consultation</a><a class="btn" href="#treatments">Treatments</a></div>
+    </div>
+    <div class="visual" role="img" aria-label="Skincare illustration"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="bottle"></div></div>
+  </div>
+  <section id="treatments" style="padding-top:20px">
+    <div class="wrap">
+      <div class="center"><span class="eyebrow">Our treatments</span><h2 class="serif">Gentle, effective, personal.</h2><p>Every treatment starts with a consultation, so we only recommend what your skin actually needs.</p></div>
+      <div class="treats">
+        <div class="treat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div><h3 class="serif">Signature facial</h3><p>Deep cleanse, exfoliation and hydration for an instant glow.</p><b>60 min · £65</b></div>
+        <div class="treat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3c4 4 6 7 6 10a6 6 0 0 1-12 0c0-3 2-6 6-10z"/></svg></div><h3 class="serif">Hydrating peel</h3><p>Smooths texture and evens tone, with no downtime.</p><b>45 min · £80</b></div>
+        <div class="treat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 20c4-1 6-4 8-8s4-7 8-8M8 12c2 0 4 2 4 4"/></svg></div><h3 class="serif">Microneedling</h3><p>Boosts collagen to soften fine lines and scarring.</p><b>75 min · £120</b></div>
+      </div>
+    </div>
+  </section>
+  <section id="book" style="padding-top:0">
+    <div class="wrap"><div class="band"><div><span class="eyebrow">New clients</span><h2 class="serif">Your first consultation is free.</h2><p>Thirty minutes with a skin therapist to talk through your goals. No obligation.</p></div><a class="btn fill" href="#">Book online</a></div></div>
+  </section>
+</main>
+<footer><div class="wrap"><span>© Lumen Skin Clinic (fictional business)</span><span>hello@example.com</span></div></footer>
+</body>
+</html>

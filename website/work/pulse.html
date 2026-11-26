@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse Fitness (concept design)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f4f4f0; --ink: #111; --lime: #c6f432; --violet: #5b3df5; --muted: #5f5f5a; --line: #deded8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 500 16px/1.6 Archivo, system-ui, sans-serif; overflow-x: hidden; }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+  .concept-bar { background: var(--violet); color: #fff; font-size: 13px; text-align: center; padding: 8px 16px; }
+  .concept-bar a { font-weight: 700; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; }
+  .logo { font-weight: 900; font-style: italic; font-size: 26px; text-decoration: none; letter-spacing: -.03em; display: flex; align-items: center; gap: 8px; }
+  .logo i { width: 26px; height: 26px; border-radius: 8px; background: var(--lime); display: grid; place-items: center; }
+  .links { display: flex; gap: 28px; align-items: center; font-weight: 700; font-size: 15px; }
+  .links a { text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 26px; border-radius: 14px; font-weight: 700; text-decoration: none; border: 2px solid var(--ink); }
+  .btn.lime { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+  .btn.dark { background: var(--ink); color: #fff; }
+  @media (max-width: 760px) { .links a:not(.btn) { display: none; } }
+
+  .hero { background: var(--ink); color: #fff; border-radius: 32px; padding: 64px; position: relative; overflow: hidden; display: grid; grid-template-columns: 1.15fr .85fr; gap: 30px; align-items: center; }
+  .hero::after { content: ""; position: absolute; right: -120px; top: -120px; width: 420px; height: 420px; border-radius: 50%; background: var(--violet); filter: blur(10px); opacity: .9; }
+  .hero > * { position: relative; z-index: 1; }
+  .pill { display: inline-block; background: var(--lime); color: var(--ink); font-weight: 700; font-size: 13px; padding: 6px 14px; border-radius: 999px; }
+  h1 { font-weight: 900; font-style: italic; text-transform: uppercase; font-size: clamp(48px, 7.4vw, 104px); line-height: .9; letter-spacing: -.04em; margin: 20px 0 22px; }
+  h1 span { color: var(--lime); }
+  .hero p { color: #c9c9c4; font-size: 18px; max-width: 440px; margin: 0 0 30px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ctas .btn:not(.lime) { border-color: #fff; color: #fff; }
+  .stats { display: grid; gap: 14px; }
+  .stat { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 20px; padding: 20px 22px; backdrop-filter: blur(6px); }
+  .stat b { display: block; font-size: 40px; font-weight: 900; font-style: italic; color: var(--lime); line-height: 1; }
+  .stat span { color: #d6d6d0; font-size: 14px; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding: 36px 24px; border-radius: 22px; } }
+
+  section { padding: 80px 0; }
+  h2 { font-weight: 900; font-style: italic; text-transform: uppercase; font-size: clamp(36px, 5vw, 64px); line-height: .95; letter-spacing: -.03em; margin: 0 0 34px; }
+  .table { background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+  .trow { display: grid; grid-template-columns: 110px 1fr auto auto; gap: 18px; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--line); }
+  .trow:last-child { border-bottom: 0; }
+  .time { font-weight: 900; font-size: 20px; }
+  .trow h3 { margin: 0; font-size: 18px; }
+  .trow small { color: var(--muted); }
+  .lvl { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--bg); }
+  .lvl.hi { background: var(--lime); }
+  .book { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 640px) { .trow { grid-template-columns: 70px 1fr; } .lvl, .book { display: none; } }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
+  .plan { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 30px; }
+  .plan.hot { background: var(--violet); color: #fff; border-color: var(--violet); }
+  .plan h3 { margin: 0 0 6px; font-size: 20px; }
+  .plan .p { font-size: 46px; font-weight: 900; font-style: italic; letter-spacing: -.03em; }
+  .plan .p small { font-size: 15px; font-style: normal; font-weight: 500; opacity: .7; }
+  .plan ul { padding-left: 18px; margin: 14px 0 0; }
+  footer { padding: 30px 0 44px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="concept-bar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="#"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></i>PULSE</a>
+    <div class="links"><a href="#classes">Classes</a><a href="#join">Memberships</a><a href="#join">Personal training</a><a class="btn dark" href="#join">Join now</a></div>
+  </nav>
+</header>
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="pill">First week free</span>
+        <h1>Train<br>harder.<br><span>Feel better.</span></h1>
+        <p>Strength, HIIT and spin classes led by real coaches. Open 5am to 11pm, with no contracts and no judgement.</p>
+        <div class="ctas"><a class="btn lime" href="#join">Start free trial</a><a class="btn" href="#classes">See timetable</a></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>40+</b><span>classes every week</span></div>
+        <div class="stat"><b>5am–11pm</b><span>open seven days</span></div>
+        <div class="stat"><b>£0</b><span>joining fee this month</span></div>
+      </div>
+    </div>
+  </div>
+  <section id="classes">
+    <div class="wrap">
+      <h2>Today's classes</h2>
+      <div class="table">
+        <div class="trow"><span class="time">06:30</span><div><h3>Sunrise HIIT</h3><small>45 min · Studio 1</small></div><span class="lvl hi">High intensity</span><a class="book" href="#">Book</a></div>
+        <div class="trow"><span class="time">09:15</span><div><h3>Strength Foundations</h3><small>50 min · Free weights</small></div><span class="lvl">All levels</span><a class="book" href="#">Book</a></div>
+        <div class="trow"><span class="time">12:30</span><div><h3>Lunch Express Spin</h3><small>30 min · Spin studio</small></div><span class="lvl hi">High intensity</span><a class="book" href="#">Book</a></div>
+        <div class="trow"><span class="time">18:00</span><div><h3>Mobility &amp; Stretch</h3><small>40 min · Studio 2</small></div><span class="lvl">All levels</span><a class="book" href="#">Book</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="join" style="padding-top:0">
+    <div class="wrap">
+      <h2>Memberships</h2>
+      <div class="plans">
+        <div class="plan"><h3>Off-peak</h3><div class="p">£19<small>/month</small></div><ul><li>Gym access 10am–4pm</li><li>No contract</li></ul></div>
+        <div class="plan hot"><h3>Unlimited</h3><div class="p">£32<small>/month</small></div><ul><li>Gym access any time</li><li>Unlimited classes</li><li>Free fitness plan</li></ul></div>
+        <div class="plan"><h3>Personal training</h3><div class="p">£35<small>/session</small></div><ul><li>One-to-one coaching</li><li>Nutrition guidance</li></ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>© Pulse Fitness (fictional business)</span><span>01632 960 733</span></div></footer>
+</body>
+</html>
