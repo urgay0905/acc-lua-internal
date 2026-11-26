@@ -262,8 +262,8 @@
     const tl = gsap.timeline({
       defaults: { ease: "none" },
       scrollTrigger: {
-        trigger: sc, start: "top top", end: () => "+=" + Math.round(n * innerHeight * 1.5),
-        pin: true, scrub: .8, invalidateOnRefresh: true, anticipatePin: 1,
+        trigger: sc, start: "top top", end: () => "+=" + Math.round(n * innerHeight * 2.8),
+        pin: true, scrub: 1.6, invalidateOnRefresh: true, anticipatePin: 1,
         onUpdate: self => {
           bar.style.transform = `scaleX(${self.progress})`;
           count.textContent = String(Math.min(n, Math.floor(self.progress * n) + 1)).padStart(2, "0");
@@ -272,11 +272,13 @@
     });
     slides.forEach((s, i) => {
       const img = $(".sc-screen img", s), screen = $(".sc-screen", s);
-      tl.to(img, { y: () => -Math.max(0, img.offsetHeight - screen.clientHeight), duration: 1, ease: "power1.inOut" });
+      tl.to({}, { duration: .2 });  // short pause at the top of each page
+      tl.to(img, { y: () => -Math.max(0, img.offsetHeight - screen.clientHeight), duration: 1.6, ease: "sine.inOut" });
+      tl.to({}, { duration: .2 });  // and at the bottom
       if (i < n - 1) {
-        tl.to(track, { x: () => -(slides[i + 1].offsetLeft - slides[0].offsetLeft), duration: .55, ease: "power2.inOut" }, ">");
-        tl.to(s, { scale: .9, opacity: .35, duration: .55, ease: "power2.inOut" }, "<");
-        tl.to(slides[i + 1], { scale: 1, opacity: 1, duration: .55, ease: "power2.inOut" }, "<");
+        tl.to(track, { x: () => -(slides[i + 1].offsetLeft - slides[0].offsetLeft), duration: .9, ease: "sine.inOut" }, ">");
+        tl.to(s, { scale: .9, opacity: .35, duration: .9, ease: "sine.inOut" }, "<");
+        tl.to(slides[i + 1], { scale: 1, opacity: 1, duration: .9, ease: "sine.inOut" }, "<");
       }
     });
     $$("img", sc).forEach(img => { if (!img.complete) img.addEventListener("load", () => ST.refresh(), { once: true }); });
