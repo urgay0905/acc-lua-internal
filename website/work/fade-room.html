@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fade Room — Barbershop (concept design)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0d0d0e; --panel: #161618; --line: #2a2a2e; --text: #f4f1ea; --muted: #9b978e; --gold: #e2b866; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, system-ui, sans-serif; overflow-x: hidden; }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+  .concept-bar { background: var(--gold); color: #111; font-size: 13px; text-align: center; padding: 8px 16px; }
+  .concept-bar a { font-weight: 700; }
+  .display { font-family: Anton, Impact, sans-serif; text-transform: uppercase; letter-spacing: .01em; font-weight: 400; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; }
+  .logo { font-size: 26px; text-decoration: none; }
+  .logo span { color: var(--gold); }
+  .links { display: flex; gap: 30px; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .links a { text-decoration: none; color: var(--muted); }
+  .btn { display: inline-block; padding: 14px 26px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; border: 1.5px solid var(--text); }
+  .btn.gold { background: var(--gold); border-color: var(--gold); color: #111 !important; }
+  @media (max-width: 760px) { .links a:not(.btn) { display: none; } }
+
+  .hero { position: relative; padding-top: 60px; padding-bottom: 90px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  h1 { font-size: clamp(64px, 11vw, 150px); line-height: .9; margin: 0; }
+  h1 .outline { color: transparent; -webkit-text-stroke: 2px var(--text); }
+  h1 .g { color: var(--gold); }
+  .hero p { color: var(--muted); font-size: 18px; margin: 0 0 28px; max-width: 360px; }
+  .chair { aspect-ratio: 4 / 3; border: 1px solid var(--line); background:
+      radial-gradient(circle at 50% 30%, rgba(226,184,102,.35), transparent 45%),
+      repeating-linear-gradient(135deg, #1a1a1c 0 14px, #141416 14px 28px);
+    position: relative; display: grid; place-items: end start; padding: 22px; }
+  .pole { position: absolute; top: 22px; right: 22px; width: 22px; height: 130px; border-radius: 11px; border: 2px solid var(--text);
+    background: repeating-linear-gradient(-45deg, #c8342b 0 10px, #f4f1ea 10px 20px, #2b4ea2 20px 30px, #f4f1ea 30px 40px); }
+  .open { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; display: flex; align-items: center; gap: 8px; }
+  .open i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } .chair { aspect-ratio: 16 / 10; } }
+
+  .ticker { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; white-space: nowrap; overflow: hidden; font-size: 28px; color: var(--muted); }
+  .ticker span { margin: 0 18px; } .ticker b { color: var(--gold); font-weight: 400; }
+
+  section { padding: 90px 0; }
+  .kick { color: var(--gold); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
+  h2 { font-size: clamp(44px, 6vw, 76px); line-height: .95; margin: 12px 0 40px; }
+  .prices { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; }
+  @media (max-width: 760px) { .prices { grid-template-columns: 1fr; } }
+  .row { display: flex; align-items: baseline; gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .row h3 { margin: 0; font-size: 19px; font-weight: 600; }
+  .row small { display: block; color: var(--muted); font-size: 14px; }
+  .row .dots { flex: 1; border-bottom: 1px dotted var(--line); transform: translateY(-6px); }
+  .row .p { font-family: Anton, sans-serif; font-size: 26px; color: var(--gold); }
+
+  .book { background: var(--panel); border: 1px solid var(--line); padding: 48px; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+  .book h2 { margin: 8px 0 10px; font-size: clamp(36px, 5vw, 60px); }
+  .book p { color: var(--muted); margin: 0; }
+  .slots { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  .slots span { border: 1px solid var(--line); padding: 8px 14px; font-weight: 600; font-size: 14px; }
+  .slots span.on { border-color: var(--gold); color: var(--gold); }
+  @media (max-width: 760px) { .book { grid-template-columns: 1fr; padding: 28px; } }
+  footer { padding: 36px 0 44px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="concept-bar">Concept design by <a href="../index.html#work">Veyro Digital</a> · a fictional business created to show the style</div>
+
+<header class="wrap">
+  <nav>
+    <a class="logo display" href="#">Fade<span>Room</span></a>
+    <div class="links">
+      <a href="#prices">Prices</a>
+      <a href="#book">Hours</a>
+      <a href="#book">Gift cards</a>
+      <a class="btn gold" href="#book">Book now</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <h1 class="display">Sharp<br><span class="outline">cuts.</span><br><span class="g">No wait.</span></h1>
+      </div>
+      <div>
+        <p>Skin fades, classic cuts and hot-towel shaves. Book online in 30 seconds, then walk straight into the chair.</p>
+        <div class="chair" role="img" aria-label="Barbershop illustration">
+          <div class="pole"></div>
+          <div class="open"><i></i> Open today · 9am – 7pm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker display" aria-hidden="true">
+    <span>Skin fades</span><b>/</b><span>Beard sculpting</span><b>/</b><span>Hot towel shaves</span><b>/</b><span>Kids cuts</span><b>/</b><span>Skin fades</span>
+  </div>
+
+  <section id="prices">
+    <div class="wrap">
+      <span class="kick">The menu</span>
+      <h2 class="display">Prices</h2>
+      <div class="prices">
+        <div class="row"><div><h3>Skin fade</h3><small>Clippers to skin, styled finish</small></div><span class="dots"></span><span class="p">£22</span></div>
+        <div class="row"><div><h3>Classic scissor cut</h3><small>Wash, cut and style</small></div><span class="dots"></span><span class="p">£20</span></div>
+        <div class="row"><div><h3>Beard trim &amp; line-up</h3><small>Shape, edge and oil</small></div><span class="dots"></span><span class="p">£12</span></div>
+        <div class="row"><div><h3>Hot towel shave</h3><small>Straight razor, 30 minutes</small></div><span class="dots"></span><span class="p">£18</span></div>
+        <div class="row"><div><h3>Cut + beard</h3><small>The full works</small></div><span class="dots"></span><span class="p">£30</span></div>
+        <div class="row"><div><h3>Kids (under 12)</h3><small>Any style</small></div><span class="dots"></span><span class="p">£14</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" style="padding-top:0">
+    <div class="wrap">
+      <div class="book">
+        <div>
+          <span class="kick">Next available today</span>
+          <h2 class="display">Grab a chair.</h2>
+          <p>Mon–Sat 9am – 7pm · Sun 10am – 4pm</p>
+          <div class="slots"><span>10:15</span><span class="on">11:30</span><span>13:00</span><span>14:45</span><span>16:30</span></div>
+        </div>
+        <a class="btn gold" href="#">Book online</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© Fade Room (fictional business)</span><span>01632 960 418</span></div></footer>
+</body>
+</html>

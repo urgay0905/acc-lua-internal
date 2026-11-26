@@ -169,15 +169,14 @@
   .work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   @media (max-width: 900px) { .work { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 620px) { .work { grid-template-columns: 1fr; } }
-  .project { border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line); transition: transform .2s; }
+  .project { border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line); transition: transform .2s, box-shadow .2s; display: block; text-decoration: none; color: inherit; }
+  .project:hover { box-shadow: var(--shadow); }
+  .shot { aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .4s ease; }
+  .project:hover .shot img { transform: scale(1.03); }
+  .project-info h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .view { font-size: 13px; font-weight: 600; color: var(--accent); }
   .project:hover { transform: translateY(-3px); }
-  .thumb { aspect-ratio: 4 / 3; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; position: relative; }
-  .thumb .t-nav { position: absolute; top: 16px; left: 20px; right: 20px; display: flex; justify-content: space-between; font-size: 11px; opacity: .85; font-weight: 600; }
-  .thumb b { font-size: 24px; letter-spacing: -.02em; line-height: 1.1; }
-  .thumb small { opacity: .85; margin-top: 6px; font-size: 13px; }
-  .t1 { background: linear-gradient(160deg, #1f3d2b, #3f7a53); }
-  .t2 { background: linear-gradient(160deg, #3a1d14, #b5532b); }
-  .t3 { background: linear-gradient(160deg, #141b3d, #4757d6); }
   .project-info { padding: 18px 20px 20px; }
   .project-info h3 { margin: 0 0 4px; font-size: 17px; }
   .project-info p { margin: 0; color: var(--muted); font-size: 14.5px; }
@@ -395,35 +394,35 @@
       <div class="section-head reveal">
         <span class="kicker">Work</span>
         <h2>The kind of sites I build.</h2>
-        <p>A few concept designs showing the range of styles and businesses I work with.</p>
+        <p>Concept homepages for three very different kinds of business, each with its own look and its own goal.</p>
       </div>
       <div class="work">
-        <article class="project reveal">
-          <div class="thumb t1"><div class="t-nav"><span>Greenleaf</span><span>Menu · Book</span></div><b>Fresh food,<br>made local.</b><small>Café &amp; restaurant</small></div>
+        <a class="project reveal" href="work/ember-and-oak.html" target="_blank" rel="noopener">
+          <div class="shot"><img src="assets/work-ember-and-oak.jpg" alt="Homepage design for Ember &amp; Oak" width="800" height="600" loading="lazy"></div>
           <div class="project-info">
-            <h3>Neighborhood café</h3>
-            <p>Menu, online table booking and opening hours that are easy to find.</p>
-            <div class="tags"><span>Restaurant</span><span>Bookings</span></div>
+            <h3>Ember &amp; Oak <span class="view">View design →</span></h3>
+            <p>A warm, editorial homepage with menu highlights, opening hours and table booking.</p>
+            <div class="tags"><span>Bakery &amp; café</span><span>Bookings</span></div>
           </div>
-        </article>
-        <article class="project reveal">
-          <div class="thumb t2"><div class="t-nav"><span>Forge &amp; Co.</span><span>Shop · About</span></div><b>Handmade goods<br>that last.</b><small>Online store</small></div>
+        </a>
+        <a class="project reveal" href="work/fade-room.html" target="_blank" rel="noopener">
+          <div class="shot"><img src="assets/work-fade-room.jpg" alt="Homepage design for Fade Room" width="800" height="600" loading="lazy"></div>
           <div class="project-info">
-            <h3>Small-batch maker</h3>
-            <p>A product catalog with secure checkout and order notifications.</p>
-            <div class="tags"><span>E-commerce</span><span>Payments</span></div>
+            <h3>Fade Room <span class="view">View design →</span></h3>
+            <p>A bold, dark design built around online booking and a clear price list.</p>
+            <div class="tags"><span>Barbershop</span><span>Price list</span></div>
           </div>
-        </article>
-        <article class="project reveal">
-          <div class="thumb t3"><div class="t-nav"><span>Summit</span><span>Services · Quote</span></div><b>Trusted local<br>service pros.</b><small>Trades &amp; services</small></div>
+        </a>
+        <a class="project reveal" href="work/northline.html" target="_blank" rel="noopener">
+          <div class="shot"><img src="assets/work-northline.jpg" alt="Homepage design for Northline Plumbing" width="800" height="600" loading="lazy"></div>
           <div class="project-info">
-            <h3>Home services company</h3>
-            <p>Service pages, a quote request form, and local SEO to bring in calls.</p>
-            <div class="tags"><span>Lead generation</span><span>SEO</span></div>
+            <h3>Northline Plumbing <span class="view">View design →</span></h3>
+            <p>A lead-generating homepage with a quick quote form and tap-to-call buttons.</p>
+            <div class="tags"><span>Trades</span><span>Lead generation</span></div>
           </div>
-        </article>
+        </a>
       </div>
-      <p class="note reveal">These are sample concepts. Real client projects will be added here as they launch.</p>
+      <p class="note reveal">These are concept designs for fictional businesses, made to show my style. Click any design to see the full page. Real client projects will be added here as they launch.</p>
     </div>
   </section>
 
