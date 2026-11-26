@@ -22,16 +22,32 @@ Search `index.html` for these and replace them:
 
 Open `index.html` in a browser.
 
-## Publish for free
+## Publish for free (Netlify)
 
-- **GitHub Pages**: Settings → Pages → deploy from a branch, and pick the folder that holds this file.
-- **Netlify / Vercel / Cloudflare Pages**: drag this folder in, or connect the repo and set the publish directory to `website`.
+**Option A, drag and drop (about 2 minutes):**
+1. Sign up free at app.netlify.com.
+2. Go to *Sites → Add new site → Deploy manually*.
+3. Drag the `website` folder (or the `veyro-website.zip` file) onto the page. Netlify gives you a live address like `veyro-digital.netlify.app`.
 
-Then connect your own domain in the host's settings.
+**Option B, connect GitHub (updates automatically):**
+1. In Netlify choose *Add new site → Import an existing project → GitHub* and pick this repository and branch.
+2. The `netlify.toml` file in the repo tells Netlify to publish the `website` folder, so there's nothing to configure.
+3. Every time a change is pushed, the site updates by itself.
+
+## Connect your own domain
+
+1. Buy a domain, for example `veyrodigital.co.uk`. The easiest way is inside Netlify (*Domain management → Add a domain → Buy*): it sets everything up for you. You can also buy from Namecheap, Cloudflare or 123 Reg.
+2. In Netlify go to *Domain management → Add a domain* and type your domain.
+3. If you bought it elsewhere, Netlify shows you DNS records (or nameservers) to copy into your domain provider's settings. It can take up to 24 hours to switch over.
+4. Netlify adds free HTTPS (the padlock) automatically.
 
 ## Contact form
 
-The form opens the visitor's email app with their message filled in. To get messages without that step, point the form at a free form service such as Formspree or Netlify Forms.
+The form sends each enquiry straight to veyrodigital08@gmail.com using FormSubmit (formsubmit.co), a free service with no account needed.
+
+**One-time step:** the very first message sent from the live site triggers an email from FormSubmit asking you to activate the form. Click the link in that email, and every message after that arrives in your inbox. If you change your email address, update `CONTACT_EMAIL` near the bottom of `index.html`.
+
+The form only sends from a live website. In the claude.ai preview it can't reach FormSubmit, so it shows an error and offers to open your email app instead.
 
 ## Animation
 

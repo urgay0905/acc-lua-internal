@@ -1,0 +1,13 @@
+# Netlify settings for the Veyro Digital website.
+# Netlify reads this when the repo is connected, and publishes the website/ folder.
+[build]
+  publish = "website"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"

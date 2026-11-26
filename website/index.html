@@ -417,8 +417,15 @@
           </label>
         </div>
         <label>Tell me about your project<textarea name="message" required placeholder="What does your business do, and what should the website help with?"></textarea></label>
-        <button class="btn btn-primary" type="submit">Send message</button>
-        <p class="form-msg" id="formMsg" role="status">This opens your email app with your message filled in.</p>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-primary" type="submit" id="sendBtn">Send message</button>
+        <p class="form-msg" id="formMsg" role="status">I'll reply within one business day.</p>
+        <div class="form-done" id="formDone" hidden>
+          <span class="done-tick"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span>
+          <h3>Message sent</h3>
+          <p>Thanks, <span id="doneName">there</span>. I'll get back to you within one business day with ideas and a quote.</p>
+          <button class="btn btn-ghost" type="button" id="sendAnother">Send another message</button>
+        </div>
       </form>
     </div>
   </section>
@@ -465,19 +472,48 @@
     btn.addEventListener("click", () => { planSelect.value = btn.dataset.plan; })
   );
 
-  // Contact form → opens the visitor's email app
+  // Contact form → sends straight to the inbox via FormSubmit (formsubmit.co).
+  // The first message ever sent triggers a one-time activation email to CONTACT_EMAIL.
   const form = document.getElementById("contactForm");
   const msg = document.getElementById("formMsg");
-  form.addEventListener("submit", e => {
+  const sendBtn = document.getElementById("sendBtn");
+  const done = document.getElementById("formDone");
+  const mailtoFallback = d => {
+    const subject = `Website enquiry from ${d.get("name")}${d.get("business") ? " (" + d.get("business") + ")" : ""}`;
+    const body = `Name: ${d.get("name")}\nEmail: ${d.get("email")}\nBusiness: ${d.get("business") || "-"}\nPackage: ${d.get("plan")}\n\n${d.get("message")}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+  form.addEventListener("submit", async e => {
     e.preventDefault();
     if (!form.checkValidity()) { msg.textContent = "Please fill in your name, a valid email, and a short message."; window.VeyroFX && VeyroFX.shake(form); form.reportValidity(); return; }
     const d = new FormData(form);
-    const subject = `Website enquiry from ${d.get("name")}${d.get("business") ? " (" + d.get("business") + ")" : ""}`;
-    const body = `Name: ${d.get("name")}\nEmail: ${d.get("email")}\nBusiness: ${d.get("business") || "-"}\nPackage: ${d.get("plan")}\n\n${d.get("message")}`;
-    window.VeyroFX && VeyroFX.pop(form.querySelector("button[type=submit]"));
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    msg.textContent = "Thanks! Your email app should open now. If it doesn't, email " + CONTACT_EMAIL + " directly.";
+    if (d.get("_honey")) return;  // a bot filled the hidden field
+    window.VeyroFX && VeyroFX.pop(sendBtn);
+    sendBtn.disabled = true; sendBtn.textContent = "Sending…"; msg.textContent = "";
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          name: d.get("name"), email: d.get("email"), business: d.get("business") || "-", package: d.get("plan"), message: d.get("message"),
+          _subject: `New website enquiry from ${d.get("name")}`, _replyto: d.get("email"), _template: "table", _captcha: "false",
+        }),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || String(out.success) === "false") throw new Error(out.message || "Send failed");
+      document.getElementById("doneName").textContent = String(d.get("name")).split(" ")[0];
+      form.classList.add("is-done"); done.hidden = false;
+      if (window.gsap) gsap.from(done.children, { y: 20, opacity: 0, duration: .7, stagger: .08, ease: "power3.out" });
+      form.reset();
+    } catch (err) {
+      msg.innerHTML = `Sorry, that didn't send. Try again, email <b>${CONTACT_EMAIL}</b>, or <button type="button" class="copy" id="useMail">open in your email app</button>`;
+      document.getElementById("useMail").addEventListener("click", () => mailtoFallback(d));
+      window.VeyroFX && VeyroFX.shake(form);
+    } finally {
+      sendBtn.disabled = false; sendBtn.textContent = "Send message";
+    }
   });
+  document.getElementById("sendAnother").addEventListener("click", () => { form.classList.remove("is-done"); done.hidden = true; msg.textContent = "I'll reply within one business day."; });
 
   // Coming from a concept's "I want something like this" button: pre-fill the form
   const concept = new URLSearchParams(location.search).get("concept");
