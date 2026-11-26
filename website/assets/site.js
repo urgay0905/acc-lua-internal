@@ -212,8 +212,29 @@
 
   // ---------- Intro (hero) ----------
   const heroH1 = $(".hero h1, .page-hero h1");
-  const intro = gsap.timeline({ defaults: { ease: "power4.out" }, delay: .1 });
-  intro.from("body", { opacity: 0, duration: .4, ease: "power1.out" });
+  // ---------- Concepts page opening animation ----------
+  const introEl = $("#intro");
+  let introDelay = .1;
+  if (introEl) {
+    introDelay = 2.35;
+    if (lenis) lenis.stop();
+    const word = $(".intro-word", introEl);
+    word.innerHTML = word.textContent.split("").map(ch => `<span>${ch}</span>`).join("");
+    const cnt = $(".intro-count", introEl), o = { v: 0 };
+    const it = gsap.timeline({ defaults: { ease: "power4.out" } });
+    it.from(".intro-logo", { scale: .4, opacity: 0, rotate: -20, duration: .9, ease: "back.out(2)" })
+      .from(".intro-word span", { yPercent: 110, duration: .9, stagger: .045 }, .2)
+      .from(".intro-meta", { opacity: 0, duration: .5 }, .4)
+      .to(".intro-bar span", { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, .45)
+      .to(o, { v: 100, duration: 1.3, ease: "power2.inOut", onUpdate: () => { cnt.textContent = String(Math.round(o.v)).padStart(2, "0"); } }, .45)
+      .to(".intro-inner", { y: -30, opacity: 0, duration: .5, ease: "power2.in" }, 1.85)
+      .to(introEl, { clipPath: "inset(0 0 100% 0)", duration: .9, ease: "expo.inOut" }, 1.95)
+      .add(() => { introEl.remove(); if (lenis) lenis.start(); ST.refresh(); });
+    introEl.addEventListener("click", () => it.progress(.97));  // tap to skip
+    gsap.from(".showcase", { scale: .88, y: 80, opacity: 0, duration: 1.6, ease: "expo.out", delay: 2.9 });
+  }
+  const intro = gsap.timeline({ defaults: { ease: "power4.out" }, delay: introDelay });
+  if (!introEl) intro.from("body", { opacity: 0, duration: .4, ease: "power1.out" });
   if (nav) intro.from(nav, { y: -20, opacity: 0, duration: .8 }, 0.05);
   const heroBits = $$(".hero .eyebrow, .page-hero .eyebrow");
   if (heroBits.length) intro.from(heroBits, { y: 16, opacity: 0, duration: .8 }, 0.15);
@@ -221,11 +242,15 @@
     heroH1.setAttribute("aria-label", heroH1.textContent.trim());
     intro.from(splitWords(heroH1), { yPercent: 110, rotate: 4, duration: 1.1, stagger: .06 }, 0.2);
   }
-  const afterH1 = $$(".hero .lede, .page-hero .lede, .hero-ctas > *, .hero-points > *");
+  const afterH1 = $$(".hero .lede, .page-hero .lede, .page-hero .scroll-hint, .hero-ctas > *, .hero-points > *");
   if (afterH1.length) intro.from(afterH1, { y: 22, opacity: 0, duration: .9, stagger: .07 }, 0.6);
   const mock = $(".mock");
   if (mock) {
     intro.from(".hero-visual", { y: 60, opacity: 0, rotateX: 12, duration: 1.4, ease: "expo.out" }, 0.45);
+    intro.from(".phone", { x: -40, y: 30, opacity: 0, rotate: -12, duration: 1.3, ease: "expo.out" }, 0.75);
+    intro.from(".hv-speed", { scale: .6, opacity: 0, duration: .9, ease: "back.out(2)" }, 1.05);
+    intro.fromTo(".ring-fg", { strokeDashoffset: 138.2 }, { strokeDashoffset: 2.8, duration: 1.6, ease: "power3.out" }, 1.1);
+    intro.from(".hv-lead", { y: 30, opacity: 0, scale: .9, duration: .9, ease: "back.out(1.8)" }, 1.5);
     gsap.set(mock, { rotate: 1.2 });
     if (finePointer) {
       const hero = $(".hero");
@@ -302,6 +327,10 @@
       gsap.from($$(".tl-list li", s), { x: -14, opacity: 0, duration: .7, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: s, start: "top 75%" } });
     });
   }
+
+  // Service and How-it-works icons pop as their cards appear
+  $$(".svc-icon, .hw-icon").forEach(ic => gsap.from(ic, { scale: .3, rotate: -25, opacity: 0, duration: .9, ease: "back.out(2.2)", scrollTrigger: { trigger: ic, start: "top 88%" } }));
+  $$(".svc ul li, .hw ul li").forEach(li => gsap.from(li, { x: -10, opacity: 0, duration: .6, ease: "power3.out", scrollTrigger: { trigger: li, start: "top 94%" } }));
 
   // ---------- Prices count up ----------
   $$(".price").forEach(el => {
