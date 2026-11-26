@@ -8,7 +8,7 @@ Search `index.html` for these and replace them:
 
 - **Business name**: Veyro Digital. The logo files are in `assets/` (`logo-mark.png` for the top bar and favicon, `logo.png` for the full logo).
 - **Email**: `hello@example.com`. It appears in the contact section and in `CONTACT_EMAIL` near the bottom of the file.
-- **Prices**: the Starter, Business and Store packages and the care plan are example prices.
+- **Prices**: introductory launch prices in GBP (Starter £299, Business £699, Store £1,199+, care plan £25/month). Raise them in the Pricing section as you get clients.
 - **Work section**: the three projects are sample concepts. Replace them with real client work as you finish it.
 
 ## Preview
