@@ -3,113 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Harbour &amp; Co. Estate Agents (concept design)</title>
+<title>Harbour &amp; Co. — Estate Agents (concept design)</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../vendor/lenis.css">
+<link rel="stylesheet" href="concept.css">
 <style>
-  :root { --green: #1f3b33; --green-2: #2c5246; --brass: #c9a45c; --bg: #f7f5ef; --ink: #1b2420; --muted: #66706b; --line: #e3dfd3; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "DM Sans", system-ui, sans-serif; overflow-x: hidden; }
-  a { color: inherit; }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-  @media (max-width: 600px) { .wrap { padding: 0 16px; } }
-  .concept-bar { background: var(--brass); color: var(--green); font-size: 13px; text-align: center; padding: 8px 16px; }
-  .concept-bar a { font-weight: 700; }
-  .serif { font-family: "Libre Caslon Text", Georgia, serif; }
-  .top { background: var(--green); color: #fff; position: relative; overflow: hidden; }
-  .top::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 400px at 85% 40%, rgba(201,164,92,.16), transparent 70%); }
-  nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; position: relative; }
-  .logo { font-size: 24px; text-decoration: none; }
-  .logo span { color: var(--brass); }
-  .links { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
-  .links a { text-decoration: none; opacity: .9; }
-  .btn { display: inline-block; padding: 13px 22px; border-radius: 4px; font-weight: 700; font-size: 15px; text-decoration: none; }
-  .btn.brass { background: var(--brass); color: var(--green); }
-  .btn.line { border: 1px solid rgba(255,255,255,.5); }
-  @media (max-width: 760px) { .links a:not(.btn) { display: none; } }
-  .hero { position: relative; padding: 70px 0 130px; max-width: 760px; }
-  .kick { font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); }
-  h1 { font-size: clamp(40px, 5.8vw, 76px); line-height: 1.04; margin: 16px 0 20px; font-weight: 400; letter-spacing: -.02em; }
-  h1 em { color: var(--brass); }
-  .hero p { font-size: 19px; opacity: .85; margin: 0; max-width: 560px; }
-  .search { position: relative; z-index: 2; margin-top: -64px; background: #fff; border-radius: 8px; box-shadow: 0 24px 60px rgba(20,40,30,.18); padding: 14px; display: grid; grid-template-columns: auto 1.6fr 1fr 1fr auto; gap: 10px; align-items: stretch; }
-  .tabs { display: flex; background: var(--bg); border-radius: 6px; padding: 4px; }
-  .tabs span { padding: 10px 16px; border-radius: 4px; font-weight: 700; font-size: 14px; color: var(--muted); display: grid; place-items: center; }
-  .tabs span.on { background: var(--green); color: #fff; }
-  .f { border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px; font-size: 13px; color: var(--muted); }
-  .f b { display: block; color: var(--ink); font-size: 15px; font-weight: 500; }
-  .search .btn { background: var(--green); color: #fff; display: grid; place-items: center; }
-  @media (max-width: 900px) { .search { grid-template-columns: 1fr 1fr; } .tabs, .search .btn { grid-column: 1 / -1; } .f:first-of-type { grid-column: 1 / -1; } }
-  section { padding: 80px 0; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
-  h2 { font-size: clamp(30px, 3.8vw, 44px); font-weight: 400; margin: 10px 0 0; letter-spacing: -.01em; }
-  .more { font-weight: 700; color: var(--green-2); }
-  .homes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  @media (max-width: 900px) { .homes { grid-template-columns: 1fr; } }
-  .home { background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .img { height: 210px; position: relative; }
-  .img .tag { position: absolute; top: 14px; left: 14px; background: #fff; color: var(--green); font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 3px; }
-  .h1i { background: linear-gradient(180deg, #a9c3d6 0 55%, #7d9a6e 55%); }
-  .h2i { background: linear-gradient(180deg, #e7c9a5 0 50%, #8f9f7c 50%); }
-  .h3i { background: linear-gradient(180deg, #bfd0dc 0 60%, #6f8c75 60%); }
-  .house { position: absolute; left: 50%; bottom: 26%; transform: translateX(-50%); width: 46%; height: 34%; background: #efe6d8; }
-  .house::before { content: ""; position: absolute; left: -10%; right: -10%; bottom: 100%; height: 60%; background: #5a4136; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-  .house::after { content: ""; position: absolute; left: 42%; width: 16%; bottom: 0; height: 52%; background: var(--green); }
-  .house i { position: absolute; top: 18%; width: 16%; height: 30%; background: #9fc0d3; }
-  .house i:first-child { left: 14%; } .house i + i { right: 14%; }
-  .h2i .house { background: #c8836b; width: 56%; } .h3i .house { background: #f4f1ea; width: 38%; height: 40%; }
-  .info { padding: 20px 22px 22px; }
-  .price { font-family: "Libre Caslon Text", serif; font-size: 26px; color: var(--green); }
-  .info h3 { margin: 4px 0 10px; font-size: 16px; font-weight: 500; color: var(--muted); }
-  .meta { display: flex; gap: 16px; font-size: 14px; font-weight: 500; }
-  .valuation { background: var(--green); color: #fff; border-radius: 8px; padding: 48px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
-  .valuation h2 { margin: 0 0 6px; }
-  .valuation p { margin: 0; opacity: .8; }
-  footer { padding: 30px 0 44px; color: var(--muted); font-size: 14px; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  :root { --bg: #050d0b; --bg-2: #0b1714; --text: #f1efe7; --muted: #93a19b; --accent: #dcb46e; --accent-2: #5fd3b0; --accent-ink: #0b130f;
+    --display: "Libre Caslon Text", Georgia, serif; --body: "DM Sans", system-ui, sans-serif; --display-weight: 400; --display-tracking: -.02em; }
+  h1 em, h2 em { font-style: italic; }
+  .search { margin-top: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr auto; gap: 6px; padding: 8px; border-radius: 20px; border: 1px solid var(--line); background: rgba(255,255,255,.04); backdrop-filter: blur(12px); max-width: 620px; }
+  .search div { padding: 8px 14px; font-size: 12px; color: var(--muted); border-radius: 12px; }
+  .search div b { display: block; color: var(--text); font-size: 15px; font-weight: 500; }
+  .search .btn { border-radius: 14px; }
+  @media (max-width: 600px) { .search { grid-template-columns: 1fr 1fr; } .search div:first-child, .search .btn { grid-column: 1 / -1; } }
 </style>
+<script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
+<script type="importmap">{ "imports": { "three": "../vendor/three/three.module.min.js", "three/addons/": "../vendor/three/addons/" } }</script>
 </head>
 <body>
-<div class="concept-bar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
-<div class="top">
-  <div class="wrap">
-    <nav>
-      <a class="logo serif" href="#">Harbour <span>&amp;</span> Co.</a>
-      <div class="links"><a href="#homes">Buy</a><a href="#homes">Rent</a><a href="#value">Sell</a><a class="btn brass" href="#value">Free valuation</a></div>
-    </nav>
-    <div class="hero">
-      <span class="kick">Independent estate agents</span>
-      <h1 class="serif">Find the place you'll <em>call home.</em></h1>
-      <p>Local experts in buying, selling and letting, with honest advice and no pushy sales.</p>
-    </div>
-  </div>
-</div>
-<main>
-  <div class="wrap">
-    <div class="search">
-      <div class="tabs"><span class="on">Buy</span><span>Rent</span></div>
-      <div class="f">Location<b>Town, area or postcode</b></div>
-      <div class="f">Price<b>Any</b></div>
-      <div class="f">Bedrooms<b>2+</b></div>
-      <a class="btn" href="#">Search</a>
-    </div>
-  </div>
-  <section id="homes">
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="page">
+  <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
+  <header class="nav">
     <div class="wrap">
-      <div class="head"><div><span class="kick">Just listed</span><h2 class="serif">New to the market</h2></div><a class="more" href="#">View all homes →</a></div>
-      <div class="homes">
-        <article class="home"><div class="img h1i"><span class="tag">New</span><div class="house"><i></i><i></i></div></div><div class="info"><div class="price">£285,000</div><h3>3 bed semi-detached house</h3><div class="meta"><span>3 bed</span><span>2 bath</span><span>Garden</span></div></div></article>
-        <article class="home"><div class="img h2i"><span class="tag">Open house Sat</span><div class="house"><i></i><i></i></div></div><div class="info"><div class="price">£410,000</div><h3>4 bed detached family home</h3><div class="meta"><span>4 bed</span><span>2 bath</span><span>Garage</span></div></div></article>
-        <article class="home"><div class="img h3i"><span class="tag">To let</span><div class="house"><i></i><i></i></div></div><div class="info"><div class="price">£1,150 pcm</div><h3>2 bed modern townhouse</h3><div class="meta"><span>2 bed</span><span>1 bath</span><span>Parking</span></div></div></article>
-      </div>
+      <a class="logo display" href="#">Harbour <span style="color:var(--accent)">&amp;</span> Co.</a>
+      <nav class="links"><a href="#homes">Buy</a><a href="#homes">Rent</a><a href="#sell">Sell</a><a class="btn solid" href="#value">Free valuation</a></nav>
     </div>
-  </section>
-  <section id="value" style="padding-top:0">
-    <div class="wrap"><div class="valuation"><div><h2 class="serif">What's your home worth?</h2><p>Book a free, no-obligation valuation with a local expert.</p></div><a class="btn brass" href="#">Book a valuation</a></div></div>
-  </section>
-</main>
-<footer><div class="wrap"><span>© Harbour &amp; Co. (fictional business)</span><span>hello@example.com</span></div></footer>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="glow a" style="width:420px;height:420px;right:10%;top:16%"></div>
+      <div class="glow b" style="width:300px;height:300px;right:2%;bottom:10%"></div>
+      <div class="wrap">
+        <div class="hero-copy">
+          <span class="chip"><b>NEW</b> 24 homes listed this week</span>
+          <h1 class="display">Find the place you'll <em class="grad">call home.</em></h1>
+          <p class="lede">Independent estate agents for buying, selling and letting, with honest advice and no pushy sales.</p>
+          <div class="search">
+            <div>Location<b>Town or postcode</b></div><div>Price<b>Any</b></div><div>Beds<b>2+</b></div>
+            <a class="btn solid" href="#homes">Search</a>
+          </div>
+        </div>
+        <div class="hero-stage" aria-hidden="true"></div>
+      </div>
+      <div class="scroll-cue">Scroll<i></i></div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-track">
+      <span>Buy</span><span>Sell</span><span>Rent</span><span>Valuations</span><span>Property management</span><span>New homes</span>
+      <span>Buy</span><span>Sell</span><span>Rent</span><span>Valuations</span><span>Property management</span><span>New homes</span>
+    </div></div>
+
+    <section id="homes" data-obj="1.5 .2 .35">
+      <div class="wrap">
+        <div class="sec-head"><span class="kicker">Just listed</span><h2 class="display">New to the <em>market.</em></h2></div>
+        <div class="cards">
+          <article class="card" data-reveal><div class="media"><img src="../assets/photos/harbour-1.jpg" alt="Timber family home lit up at dusk" loading="lazy"></div><div class="body"><h3>£685,000</h3><p>4 bed detached family home with landscaped garden.</p><div class="meta"><span>4 bed · 3 bath</span><b>New</b></div></div></article>
+          <article class="card" data-reveal><div class="media"><img src="../assets/photos/harbour-2.jpg" alt="White house with a swimming pool" loading="lazy"></div><div class="body"><h3>£1,250,000</h3><p>5 bed villa with heated pool and garden studio.</p><div class="meta"><span>5 bed · 4 bath</span><b>Open house Sat</b></div></div></article>
+          <article class="card" data-reveal><div class="media"><img src="../assets/photos/harbour-3.jpg" alt="Modern white house with glass doors" loading="lazy"></div><div class="body"><h3>£2,400 pcm</h3><p>3 bed contemporary home, available to let now.</p><div class="meta"><span>3 bed · 2 bath</span><b>To let</b></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sell" data-obj="-.5 0 .55">
+      <div class="wrap split flip">
+        <div aria-hidden="true"></div>
+        <div>
+          <span class="kicker">Selling with us</span>
+          <h2 class="display">Sold for more. Sold with <em>less stress.</em></h2>
+          <p style="color:var(--muted);font-size:18px;margin:0 0 30px">Professional photography, premium listings and a dedicated agent who answers the phone.</p>
+          <div class="stats" style="grid-template-columns:1fr 1fr">
+            <div class="stat" data-reveal><b data-count="98" data-suf="%">98%</b><span>of asking price achieved</span></div>
+            <div class="stat" data-reveal><b data-count="31" data-suf=" days">31 days</b><span>average time to sell</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-obj="1.5 0 .35">
+      <div class="wrap split">
+        <div class="frame"><img src="../assets/photos/harbour-int.jpg" alt="Bright living room with modern furniture" loading="lazy"><div class="tag"><b>Featured</b>Interiors that sell</div></div>
+        <div>
+          <span class="kicker">Lettings</span>
+          <h2 class="display">Landlords, <em>relax.</em></h2>
+          <p style="color:var(--muted);font-size:18px">From finding tenants to repairs and rent collection, our full management service takes care of everything.</p>
+          <div class="ctas" style="margin-top:30px"><a class="btn" href="#value">Talk to lettings</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="value" data-obj="0 -1.6 .4">
+      <div class="wrap">
+        <div class="cta-box photo">
+          <img src="../assets/photos/harbour-hero.jpg" alt="" loading="lazy">
+          <span class="kicker">Free valuation</span>
+          <h2 class="display">What's your home <em class="grad">worth?</em></h2>
+          <p>Book a free, no-obligation valuation with a local expert.</p>
+          <div class="ctas"><a class="btn solid" href="#">Book a valuation</a><a class="btn" href="#">Instant online estimate</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><span>© Harbour &amp; Co. (fictional business)</span><span>hello@example.com</span></div></footer>
+</div>
+
+<script src="../vendor/gsap.min.js"></script>
+<script src="../vendor/ScrollTrigger.min.js"></script>
+<script src="../vendor/lenis.min.js"></script>
+<script type="module">
+  import { start } from "./fx.js";
+  window.__fx = true;
+  start({ object: "key", colors: { bg: "#050d0b", accent: "#dcb46e", accent2: "#5fd3b0" }, baseTilt: [.15, 0, -.5], spin: .9, envIntensity: 1 });
+</script>
 </body>
 </html>
