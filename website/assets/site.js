@@ -175,6 +175,13 @@
     else apply();
   }));
 
+  // Process timeline: cursor glow on the cards
+  if (finePointer) $$(".tl-card").forEach(c => c.addEventListener("pointermove", e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty("--mx", `${e.clientX - r.left}px`); c.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }));
+  if (!animate) $$(".tl-step").forEach(s => s.classList.add("active"));
+
   if (!animate) {
     if (location.hash) scrollToHash(location.hash, true);
     return;
@@ -283,6 +290,18 @@
     });
     $$("img", sc).forEach(img => { if (!img.complete) img.addEventListener("load", () => ST.refresh(), { once: true }); });
   });
+
+  // ---------- Process timeline: line fills, nodes light up, cards pop in ----------
+  const tlEl = $(".tl-wrap");
+  if (tlEl) {
+    gsap.fromTo(".tl-fill", { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: tlEl, start: "top 65%", end: "bottom 65%", scrub: .8 } });
+    $$(".tl-step").forEach(s => {
+      ST.create({ trigger: s, start: "top 65%", onEnter: () => s.classList.add("active"), onLeaveBack: () => s.classList.remove("active") });
+      gsap.from($(".tl-card", s), { y: 50, scale: .95, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: s, start: "top 88%" } });
+      gsap.from($(".tl-node", s), { scale: .4, opacity: 0, duration: .9, ease: "back.out(2)", scrollTrigger: { trigger: s, start: "top 88%" } });
+      gsap.from($$(".tl-list li", s), { x: -14, opacity: 0, duration: .7, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: s, start: "top 75%" } });
+    });
+  }
 
   // ---------- Prices count up ----------
   $$(".price").forEach(el => {
