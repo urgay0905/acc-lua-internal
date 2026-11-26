@@ -162,7 +162,7 @@ function setupScene(opts, ui) {
 
   // object
   const holder = new THREE.Group(); scene.add(holder);
-  const built = BUILDERS[opts.object](C);
+  const built = BUILDERS[opts.object](C, opts);
   const obj = built.group;
   const box = new THREE.Box3().setFromObject(obj); const sphere = box.getBoundingSphere(new THREE.Sphere());
   obj.position.sub(sphere.center); const norm = new THREE.Group(); norm.add(obj); norm.scale.setScalar(1 / sphere.radius);
@@ -273,24 +273,96 @@ const glass = (color, extra = {}) => new THREE.MeshPhysicalMaterial({ color, tra
 const edges = (geo, color, opacity = .9) => new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
 
 const BUILDERS = {
-  // Stonecrest — architectural model of a modern house with glowing windows
-  house(C) {
+  // Stonecrest — a luxury villa that builds itself in glowing wireframe as you scroll
+  wireframe(C, opts) {
     const g = new THREE.Group();
-    const white = new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: .6, metalness: .05 });
-    const stone = new THREE.MeshStandardMaterial({ color: 0x2a2622, roughness: .8 });
-    const gold = metal(C.accent, .25);
-    const add = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); g.add(m); return m; };
-    add(new THREE.BoxGeometry(4.4, .16, 3.2), stone, 0, -.08, 0);
-    add(new THREE.BoxGeometry(2.6, 1, 2), glow(0xffb866, 1.15), -.5, .5, 0);                 // glowing glass ground floor
-    for (const x of [-1.78, -.5, .78]) for (const z of [-.98, .98]) add(new THREE.BoxGeometry(.06, 1, .06), gold, x, .5, z);
-    add(new THREE.BoxGeometry(3.9, .14, 2.5), white, .35, 1.07, 0);                          // first floor slab
-    add(new THREE.BoxGeometry(2.9, .9, 2.1), white, .6, 1.59, 0);                            // upper volume
-    add(new THREE.BoxGeometry(2.94, .26, 2.14), glow(0xffc77a, 1.4), .6, 1.62, 0);           // ribbon window
-    add(new THREE.BoxGeometry(3.3, .12, 2.5), white, .6, 2.1, 0);                            // roof
-    add(new THREE.BoxGeometry(.5, 2.1, .5), stone, -1.55, 1.05, -.6);                         // chimney wall
-    add(new THREE.BoxGeometry(1.5, .05, 1), glow(C.accent2, 1.3), 1.35, .02, .9);             // pool
-    const wire = edges(new THREE.BoxGeometry(4.6, 2.5, 3.4), C.accent, .25); wire.position.set(0, 1.1, 0); g.add(wire);
-    return { group: g };
+    const V = (x, y, z) => new THREE.Vector3(x, y, z);
+    const parts = [];
+    const ease = k => 1 - Math.pow(1 - k, 3);
+    const steel = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: C.accent, emissiveIntensity: 1.6 });
+    const up = V(0, 1, 0);
+
+    // a beam that grows from a to b
+    function beam(a, b, t0, t1, thick = .032) {
+      const d = b.clone().sub(a), L = d.length();
+      const geo = new THREE.BoxGeometry(thick, L, thick); geo.translate(0, L / 2, 0);
+      const m = new THREE.Mesh(geo, steel); m.position.copy(a);
+      m.quaternion.setFromUnitVectors(up, d.normalize());
+      g.add(m); parts.push({ m, t0, t1, kind: "grow" });
+    }
+    // a translucent plate that fades in (slabs, glass, pool)
+    function plate(w, h, d, x, y, z, t0, t1, color, opacity, emissive = .25) {
+      const mat = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: emissive, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.position.set(x, y, z);
+      g.add(m); parts.push({ m, t0, t1, kind: "fade", opacity });
+      return m;
+    }
+    // a box frame: columns at grid points, then perimeter + grid beams on top
+    function level(x0, x1, z0, z1, y0, y1, nx, nz, t0) {
+      const xs = Array.from({ length: nx + 1 }, (_, i) => x0 + (x1 - x0) * i / nx);
+      const zs = Array.from({ length: nz + 1 }, (_, i) => z0 + (z1 - z0) * i / nz);
+      let i = 0;
+      const cols = xs.length * zs.length;
+      xs.forEach(x => zs.forEach(z => { const s = t0 + (i++ / cols) * .08; beam(V(x, y0, z), V(x, y1, z), s, s + .07, .045); }));
+      xs.forEach((x, j) => beam(V(x, y1, z0), V(x, y1, z1), t0 + .08 + j * .01, t0 + .14 + j * .01));
+      zs.forEach((z, j) => beam(V(x0, y1, z), V(x1, y1, z), t0 + .09 + j * .01, t0 + .15 + j * .01));
+    }
+
+    // blueprint grid on the ground
+    const grid = new THREE.GridHelper(6, 24, C.accent, C.accent);
+    grid.material.transparent = true; grid.material.opacity = 0; grid.material.depthWrite = false;
+    g.add(grid); parts.push({ m: grid, t0: 0, t1: .1, kind: "fade", opacity: .22, mat: grid.material });
+
+    // foundation outline
+    const f = [V(-2.2, 0, -1.4), V(1.4, 0, -1.4), V(1.4, 0, 1.4), V(-2.2, 0, 1.4)];
+    f.forEach((p, i) => beam(p, f[(i + 1) % 4], .03 + i * .015, .09 + i * .015, .04));
+
+    // ground floor, first floor (cantilevered over the pool), rooftop pavilion
+    level(-2.1, 1.1, -1.3, 1.3, 0, 1, 3, 2, .1);
+    plate(3.5, .05, 2.9, -.35, 1.02, 0, .26, .34, C.accent, .16);
+    level(-1.3, 2.3, -1.4, 1.4, 1.04, 2.04, 3, 2, .34);
+    plate(4.1, .06, 3.3, .5, 2.07, 0, .5, .58, C.accent, .2);
+    level(-.7, .9, -.8, .8, 2.1, 2.75, 1, 1, .58);
+    plate(1.9, .05, 1.9, .1, 2.78, 0, .7, .76, C.accent, .2);
+
+    // glass walls light up warm
+    const warm = 0xffb35c;
+    plate(3.2, .96, .02, -.5, .5, 1.3, .74, .84, warm, .42, .9);
+    plate(3.2, .96, .02, -.5, .5, -1.3, .76, .86, warm, .3, .7);
+    plate(3.6, .96, .02, .5, 1.54, 1.4, .78, .88, warm, .42, .9);
+    plate(.02, .96, 2.8, 2.3, 1.54, 0, .8, .9, warm, .32, .8);
+    plate(1.6, .6, .02, .1, 2.42, .8, .84, .92, warm, .4, .9);
+
+    // infinity pool
+    plate(2, .04, 1.1, 1.3, .03, 2.05, .86, .96, C.accent2, .7, 1.4);
+    beam(V(.3, .05, 1.5), V(2.3, .05, 1.5), .86, .94, .02);
+
+    const ui = { p: 0, t0: null };
+    const until = () => {
+      const el = document.querySelector(opts.buildUntil || "#process");
+      return el ? Math.max(400, el.getBoundingClientRect().top + scrollY - innerHeight * .35) : 3000;
+    };
+    let untilAt = until();
+    addEventListener("resize", () => { untilAt = until(); });
+    addEventListener("load", () => { untilAt = until(); });
+
+    const apply = p => parts.forEach(pt => {
+      const k = ease(Math.min(1, Math.max(0, (p - pt.t0) / (pt.t1 - pt.t0))));
+      if (pt.kind === "grow") { pt.m.visible = k > .001; pt.m.scale.set(1, Math.max(k, .001), 1); }
+      else { const mat = pt.mat || pt.m.material; mat.opacity = pt.opacity * k; pt.m.visible = k > .001; }
+    });
+    apply(reduce ? 1 : 0);
+
+    return { group: g, update: (t, dt, sy) => {
+      if (reduce) return;
+      if (ui.t0 === null) ui.t0 = t;
+      const intro = Math.min(.4, (t - ui.t0) / 3.2 * .4);
+      const scrolled = .4 + .6 * Math.min(1, sy / untilAt);
+      const goal = Math.max(intro, sy > 2 ? scrolled : intro);
+      ui.p += (goal - ui.p) * Math.min(1, dt * 4);
+      apply(ui.p);
+      steel.emissiveIntensity = 1.5 + Math.sin(t * 2) * .15;
+    } };
   },
 
   // Fade Room — chrome-capped barber pole with spinning stripes
@@ -304,7 +376,7 @@ const BUILDERS = {
     x.restore();
     const tex = new THREE.CanvasTexture(cv); tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(1, 2); tex.colorSpace = THREE.SRGBColorSpace;
     const body = new THREE.Mesh(new THREE.CylinderGeometry(.32, .32, 2.4, 64, 1, true),
-      new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: 0xffffff, emissiveIntensity: .55, roughness: .35 }));
+      new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: 0xffffff, emissiveIntensity: .22, roughness: .3 }));
     g.add(body);
     g.add(new THREE.Mesh(new THREE.CylinderGeometry(.4, .4, 2.42, 64, 1, true), glass(0xffffff, { thickness: .3 })));
     const gold = metal(C.accent, .18);
@@ -359,7 +431,7 @@ const BUILDERS = {
   // Pulse — neon-edged hex dumbbell
   dumbbell(C) {
     const g = new THREE.Group();
-    const chrome = metal(0xd9dce2, .15), rubber = new THREE.MeshStandardMaterial({ color: 0x141416, roughness: .55, metalness: .3 });
+    const chrome = metal(0xd9dce2, .15), rubber = new THREE.MeshPhysicalMaterial({ color: 0x24242a, roughness: .35, metalness: .4, clearcoat: 1, clearcoatRoughness: .2 });
     const bar = new THREE.Mesh(new THREE.CylinderGeometry(.075, .075, 3.2, 32), chrome); bar.rotation.z = Math.PI / 2; g.add(bar);
     const grip = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, 1.3, 32), metal(0x8a8d95, .55)); grip.rotation.z = Math.PI / 2; g.add(grip);
     for (const s of [1, -1]) {
