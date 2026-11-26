@@ -121,7 +121,7 @@ function setupUI() {
   gsap.set(rev, { y: 50, opacity: 0 });
   ST.batch(rev, { start: "top 90%", onEnter: b => gsap.to(b, { y: 0, opacity: 1, duration: 1.1, stagger: .1, ease: "power3.out", overwrite: true }) });
   $$(".frame img, [data-parallax]").forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } }));
-  $$(".gallery figure").forEach(f => gsap.fromTo(f, { clipPath: "inset(14% 8% 14% 8% round 22px)" }, { clipPath: "inset(0% 0% 0% 0% round 22px)", ease: "none", scrollTrigger: { trigger: f, start: "top bottom", end: "top 45%", scrub: true } }));
+  $$(".gallery figure").forEach(f => gsap.fromTo(f, { clipPath: "inset(14% 8% 14% 8% round 0px)" }, { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: { trigger: f, start: "top bottom", end: "top 45%", scrub: true } }));
   $$("[data-count]").forEach(el => {
     const end = parseFloat(el.dataset.count), pre = el.dataset.pre || "", suf = el.dataset.suf || "", o = { v: 0 };
     el.textContent = pre + "0" + suf;

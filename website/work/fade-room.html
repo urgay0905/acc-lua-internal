@@ -3,121 +3,223 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fade Room — Barbershop (concept design)</title>
+<title>Fade Room (concept design)</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../vendor/lenis.css">
-<link rel="stylesheet" href="concept.css">
+<link rel="stylesheet" href="base.css">
 <style>
-  :root { --bg: #090807; --bg-2: #14120f; --text: #f6f1e8; --muted: #a39b8e; --accent: #e8bd6a; --accent-2: #ff5a48; --accent-ink: #120d06;
-    --display: Anton, Impact, sans-serif; --body: Inter, system-ui, sans-serif; --display-weight: 400; --display-case: uppercase; --display-tracking: .005em; }
-  h1 { font-size: clamp(64px, 10vw, 160px); line-height: .9; }
-  .outline { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
-  .slots { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 0 0 30px; }
-  .slots span { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); font-weight: 600; font-size: 14px; background: rgba(0,0,0,.35); }
-  .slots span.on { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 35%, transparent); }
-  .g-3 { grid-column: span 4; aspect-ratio: 3 / 4; }
+  /* Streetwear barbershop: black, vivid orange, signal yellow, poster type */
+  :root { --bg: #0d0d0d; --panel: #171717; --ink: #f6f2ea; --muted: #9a958c; --line: #2a2a2a; --accent: #ff5b1f; --yellow: #ffd23f;
+    --display: Anton, Impact, sans-serif; --sans: Inter, system-ui, sans-serif; }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); }
+  .display { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .005em; }
+  .btn { padding: 16px 26px; font: 700 14px var(--sans); text-transform: uppercase; letter-spacing: .08em; border-radius: 0; }
+  .btn.hot { background: var(--accent); color: #0d0d0d; }
+  .btn.ghost { box-shadow: inset 0 0 0 2px var(--ink); background: transparent; color: var(--ink); }
+
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(13,13,13,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo { font: 400 28px var(--display); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .links { display: flex; gap: 30px; align-items: center; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; }
+  .links a:not(.btn) { text-decoration: none; color: var(--muted); }
+  @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
+
+  .hero { padding: 56px 0 80px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+  .hero h1 { font: 400 clamp(72px, 11.5vw, 180px)/.86 var(--display); text-transform: uppercase; margin: 0 0 30px; }
+  .hero h1 .o { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+  .hero h1 .a { color: var(--accent); }
+  .hero p { color: var(--muted); font-size: 18px; max-width: 440px; margin: 0 0 32px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-pic { position: relative; aspect-ratio: 4 / 5; }
+  .hero-pic .frame { position: absolute; inset: 0; }
+  .sticker { position: absolute; left: -46px; bottom: 40px; width: 132px; height: 132px; border-radius: 50%; background: var(--yellow); color: #0d0d0d; display: grid; place-items: center; text-align: center; font: 400 22px/1 var(--display); text-transform: uppercase; transform: rotate(-12deg); z-index: 2; animation: wobble 6s ease-in-out infinite; }
+  @keyframes wobble { 50% { transform: rotate(-4deg) scale(1.04); } }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .sticker { left: 12px; bottom: 12px; width: 104px; height: 104px; font-size: 18px; } }
+
+  .band { background: var(--accent); color: #0d0d0d; overflow: hidden; padding: 18px 0; }
+  .band-track { display: flex; gap: 40px; width: max-content; animation: slide 22s linear infinite; font: 400 34px var(--display); text-transform: uppercase; white-space: nowrap; }
+  .band-track span::after { content: "✂"; margin-left: 40px; font-size: .7em; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  section { padding: 120px 0; }
+  @media (max-width: 600px) { section { padding: 76px 0; } }
+  .kick { font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--yellow); }
+  h2 { font: 400 clamp(54px, 7vw, 110px)/.9 var(--display); text-transform: uppercase; margin: 14px 0 40px; }
+  h2 span { color: var(--accent); }
+
+  /* Booking picker */
+  .booker { display: grid; grid-template-columns: 1fr 360px; gap: 0; border: 1px solid var(--line); background: var(--panel); }
+  .booker .opts { padding: 36px; display: grid; gap: 30px; }
+  .booker h3 { margin: 0 0 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pill { padding: 12px 18px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-weight: 600; font-size: 14px; transition: background .2s, color .2s, border-color .2s; }
+  .pill:hover { border-color: var(--muted); }
+  .pill[aria-pressed="true"] { background: var(--ink); color: #0d0d0d; border-color: var(--ink); }
+  .barber { display: flex; align-items: center; gap: 12px; }
+  .barber i { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--yellow)); font: 400 15px/34px var(--display); font-style: normal; text-align: center; color: #0d0d0d; }
+  .summary { background: var(--accent); color: #0d0d0d; padding: 36px; display: flex; flex-direction: column; gap: 14px; }
+  .summary small { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
+  .summary b { font: 400 40px/1 var(--display); text-transform: uppercase; }
+  .summary p { margin: 0; font-weight: 600; }
+  .summary .btn { background: #0d0d0d; color: var(--ink); margin-top: auto; }
+  @media (max-width: 860px) { .booker { grid-template-columns: 1fr; } .booker .opts, .summary { padding: 24px; } }
+
+  .menu { display: grid; grid-template-columns: 1fr 1fr; gap: 0 70px; }
+  .row { display: flex; align-items: baseline; gap: 14px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .row strong { font-size: 19px; }
+  .row span { display: block; color: var(--muted); font-size: 14px; }
+  .row i { flex: 1; border-bottom: 2px dotted var(--line); transform: translateY(-6px); }
+  .row b { font: 400 32px var(--display); color: var(--yellow); }
+  @media (max-width: 760px) { .menu { grid-template-columns: 1fr; } }
+
+  .gallery { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 14px; }
+  .gallery figure { margin: 0; aspect-ratio: 3 / 4; position: relative; overflow: hidden; }
+  .gallery figure img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.2) contrast(1.05); transition: transform 1s cubic-bezier(.2,.8,.2,1), filter .6s; }
+  .gallery figure:hover img { transform: scale(1.05); filter: none; }
+  .gallery figcaption { position: absolute; left: 0; bottom: 0; background: var(--ink); color: #0d0d0d; padding: 8px 14px; font: 400 20px var(--display); text-transform: uppercase; }
+  @media (max-width: 760px) { .gallery { grid-template-columns: 1fr; } .gallery figure { aspect-ratio: 4 / 3; } }
+
+  .hours { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 2px solid var(--ink); }
+  .hours > div { padding: 40px 0; }
+  .hours > div + div { border-left: 1px solid var(--line); padding-left: 40px; }
+  .hours table { width: 100%; border-collapse: collapse; font-size: 16px; }
+  .hours td { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .hours td:last-child { text-align: right; font-weight: 600; }
+  @media (max-width: 760px) { .hours { grid-template-columns: 1fr; } .hours > div + div { border-left: 0; padding-left: 0; } }
+  footer { padding: 30px 0 44px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
 </head>
 <body>
-<div class="page">
-  <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
-  <header class="nav">
+<div class="clip">
+<div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#">Fade<span>Room</span></a>
+    <nav class="links"><a href="#book">Book</a><a href="#prices">Prices</a><a href="#cuts">Cuts</a><a class="btn hot" href="#book">Book now</a></nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
     <div class="wrap">
-      <a class="logo display" href="#">FADE<span style="color:var(--accent)">ROOM</span></a>
-      <nav class="links"><a href="#prices">Prices</a><a href="#work">Work</a><a href="#book">Hours</a><a class="btn solid" href="#book">Book now</a></nav>
+      <div>
+        <h1>Sharp <span class="o">cuts.</span><br><span class="a">No wait.</span></h1>
+        <p>Skin fades, scissor cuts and hot-towel shaves from barbers who sweat the details. Pick your barber, pick your time, walk straight into the chair.</p>
+        <div class="ctas"><a class="btn hot" href="#book">Book your cut</a><a class="btn ghost" href="#prices">See prices</a></div>
+      </div>
+      <div class="hero-pic">
+        <div class="frame"><img src="../assets/photos/fade-hero.jpg" alt="Barbershop interior with leather chairs and warm lights" fetchpriority="high"></div>
+        <div class="sticker">Book in<br>30 sec</div>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section class="hero">
-      <div class="glow b" style="width:420px;height:420px;right:5%;top:20%"></div>
-      <div class="wrap">
-        <div class="hero-copy">
-          <span class="chip"><b>OPEN</b> Today 9am – 7pm · walk-ins welcome</span>
-          <h1 class="display">Sharp <span class="outline">cuts.</span><br><span class="grad">No wait.</span></h1>
-          <p class="lede">Skin fades, classic cuts and hot-towel shaves from barbers who care about the details. Book in 30 seconds, then walk straight into the chair.</p>
-          <div class="ctas">
-            <a class="btn solid" href="#book">Book your cut <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn" href="#prices">See prices</a>
-          </div>
-          <div class="hero-meta"><div><b>£22</b>skin fades</div><div><b>30 sec</b>online booking</div><div><b>7 days</b>a week</div></div>
+  <div class="band" aria-hidden="true"><div class="band-track">
+    <span>Skin fades</span><span>Beard sculpting</span><span>Hot towel shaves</span><span>Scissor cuts</span><span>Kids cuts</span>
+    <span>Skin fades</span><span>Beard sculpting</span><span>Hot towel shaves</span><span>Scissor cuts</span><span>Kids cuts</span>
+  </div></div>
+
+  <section id="book">
+    <div class="wrap">
+      <span class="kick">Live availability</span>
+      <h2>Grab a <span>chair.</span></h2>
+      <div class="booker" data-reveal>
+        <div class="opts">
+          <div><h3>1. Service</h3><div class="pills" data-group="service">
+            <button class="pill" aria-pressed="true" data-v="Skin fade" data-p="£22">Skin fade</button>
+            <button class="pill" aria-pressed="false" data-v="Scissor cut" data-p="£20">Scissor cut</button>
+            <button class="pill" aria-pressed="false" data-v="Beard trim" data-p="£12">Beard trim</button>
+            <button class="pill" aria-pressed="false" data-v="The full works" data-p="£38">The full works</button>
+          </div></div>
+          <div><h3>2. Barber</h3><div class="pills" data-group="barber">
+            <button class="pill barber" aria-pressed="true" data-v="Jay"><i>J</i>Jay</button>
+            <button class="pill barber" aria-pressed="false" data-v="Marcus"><i>M</i>Marcus</button>
+            <button class="pill barber" aria-pressed="false" data-v="Leo"><i>L</i>Leo</button>
+          </div></div>
+          <div><h3>3. Time today</h3><div class="pills" data-group="time">
+            <button class="pill" aria-pressed="false" data-v="10:15">10:15</button>
+            <button class="pill" aria-pressed="true" data-v="11:30">11:30</button>
+            <button class="pill" aria-pressed="false" data-v="13:00">13:00</button>
+            <button class="pill" aria-pressed="false" data-v="14:45">14:45</button>
+            <button class="pill" aria-pressed="false" data-v="16:30">16:30</button>
+          </div></div>
         </div>
-        <div class="hero-visual"><div class="hero-media"><img src="../assets/photos/fade-hero.jpg" alt="Barbershop interior with leather chairs and warm lights" fetchpriority="high"></div><div class="hero-badge"><i></i><div><b>Fade Room</b><span>3 chairs · walk-ins welcome</span></div></div></div>
-      </div>
-      <div class="scroll-cue">Scroll<i></i></div>
-    </section>
-
-    <div class="marquee" aria-hidden="true"><div class="marquee-track">
-      <span>Skin fades</span><span>Beard sculpting</span><span>Hot towel shaves</span><span>Scissor cuts</span><span>Kids cuts</span>
-      <span>Skin fades</span><span>Beard sculpting</span><span>Hot towel shaves</span><span>Scissor cuts</span><span>Kids cuts</span>
-    </div></div>
-
-    <section id="prices">
-      <div class="wrap split">
-        <div>
-          <span class="kicker">The menu</span>
-          <h2 class="display">Prices</h2>
-          <ul class="list">
-            <li data-reveal><div><strong>Skin fade</strong><span>Clippers to skin, styled finish</span></div><b>£22</b></li>
-            <li data-reveal><div><strong>Classic scissor cut</strong><span>Wash, cut and style</span></div><b>£20</b></li>
-            <li data-reveal><div><strong>Beard trim &amp; line-up</strong><span>Shape, edge and hot oil</span></div><b>£12</b></li>
-            <li data-reveal><div><strong>Hot towel shave</strong><span>Straight razor, 30 minutes</span></div><b>£18</b></li>
-            <li data-reveal><div><strong>The full works</strong><span>Cut, beard and hot towel</span></div><b>£38</b></li>
-          </ul>
-        </div>
-        <div class="frame" data-reveal><img src="../assets/photos/fade-4.jpg" alt="Leather barber chair" loading="lazy"><div class="tag"><b>Your chair</b>Ready when you are</div></div>
-      </div>
-    </section>
-
-    <section id="work">
-      <div class="wrap">
-        <div class="sec-head right"><span class="kicker">The craft</span><h2 class="display">Fresh from the chair.</h2><p>Every cut finished by hand, every line checked twice.</p></div>
-        <div class="gallery">
-          <figure class="g-3"><img src="../assets/photos/fade-1.jpg" alt="Barber styling a client's hair" loading="lazy"><figcaption><small>Cut</small><b>Textured crop</b></figcaption></figure>
-          <figure class="g-3"><img src="../assets/photos/fade-2.jpg" alt="Barber shaping a beard" loading="lazy"><figcaption><small>Beard</small><b>Line-up</b></figcaption></figure>
-          <figure class="g-3"><img src="../assets/photos/fade-3.jpg" alt="Barber tools on a counter" loading="lazy"><figcaption><small>Tools</small><b>The kit</b></figcaption></figure>
+        <div class="summary">
+          <small>Your booking</small>
+          <b id="sumService">Skin fade</b>
+          <p id="sumMeta">with Jay · today 11:30</p>
+          <p id="sumPrice" style="font:400 30px var(--display)">£22</p>
+          <button class="btn" id="confirm" type="button">Confirm booking</button>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section>
-      <div class="wrap split">
-        <div class="frame" data-reveal><img src="../assets/photos/fade-5.jpg" alt="Client relaxing during a hot towel shave" loading="lazy"><div class="tag"><b>Hot towel shave</b>30 minutes of calm</div></div>
-        <div>
-          <span class="kicker">Why Fade Room</span>
-          <h2 class="display">No rush. No guesswork.</h2>
-          <div class="stats" style="grid-template-columns:1fr 1fr">
-            <div class="stat" data-reveal><b data-count="4">4</b><span>senior barbers</span></div>
-            <div class="stat" data-reveal><b data-count="45" data-suf=" min">45 min</b><span>per appointment</span></div>
-            <div class="stat" data-reveal><b>Free</b><span>coffee or a cold one</span></div>
-            <div class="stat" data-reveal><b>Gift</b><span>cards available</span></div>
-          </div>
-        </div>
+  <section id="prices" style="padding-top:0">
+    <div class="wrap">
+      <span class="kick">The menu</span>
+      <h2>Prices</h2>
+      <div class="menu">
+        <div class="row" data-reveal><div><strong>Skin fade</strong><span>Clippers to skin, styled finish</span></div><i></i><b>£22</b></div>
+        <div class="row" data-reveal><div><strong>Scissor cut</strong><span>Wash, cut and style</span></div><i></i><b>£20</b></div>
+        <div class="row" data-reveal><div><strong>Beard trim</strong><span>Shape, line-up and hot oil</span></div><i></i><b>£12</b></div>
+        <div class="row" data-reveal><div><strong>Hot towel shave</strong><span>Straight razor, 30 minutes</span></div><i></i><b>£18</b></div>
+        <div class="row" data-reveal><div><strong>The full works</strong><span>Cut, beard and hot towel</span></div><i></i><b>£38</b></div>
+        <div class="row" data-reveal><div><strong>Kids (under 12)</strong><span>Any style</span></div><i></i><b>£14</b></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cta" id="book">
-      <div class="wrap">
-        <div class="cta-box">
-          <span class="kicker">Next available today</span>
-          <h2 class="display">Grab a <span class="grad">chair.</span></h2>
-          <p>Mon–Sat 9am – 7pm · Sun 10am – 4pm</p>
-          <div class="slots"><span>10:15</span><span class="on">11:30</span><span>13:00</span><span>14:45</span><span>16:30</span></div>
-          <div class="ctas"><a class="btn solid" href="#">Book online</a><a class="btn" href="#">Call the shop</a></div>
-        </div>
+  <section id="cuts" style="padding-top:0">
+    <div class="wrap">
+      <span class="kick">Fresh from the chair</span>
+      <h2>The <span>cuts.</span></h2>
+      <div class="gallery">
+        <figure data-reveal><img src="../assets/photos/fade-1.jpg" alt="Barber styling a textured crop" loading="lazy"><figcaption>Textured crop</figcaption></figure>
+        <figure data-reveal><img src="../assets/photos/fade-2.jpg" alt="Barber shaping a beard" loading="lazy"><figcaption>Beard line-up</figcaption></figure>
+        <figure data-reveal><img src="../assets/photos/fade-5.jpg" alt="Client during a hot towel shave" loading="lazy"><figcaption>Hot towel</figcaption></figure>
       </div>
-    </section>
-  </main>
-  <footer><div class="wrap"><span>© Fade Room (fictional business)</span><span>01632 960 418</span></div></footer>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap hours">
+      <div><span class="kick">Find us</span><h2 style="margin-bottom:10px">14 Mill<br>Street</h2><p style="color:var(--muted)">Two minutes from the station. Free coffee, or a cold one after 4pm.</p></div>
+      <div><table><tr><td>Monday – Friday</td><td>9am – 7pm</td></tr><tr><td>Saturday</td><td>8am – 6pm</td></tr><tr><td>Sunday</td><td>10am – 4pm</td></tr></table><p style="margin-top:24px"><a class="btn hot" href="#book">Book now</a></p></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>© Fade Room (fictional business)</span><span>01632 960 418</span></div></footer>
 </div>
 
 <script src="../vendor/gsap.min.js"></script>
 <script src="../vendor/ScrollTrigger.min.js"></script>
 <script src="../vendor/lenis.min.js"></script>
 <script src="motion.js"></script>
+<script>
+  // Booking picker: one choice per group, summary updates live
+  const pick = {};
+  document.querySelectorAll("[data-group]").forEach(g => {
+    const btns = g.querySelectorAll(".pill");
+    const sel = () => { const on = g.querySelector('[aria-pressed="true"]'); pick[g.dataset.group] = on; };
+    btns.forEach(b => b.addEventListener("click", () => { btns.forEach(x => x.setAttribute("aria-pressed", x === b)); sel(); render(); }));
+    sel();
+  });
+  function render() {
+    document.getElementById("sumService").textContent = pick.service.dataset.v;
+    document.getElementById("sumMeta").textContent = `with ${pick.barber.dataset.v} · today ${pick.time.dataset.v}`;
+    document.getElementById("sumPrice").textContent = pick.service.dataset.p;
+    document.getElementById("confirm").textContent = "Confirm booking";
+  }
+  render();
+  document.getElementById("confirm").addEventListener("click", e => { e.currentTarget.textContent = "Booked (demo) ✓"; });
+</script>
 </body>
 </html>

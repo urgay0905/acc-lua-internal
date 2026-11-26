@@ -7,114 +7,193 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,800;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../vendor/lenis.css">
-<link rel="stylesheet" href="concept.css">
+<link rel="stylesheet" href="base.css">
 <style>
-  :root { --bg: #060608; --bg-2: #101014; --text: #f3f3ee; --muted: #9a9a92; --accent: #c6f432; --accent-2: #7b5cff; --accent-ink: #0a0a0a;
-    --display: Archivo, system-ui, sans-serif; --body: Archivo, system-ui, sans-serif; --display-weight: 900; --display-case: uppercase; --display-tracking: -.04em; }
-  .display, h1, h2, .card h3, .stat b, .hero-meta b, .list li b, .gallery figcaption b, .marquee-track { font-style: italic; }
-  h1 { font-size: clamp(60px, 9vw, 140px); line-height: .88; }
-  .plan-price { font: italic 900 52px var(--display); letter-spacing: -.04em; margin: 8px 0 4px; }
-  .plan-price small { font: 500 15px var(--body); color: var(--muted); font-style: normal; letter-spacing: 0; }
-  .card.hot { border-color: color-mix(in srgb, var(--accent) 60%, transparent); box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 15%, transparent); }
-  .card ul { margin: 18px 0 0; padding-left: 18px; color: var(--muted); }
-  .card li { margin: 6px 0; }
+  /* Sport energy: bright white, neon lime, black, italic display */
+  :root { --bg: #f3f3ee; --ink: #0a0a0a; --muted: #5f5f58; --line: #dcdcd3; --lime: #d2ff3a; --accent: #6a4dff; --white: #fff;
+    --sans: Archivo, system-ui, sans-serif; }
+  body { background: var(--bg); color: var(--ink); font: 500 16px/1.6 var(--sans); }
+  .it { font-style: italic; font-weight: 900; text-transform: uppercase; letter-spacing: -.045em; }
+  .btn { padding: 16px 26px; border-radius: 999px; font: 700 15px var(--sans); }
+  .btn.lime { background: var(--lime); color: var(--ink); }
+  .btn.black { background: var(--ink); color: #fff; }
+  .btn.outline { box-shadow: inset 0 0 0 2px currentColor; background: transparent; }
+
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(243,243,238,.88); backdrop-filter: blur(14px); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .logo { font: italic 900 30px var(--sans); text-decoration: none; letter-spacing: -.05em; }
+  .logo span { background: var(--lime); padding: 0 6px; margin-left: 2px; }
+  .links { display: flex; gap: 28px; align-items: center; font-weight: 700; }
+  .links a:not(.btn) { text-decoration: none; }
+  @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
+
+  .hero { padding: 10px 0 40px; }
+  .stage { position: relative; background: var(--ink); color: #fff; border-radius: 36px; overflow: hidden; min-height: 620px; display: grid; grid-template-columns: 1.1fr .9fr; }
+  .stage .copy { padding: 64px; position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
+  .stage h1 { font: italic 900 clamp(60px, 8.6vw, 136px)/.86 var(--sans); text-transform: uppercase; letter-spacing: -.05em; margin: 18px 0 24px; }
+  .stage h1 .hl { color: var(--ink); background: var(--lime); padding: 0 .08em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .stage p { color: #bdbdb4; font-size: 18px; max-width: 420px; margin: 0 0 30px; }
+  .stage .frame { min-height: 100%; }
+  .stage .frame img { filter: contrast(1.05); }
+  .badge { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: 999px; align-self: flex-start; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ctas .outline { color: #fff; }
+  @media (max-width: 900px) { .stage { grid-template-columns: 1fr; border-radius: 24px; } .stage .copy { padding: 34px 24px; } .stage .frame { min-height: 320px; order: -1; } }
+
+  .numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+  .num { background: #fff; border-radius: 24px; padding: 24px 26px; }
+  .num b { display: block; font: italic 900 44px/1 var(--sans); letter-spacing: -.04em; }
+  .num span { color: var(--muted); font-size: 14px; }
+  .num.l { background: var(--lime); } .num.v { background: var(--accent); color: #fff; } .num.v span { color: #dcd6ff; }
+  @media (max-width: 760px) { .numbers { grid-template-columns: 1fr 1fr; } }
+
+  .ticker { background: var(--lime); overflow: hidden; padding: 20px 0; margin-top: 70px; transform: rotate(-1.5deg); }
+  .ticker-track { display: flex; gap: 46px; width: max-content; animation: run 20s linear infinite; font: italic 900 40px var(--sans); text-transform: uppercase; letter-spacing: -.04em; white-space: nowrap; }
+  .ticker-track span::after { content: "●"; margin-left: 46px; font-size: .4em; vertical-align: middle; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  section { padding: 120px 0; }
+  @media (max-width: 600px) { section { padding: 76px 0; } }
+  h2 { font: italic 900 clamp(46px, 6.4vw, 96px)/.9 var(--sans); text-transform: uppercase; letter-spacing: -.05em; margin: 0 0 40px; }
+  h2 .hl { background: var(--lime); padding: 0 .08em; }
+
+  /* Timetable with day tabs */
+  .days { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .day { padding: 12px 20px; border-radius: 999px; border: 0; background: #fff; font-weight: 700; cursor: pointer; transition: background .25s, color .25s; }
+  .day[aria-pressed="true"] { background: var(--ink); color: var(--lime); }
+  .table { background: #fff; border-radius: 28px; overflow: hidden; }
+  .cls { display: grid; grid-template-columns: 120px 1fr auto auto; gap: 20px; align-items: center; padding: 22px 28px; border-bottom: 1px solid var(--line); }
+  .cls:last-child { border-bottom: 0; }
+  .cls time { font: italic 900 26px var(--sans); letter-spacing: -.03em; }
+  .cls strong { font-size: 18px; display: block; } .cls span { color: var(--muted); font-size: 14px; }
+  .lvl { font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--bg); }
+  .lvl.hi { background: var(--lime); }
+  .cls .btn { padding: 10px 18px; font-size: 14px; }
+  @media (max-width: 680px) { .cls { grid-template-columns: 80px 1fr; padding: 18px; } .cls .lvl, .cls .btn { display: none; } }
+
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; gap: 14px; }
+  .bento .frame { border-radius: 26px; }
+  .b1 { grid-column: span 2; grid-row: span 2; } .b2 { grid-column: span 2; } .b3, .b4 { grid-column: span 1; }
+  .bento .tag { position: absolute; left: 14px; bottom: 14px; background: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; z-index: 1; }
+  @media (max-width: 760px) { .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; } .b1, .b2 { grid-column: span 2; } .b1 { grid-row: span 1; } }
+
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .plan { background: #fff; border-radius: 30px; padding: 34px; display: flex; flex-direction: column; }
+  .plan.hot { background: var(--ink); color: #fff; }
+  .plan h3 { margin: 0; font-size: 18px; }
+  .plan .p { font: italic 900 64px/1 var(--sans); letter-spacing: -.05em; margin: 16px 0 6px; }
+  .plan .p small { font: 500 15px var(--sans); color: var(--muted); letter-spacing: 0; }
+  .plan ul { list-style: none; padding: 0; margin: 20px 0 28px; display: grid; gap: 10px; }
+  .plan li::before { content: "✓"; color: var(--accent); font-weight: 900; margin-right: 8px; }
+  .plan.hot li::before { color: var(--lime); }
+  .plan .btn { margin-top: auto; }
+  @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
+
+  .finale { background: var(--lime); border-radius: 36px; padding: 80px 60px; display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
+  .finale h2 { margin: 0; }
+  @media (max-width: 600px) { .finale { padding: 44px 24px; border-radius: 24px; } }
+  footer { padding: 30px 0 44px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
 </head>
 <body>
-<div class="page">
-  <div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
-  <header class="nav">
+<div class="clip">
+<div class="cbar">Concept design by <a href="../concepts.html">Veyro Digital</a> · a fictional business created to show the style</div>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#">PULSE<span>.</span></a>
+    <nav class="links"><a href="#classes">Timetable</a><a href="#gym">The gym</a><a href="#join">Memberships</a><a class="btn black" href="#join">Join now</a></nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
     <div class="wrap">
-      <a class="logo display" href="#">PULSE<span style="color:var(--accent)">.</span></a>
-      <nav class="links"><a href="#classes">Classes</a><a href="#space">The gym</a><a href="#join">Memberships</a><a class="btn solid" href="#join">Join now</a></nav>
+      <div class="stage">
+        <div class="copy">
+          <span class="badge">First week free</span>
+          <h1>Train harder. <span class="hl">Feel better.</span></h1>
+          <p>Strength, HIIT and spin classes led by real coaches. Open 5am to 11pm, with no contracts and no judgement.</p>
+          <div class="ctas"><a class="btn lime" href="#join">Start free trial</a><a class="btn outline" href="#classes">See timetable</a></div>
+        </div>
+        <div class="frame"><img src="../assets/photos/pulse-hero.jpg" alt="Athlete lifting a barbell in dramatic light" fetchpriority="high"></div>
+      </div>
+      <div class="numbers">
+        <div class="num l" data-reveal><b data-count="40" data-suf="+">40+</b><span>classes a week</span></div>
+        <div class="num" data-reveal><b>5–11</b><span>open every day</span></div>
+        <div class="num v" data-reveal><b data-count="18">18</b><span>expert coaches</span></div>
+        <div class="num" data-reveal><b>£0</b><span>joining fee</span></div>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="glow b" style="width:500px;height:500px;right:0;top:12%"></div>
-      <div class="glow a" style="width:260px;height:260px;right:30%;bottom:10%;opacity:.15"></div>
-      <div class="wrap">
-        <div class="hero-copy">
-          <span class="chip"><b>FREE</b> Your first week is on us</span>
-          <h1 class="display">Train harder. <span class="grad">Feel better.</span></h1>
-          <p class="lede">Strength, HIIT and spin classes led by real coaches. Open 5am to 11pm, with no contracts and no judgement.</p>
-          <div class="ctas">
-            <a class="btn solid" href="#join">Start free trial <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn" href="#classes">See timetable</a>
-          </div>
-          <div class="hero-meta"><div><b>40+</b>classes a week</div><div><b>5am–11pm</b>open daily</div><div><b>£0</b>joining fee</div></div>
-        </div>
-        <div class="hero-visual"><div class="hero-media"><img src="../assets/photos/pulse-hero.jpg" alt="Athlete lifting a barbell in dramatic light" fetchpriority="high"></div><div class="hero-badge"><i></i><div><b>Unlimited classes</b><span>£32 a month · no contract</span></div></div></div>
-      </div>
-      <div class="scroll-cue">Scroll<i></i></div>
-    </section>
-
-    <div class="marquee" aria-hidden="true"><div class="marquee-track">
-      <span>Strength</span><span>HIIT</span><span>Spin</span><span>Boxing</span><span>Mobility</span><span>Personal training</span>
-      <span>Strength</span><span>HIIT</span><span>Spin</span><span>Boxing</span><span>Mobility</span><span>Personal training</span>
+    <div class="ticker" aria-hidden="true"><div class="ticker-track">
+      <span>Strength</span><span>HIIT</span><span>Spin</span><span>Boxing</span><span>Mobility</span><span>Strength</span><span>HIIT</span><span>Spin</span><span>Boxing</span><span>Mobility</span>
     </div></div>
+  </section>
 
-    <section id="classes">
-      <div class="wrap split">
-        <div>
-          <span class="kicker">Today</span>
-          <h2 class="display">Today's classes</h2>
-          <ul class="list">
-            <li data-reveal><div><strong>Sunrise HIIT</strong><span>45 min · Studio 1 · High intensity</span></div><b>06:30</b></li>
-            <li data-reveal><div><strong>Strength Foundations</strong><span>50 min · Free weights · All levels</span></div><b>09:15</b></li>
-            <li data-reveal><div><strong>Lunch Express Spin</strong><span>30 min · Spin studio · High intensity</span></div><b>12:30</b></li>
-            <li data-reveal><div><strong>Boxing Conditioning</strong><span>45 min · Studio 2 · All levels</span></div><b>17:30</b></li>
-            <li data-reveal><div><strong>Mobility &amp; Stretch</strong><span>40 min · Studio 2 · All levels</span></div><b>19:00</b></li>
-          </ul>
-        </div>
-        <div class="frame" data-reveal><img src="../assets/photos/pulse-5.jpg" alt="Squat rack and weights in a sunlit gym" loading="lazy"><div class="tag"><b>Strength floor</b>Racks free at peak times</div></div>
+  <section id="classes">
+    <div class="wrap">
+      <h2>This week's <span class="hl">classes</span></h2>
+      <div class="days" id="days">
+        <button class="day" aria-pressed="true" data-d="0">Mon</button><button class="day" aria-pressed="false" data-d="1">Tue</button><button class="day" aria-pressed="false" data-d="2">Wed</button><button class="day" aria-pressed="false" data-d="3">Thu</button><button class="day" aria-pressed="false" data-d="4">Fri</button><button class="day" aria-pressed="false" data-d="5">Sat</button><button class="day" aria-pressed="false" data-d="6">Sun</button>
       </div>
-    </section>
+      <div class="table" id="table" data-reveal></div>
+    </div>
+  </section>
 
-    <section id="space">
-      <div class="wrap">
-        <div class="sec-head right"><span class="kicker">The space</span><h2 class="display">Built for serious training.</h2><p>Olympic platforms, a full dumbbell wall to 60kg, and a dedicated spin studio.</p></div>
-        <div class="gallery">
-          <figure class="g-7"><img src="../assets/photos/pulse-4.jpg" alt="Bright gym floor with spin bikes and equipment" loading="lazy"><figcaption><small>Main floor</small><b>Open 18 hours</b></figcaption></figure>
-          <figure class="g-5"><img src="../assets/photos/pulse-1.jpg" alt="Athlete lifting a loaded barbell" loading="lazy"><figcaption><small>Strength</small><b>Lifting platforms</b></figcaption></figure>
-          <figure class="g-6"><img src="../assets/photos/pulse-2.jpg" alt="Rows of dumbbells on a rack" loading="lazy"><figcaption><small>Free weights</small><b>To 60kg</b></figcaption></figure>
-          <figure class="g-6"><img src="../assets/photos/pulse-3.jpg" alt="Woman doing core exercises on a mat" loading="lazy"><figcaption><small>Studio</small><b>Core &amp; mobility</b></figcaption></figure>
-        </div>
+  <section id="gym" style="padding-top:0">
+    <div class="wrap">
+      <h2>Built for <span class="hl">serious</span> training</h2>
+      <div class="bento">
+        <div class="frame b1" data-reveal><img src="../assets/photos/pulse-4.jpg" alt="Bright gym floor with spin bikes" loading="lazy"><span class="tag">Main floor</span></div>
+        <div class="frame b2" data-reveal><img src="../assets/photos/pulse-2.jpg" alt="Rows of dumbbells" loading="lazy"><span class="tag">Dumbbells to 60kg</span></div>
+        <div class="frame b3" data-reveal><img src="../assets/photos/pulse-1.jpg" alt="Athlete deadlifting a barbell" loading="lazy"><span class="tag">Platforms</span></div>
+        <div class="frame b4" data-reveal><img src="../assets/photos/pulse-3.jpg" alt="Woman doing core work on a mat" loading="lazy"><span class="tag">Studio</span></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="join">
-      <div class="wrap">
-        <div class="sec-head"><span class="kicker">Memberships</span><h2 class="display">Pick your plan.</h2><p>No contracts. Cancel any time.</p></div>
-        <div class="cards">
-          <article class="card" data-reveal><div class="body"><h3>Off-peak</h3><div class="plan-price">£19<small>/month</small></div><ul><li>Gym access 10am – 4pm</li><li>No contract</li></ul></div></article>
-          <article class="card hot" data-reveal><div class="body"><h3>Unlimited</h3><div class="plan-price">£32<small>/month</small></div><ul><li>Gym access any time</li><li>Unlimited classes</li><li>Free training plan</li></ul></div></article>
-          <article class="card" data-reveal><div class="body"><h3>Personal training</h3><div class="plan-price">£35<small>/session</small></div><ul><li>One-to-one coaching</li><li>Nutrition guidance</li></ul></div></article>
-        </div>
+  <section id="join" style="padding-top:0">
+    <div class="wrap">
+      <h2>Pick your <span class="hl">plan</span></h2>
+      <div class="plans">
+        <div class="plan" data-reveal><h3>Off-peak</h3><div class="p">£19<small>/mo</small></div><ul><li>Gym access 10am – 4pm</li><li>No contract</li></ul><a class="btn black" href="#">Choose off-peak</a></div>
+        <div class="plan hot" data-reveal><h3>Unlimited</h3><div class="p">£32<small>/mo</small></div><ul><li>Gym access any time</li><li>Unlimited classes</li><li>Free training plan</li></ul><a class="btn lime" href="#">Choose unlimited</a></div>
+        <div class="plan" data-reveal><h3>Personal training</h3><div class="p">£35<small>/session</small></div><ul><li>One-to-one coaching</li><li>Nutrition guidance</li></ul><a class="btn black" href="#">Book a coach</a></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cta">
-      <div class="wrap">
-        <div class="cta-box">
-          <span class="kicker">First week free</span>
-          <h2 class="display">Your strongest year <span class="grad">starts now.</span></h2>
-          <p>Try every class and every machine for seven days. No card needed.</p>
-          <div class="ctas"><a class="btn solid" href="#">Claim free week</a><a class="btn" href="#">Book a tour</a></div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer><div class="wrap"><span>© Pulse Fitness (fictional business)</span><span>01632 960 733</span></div></footer>
+  <section style="padding-top:0">
+    <div class="wrap"><div class="finale"><h2>Your first week<br>is on us.</h2><a class="btn black" href="#">Claim free week</a></div></div>
+  </section>
+</main>
+<footer><div class="wrap"><span>© Pulse Fitness (fictional business)</span><span>01632 960 733</span></div></footer>
 </div>
 
 <script src="../vendor/gsap.min.js"></script>
 <script src="../vendor/ScrollTrigger.min.js"></script>
 <script src="../vendor/lenis.min.js"></script>
 <script src="motion.js"></script>
+<script>
+  // Day-by-day timetable
+  const base = [
+    ["06:30", "Sunrise HIIT", "45 min · Studio 1", true], ["09:15", "Strength Foundations", "50 min · Free weights", false],
+    ["12:30", "Lunch Express Spin", "30 min · Spin studio", true], ["17:30", "Boxing Conditioning", "45 min · Studio 2", true],
+    ["19:00", "Mobility & Stretch", "40 min · Studio 2", false], ["07:00", "Power Yoga", "50 min · Studio 2", false],
+    ["18:15", "Olympic Lifting", "60 min · Platforms", true], ["10:00", "Weekend Bootcamp", "60 min · Main floor", true],
+  ];
+  const plan = [[0,1,2,3,4],[5,1,6,2,4],[0,2,3,6,4],[5,1,2,3,6],[0,1,2,3,4],[7,1,5],[7,4]];
+  const table = document.getElementById("table"), days = document.querySelectorAll(".day");
+  function show(d) {
+    const rows = plan[d].map(i => base[i]).sort((a, b) => a[0].localeCompare(b[0]));
+    table.innerHTML = rows.map(([t, n, m, hi]) => `<div class="cls"><time>${t}</time><div><strong>${n}</strong><span>${m}</span></div><span class="lvl ${hi ? "hi" : ""}">${hi ? "High intensity" : "All levels"}</span><a class="btn black" href="#">Book</a></div>`).join("");
+    if (window.gsap && !matchMedia("(prefers-reduced-motion: reduce)").matches) gsap.from(table.children, { y: 16, opacity: 0, duration: .5, stagger: .05, ease: "power3.out" });
+  }
+  days.forEach(b => b.addEventListener("click", () => { days.forEach(x => x.setAttribute("aria-pressed", x === b)); show(+b.dataset.d); }));
+  show(0);
+</script>
 </body>
 </html>

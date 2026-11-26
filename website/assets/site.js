@@ -252,6 +252,36 @@
     gsap.fromTo(img, { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: img, start: "top bottom", end: "center center", scrub: true } });
   });
 
+  // ---------- Scroll showcase: pin, scroll each page inside its frame, slide to the next ----------
+  $$(".showcase").forEach(sc => {
+    const slides = $$(".sc-slide", sc), track = $(".sc-track", sc);
+    if (slides.length < 2) return;
+    sc.classList.add("is-live");
+    const bar = $(".sc-progress span", sc), count = $(".sc-count b", sc), n = slides.length;
+    gsap.set(slides.slice(1), { scale: .9, opacity: .35 });
+    const tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: sc, start: "top top", end: () => "+=" + Math.round(n * innerHeight * 1.5),
+        pin: true, scrub: .8, invalidateOnRefresh: true, anticipatePin: 1,
+        onUpdate: self => {
+          bar.style.transform = `scaleX(${self.progress})`;
+          count.textContent = String(Math.min(n, Math.floor(self.progress * n) + 1)).padStart(2, "0");
+        },
+      },
+    });
+    slides.forEach((s, i) => {
+      const img = $(".sc-screen img", s), screen = $(".sc-screen", s);
+      tl.to(img, { y: () => -Math.max(0, img.offsetHeight - screen.clientHeight), duration: 1, ease: "power1.inOut" });
+      if (i < n - 1) {
+        tl.to(track, { x: () => -(slides[i + 1].offsetLeft - slides[0].offsetLeft), duration: .55, ease: "power2.inOut" }, ">");
+        tl.to(s, { scale: .9, opacity: .35, duration: .55, ease: "power2.inOut" }, "<");
+        tl.to(slides[i + 1], { scale: 1, opacity: 1, duration: .55, ease: "power2.inOut" }, "<");
+      }
+    });
+    $$("img", sc).forEach(img => { if (!img.complete) img.addEventListener("load", () => ST.refresh(), { once: true }); });
+  });
+
   // ---------- Prices count up ----------
   $$(".price").forEach(el => {
     const tn = Array.from(el.childNodes).find(n => n.nodeType === 3 && /\d/.test(n.textContent));
