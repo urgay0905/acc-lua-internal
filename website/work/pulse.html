@@ -7,94 +7,103 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../vendor/lenis.css">
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Sport energy: bright white, neon lime, black, italic display */
-  :root { --bg: #f3f3ee; --ink: #0a0a0a; --muted: #5f5f58; --line: #dcdcd3; --lime: #d2ff3a; --accent: #6a4dff; --white: #fff;
-    --sans: Archivo, system-ui, sans-serif; }
-  body { background: var(--bg); color: var(--ink); font: 500 16px/1.6 var(--sans); }
-  .it { font-style: italic; font-weight: 900; text-transform: uppercase; letter-spacing: -.045em; }
-  .btn { padding: 16px 26px; border-radius: 999px; font: 700 15px var(--sans); }
-  .btn.lime { background: var(--lime); color: var(--ink); }
-  .btn.black { background: var(--ink); color: #fff; }
-  .btn.outline { box-shadow: inset 0 0 0 2px currentColor; background: transparent; }
+  /* Premium performance club: white, graphite, electric violet with a volt highlight */
+  :root { --bg: #f4f4f6; --white: #fff; --ink: #121216; --muted: #62626e; --line: #e2e2e8; --accent: #5b3cff; --volt: #d4ff3c;
+    --display: Unbounded, system-ui, sans-serif; --sans: Inter, system-ui, sans-serif; }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); }
+  .d { font-family: var(--display); font-weight: 700; letter-spacing: -.04em; }
+  .btn { padding: 15px 26px; border-radius: 999px; font: 600 15px var(--sans); }
+  .btn.violet { background: var(--accent); color: #fff; box-shadow: 0 12px 30px -10px rgba(91,60,255,.6); }
+  .btn.white { background: #fff; color: var(--ink); }
+  .btn.ink { background: var(--ink); color: #fff; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.14); backdrop-filter: blur(10px); color: #fff; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,.25); }
+  .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--volt); }
 
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(243,243,238,.88); backdrop-filter: blur(14px); }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-  .logo { font: italic 900 30px var(--sans); text-decoration: none; letter-spacing: -.05em; }
-  .logo span { background: var(--lime); padding: 0 6px; margin-left: 2px; }
-  .links { display: flex; gap: 28px; align-items: center; font-weight: 700; }
-  .links a:not(.btn) { text-decoration: none; }
+  .nav { position: absolute; top: 34px; left: 0; right: 0; z-index: 50; color: #fff; }
+  .nav.scrolled { position: fixed; top: 0; background: rgba(18,18,22,.82); backdrop-filter: blur(14px); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+  .logo { font: 700 22px var(--display); letter-spacing: -.04em; text-decoration: none; }
+  .logo span { color: var(--volt); }
+  .links { display: flex; gap: 30px; align-items: center; font-weight: 500; font-size: 15px; }
+  .links a:not(.btn) { text-decoration: none; opacity: .85; }
   @media (max-width: 860px) { .links a:not(.btn) { display: none; } }
 
-  .hero { padding: 10px 0 40px; }
-  .stage { position: relative; background: var(--ink); color: #fff; border-radius: 36px; overflow: hidden; min-height: 620px; display: grid; grid-template-columns: 1.1fr .9fr; }
-  .stage .copy { padding: 64px; position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
-  .stage h1 { font: italic 900 clamp(60px, 8.6vw, 136px)/.86 var(--sans); text-transform: uppercase; letter-spacing: -.05em; margin: 18px 0 24px; }
-  .stage h1 .hl { color: var(--ink); background: var(--lime); padding: 0 .08em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .stage p { color: #bdbdb4; font-size: 18px; max-width: 420px; margin: 0 0 30px; }
-  .stage .frame { min-height: 100%; }
-  .stage .frame img { filter: contrast(1.05); }
-  .badge { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: 999px; align-self: flex-start; }
+  .hero { position: relative; min-height: max(700px, 100svh); color: #fff; display: flex; align-items: flex-end; overflow: hidden; background: #000; }
+  .hero > .frame { position: absolute; inset: 0; }
+  .hero > .frame img { opacity: .85; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,8,25,.85) 0%, rgba(10,8,25,.35) 60%, rgba(10,8,25,.1)), linear-gradient(0deg, rgba(10,8,25,.7), transparent 50%); }
+  .hero .wrap { position: relative; z-index: 1; padding-top: 150px; padding-bottom: 70px; }
+  .hero h1 { font: 700 clamp(52px, 8.4vw, 132px)/.92 var(--display); letter-spacing: -.06em; margin: 22px 0 26px; max-width: 980px; }
+  .hero h1 span { color: var(--volt); }
+  .hero p { font-size: 19px; color: rgba(255,255,255,.82); max-width: 470px; margin: 0 0 32px; }
   .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-  .ctas .outline { color: #fff; }
-  @media (max-width: 900px) { .stage { grid-template-columns: 1fr; border-radius: 24px; } .stage .copy { padding: 34px 24px; } .stage .frame { min-height: 320px; order: -1; } }
-
-  .numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
-  .num { background: #fff; border-radius: 24px; padding: 24px 26px; }
-  .num b { display: block; font: italic 900 44px/1 var(--sans); letter-spacing: -.04em; }
-  .num span { color: var(--muted); font-size: 14px; }
-  .num.l { background: var(--lime); } .num.v { background: var(--accent); color: #fff; } .num.v span { color: #dcd6ff; }
-  @media (max-width: 760px) { .numbers { grid-template-columns: 1fr 1fr; } }
-
-  .ticker { background: var(--lime); overflow: hidden; padding: 20px 0; margin-top: 70px; transform: rotate(-1.5deg); }
-  .ticker-track { display: flex; gap: 46px; width: max-content; animation: run 20s linear infinite; font: italic 900 40px var(--sans); text-transform: uppercase; letter-spacing: -.04em; white-space: nowrap; }
-  .ticker-track span::after { content: "●"; margin-left: 46px; font-size: .4em; vertical-align: middle; }
-  @keyframes run { to { transform: translateX(-50%); } }
+  .hero-stats { display: flex; gap: 14px; margin-top: 50px; flex-wrap: wrap; }
+  .hs { padding: 16px 22px; border-radius: 20px; background: rgba(255,255,255,.1); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.18); }
+  .hs b { display: block; font: 700 26px var(--display); letter-spacing: -.04em; }
+  .hs span { font-size: 13px; color: rgba(255,255,255,.75); }
 
   section { padding: 120px 0; }
   @media (max-width: 600px) { section { padding: 76px 0; } }
-  h2 { font: italic 900 clamp(46px, 6.4vw, 96px)/.9 var(--sans); text-transform: uppercase; letter-spacing: -.05em; margin: 0 0 40px; }
-  h2 .hl { background: var(--lime); padding: 0 .08em; }
+  .k { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; }
+  h2 { font: 700 clamp(36px, 5vw, 72px)/.98 var(--display); letter-spacing: -.055em; margin: 14px 0 18px; }
+  h2 span { color: var(--accent); }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .head p { color: var(--muted); max-width: 420px; margin: 0; font-size: 17px; }
 
-  /* Timetable with day tabs */
-  .days { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-  .day { padding: 12px 20px; border-radius: 999px; border: 0; background: #fff; font-weight: 700; cursor: pointer; transition: background .25s, color .25s; }
-  .day[aria-pressed="true"] { background: var(--ink); color: var(--lime); }
-  .table { background: #fff; border-radius: 28px; overflow: hidden; }
-  .cls { display: grid; grid-template-columns: 120px 1fr auto auto; gap: 20px; align-items: center; padding: 22px 28px; border-bottom: 1px solid var(--line); }
+  .programs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .prog { position: relative; border-radius: 30px; overflow: hidden; aspect-ratio: 3 / 4; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; }
+  .prog .frame { position: absolute; inset: 0; }
+  .prog .frame img { transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .prog:hover .frame img { transform: scale(1.05); }
+  .prog::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(10,8,25,.85)); }
+  .prog > *:not(.frame) { position: relative; z-index: 1; }
+  .prog > small { position: absolute; }
+  .prog small { position: absolute; top: 24px; left: 28px; padding: 6px 12px; border-radius: 999px; background: var(--volt); color: var(--ink); font-weight: 700; font-size: 12px; }
+  .prog h3 { font: 700 30px var(--display); letter-spacing: -.05em; margin: 0 0 6px; }
+  .prog p { margin: 0; color: rgba(255,255,255,.8); font-size: 15px; }
+  @media (max-width: 860px) { .programs { grid-template-columns: 1fr; } .prog { aspect-ratio: 4 / 3; } }
+
+  .tt { background: var(--white); border-radius: 36px; padding: 40px; border: 1px solid var(--line); }
+  .days { display: flex; gap: 6px; padding: 6px; background: var(--bg); border-radius: 999px; width: max-content; max-width: 100%; overflow-x: auto; margin-bottom: 26px; }
+  .day { padding: 10px 18px; border-radius: 999px; border: 0; background: transparent; font-weight: 600; cursor: pointer; color: var(--muted); transition: all .25s; }
+  .day[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .cls { display: grid; grid-template-columns: 110px 1fr auto auto; gap: 20px; align-items: center; padding: 20px 4px; border-bottom: 1px solid var(--line); }
   .cls:last-child { border-bottom: 0; }
-  .cls time { font: italic 900 26px var(--sans); letter-spacing: -.03em; }
-  .cls strong { font-size: 18px; display: block; } .cls span { color: var(--muted); font-size: 14px; }
+  .cls time { font: 700 22px var(--display); letter-spacing: -.04em; }
+  .cls strong { display: block; font-size: 17px; } .cls span { color: var(--muted); font-size: 14px; }
   .lvl { font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--bg); }
-  .lvl.hi { background: var(--lime); }
+  .lvl.hi { background: #ece8ff; color: var(--accent); }
   .cls .btn { padding: 10px 18px; font-size: 14px; }
-  @media (max-width: 680px) { .cls { grid-template-columns: 80px 1fr; padding: 18px; } .cls .lvl, .cls .btn { display: none; } }
+  @media (max-width: 680px) { .tt { padding: 20px; border-radius: 24px; } .cls { grid-template-columns: 70px 1fr; } .cls .lvl, .cls .btn { display: none; } }
 
-  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; gap: 14px; }
-  .bento .frame { border-radius: 26px; }
-  .b1 { grid-column: span 2; grid-row: span 2; } .b2 { grid-column: span 2; } .b3, .b4 { grid-column: span 1; }
-  .bento .tag { position: absolute; left: 14px; bottom: 14px; background: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; z-index: 1; }
-  @media (max-width: 760px) { .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; } .b1, .b2 { grid-column: span 2; } .b1 { grid-row: span 1; } }
-
-  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .plan { background: #fff; border-radius: 30px; padding: 34px; display: flex; flex-direction: column; }
-  .plan.hot { background: var(--ink); color: #fff; }
-  .plan h3 { margin: 0; font-size: 18px; }
-  .plan .p { font: italic 900 64px/1 var(--sans); letter-spacing: -.05em; margin: 16px 0 6px; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: center; }
+  .plan { background: #fff; border-radius: 30px; padding: 34px; border: 1px solid var(--line); display: flex; flex-direction: column; }
+  .plan.hot { background: var(--ink); color: #fff; border: 0; padding-block: 46px; position: relative; overflow: hidden; }
+  .plan.hot::before { content: ""; position: absolute; right: -90px; top: -90px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(91,60,255,.75), transparent 70%); }
+  .plan > * { position: relative; }
+  .plan h3 { margin: 0; font-size: 17px; font-weight: 600; }
+  .plan .p { font: 700 56px/1 var(--display); letter-spacing: -.06em; margin: 18px 0 6px; }
   .plan .p small { font: 500 15px var(--sans); color: var(--muted); letter-spacing: 0; }
-  .plan ul { list-style: none; padding: 0; margin: 20px 0 28px; display: grid; gap: 10px; }
-  .plan li::before { content: "✓"; color: var(--accent); font-weight: 900; margin-right: 8px; }
-  .plan.hot li::before { color: var(--lime); }
+  .plan.hot .p small { color: #a9a9b6; }
+  .plan ul { list-style: none; padding: 0; margin: 22px 0 28px; display: grid; gap: 10px; }
+  .plan li::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 10px; }
+  .plan.hot li::before { background: var(--volt); }
   .plan .btn { margin-top: auto; }
+  .flag { position: absolute; top: 22px; right: 22px; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--volt); color: var(--ink); }
   @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
 
-  .finale { background: var(--lime); border-radius: 36px; padding: 80px 60px; display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
-  .finale h2 { margin: 0; }
-  @media (max-width: 600px) { .finale { padding: 44px 24px; border-radius: 24px; } }
-  footer { padding: 30px 0 44px; color: var(--muted); font-size: 14px; }
+  .finale { position: relative; border-radius: 36px; overflow: hidden; color: #fff; padding: 110px 60px; background: linear-gradient(135deg, var(--accent), #2a1a8f); }
+  .finale::after { content: ""; position: absolute; right: -10%; bottom: -60%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(212,255,60,.45), transparent 65%); }
+  .finale > * { position: relative; z-index: 1; }
+  .finale h2 { max-width: 720px; }
+  .finale h2 span { color: var(--volt); }
+  .finale p { color: rgba(255,255,255,.8); font-size: 18px; margin: 0 0 30px; }
+  @media (max-width: 600px) { .finale { padding: 60px 24px; border-radius: 26px; } }
+  footer { padding: 30px 0 46px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 </style>
 <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fx)document.documentElement.classList.remove("js")},3000)</script>
@@ -105,69 +114,58 @@
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#">PULSE<span>.</span></a>
-    <nav class="links"><a href="#classes">Timetable</a><a href="#gym">The gym</a><a href="#join">Memberships</a><a class="btn black" href="#join">Join now</a></nav>
+    <nav class="links"><a href="#programs">Programmes</a><a href="#classes">Timetable</a><a href="#join">Membership</a><a class="btn white" href="#join">Join now</a></nav>
   </div>
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" style="padding:0">
+    <div class="frame"><img src="../assets/photos/pulse-hero.jpg" alt="Athlete lifting a barbell" data-parallax fetchpriority="high"></div>
     <div class="wrap">
-      <div class="stage">
-        <div class="copy">
-          <span class="badge">First week free</span>
-          <h1>Train harder. <span class="hl">Feel better.</span></h1>
-          <p>Strength, HIIT and spin classes led by real coaches. Open 5am to 11pm, with no contracts and no judgement.</p>
-          <div class="ctas"><a class="btn lime" href="#join">Start free trial</a><a class="btn outline" href="#classes">See timetable</a></div>
+      <span class="pill"><i></i>First week free · no card needed</span>
+      <h1>Stronger <span>every</span> single week.</h1>
+      <p>Coach-led strength, conditioning and spin in a club built for people who take training seriously, and enjoy it.</p>
+      <div class="ctas"><a class="btn violet" href="#join">Start your free week</a><a class="btn white" href="#classes">See the timetable</a></div>
+      <div class="hero-stats"><div class="hs"><b>40+</b><span>classes a week</span></div><div class="hs"><b>5am–11pm</b><span>open daily</span></div><div class="hs"><b>18</b><span>expert coaches</span></div></div>
+    </div>
+  </section>
+
+  <section id="programs">
+    <div class="wrap">
+      <div class="head"><div><span class="k">Programmes</span><h2>Train with <span>purpose.</span></h2></div><p>Three ways to train, each led by coaches who'll push you, correct you and track your progress.</p></div>
+      <div class="programs">
+        <div class="prog" data-reveal><div class="frame"><img src="../assets/photos/pulse-1.jpg" alt="Athlete deadlifting" loading="lazy"></div><small>Most popular</small><h3>Strength</h3><p>Barbell-based programming with progress tracked every session.</p></div>
+        <div class="prog" data-reveal><div class="frame"><img src="../assets/photos/pulse-4.jpg" alt="Spin bikes on the gym floor" loading="lazy"></div><h3>Conditioning</h3><p>HIIT and spin to build an engine that lasts.</p></div>
+        <div class="prog" data-reveal><div class="frame"><img src="../assets/photos/pulse-3.jpg" alt="Woman doing core work on a mat" loading="lazy"></div><h3>Mobility</h3><p>Move better, recover faster and stay injury-free.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="classes" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><div><span class="k">Timetable</span><h2>This week's <span>classes.</span></h2></div><p>Book from the app or here. Spaces open seven days ahead.</p></div>
+      <div class="tt" data-reveal>
+        <div class="days" id="days">
+          <button class="day" aria-pressed="true" data-d="0">Mon</button><button class="day" aria-pressed="false" data-d="1">Tue</button><button class="day" aria-pressed="false" data-d="2">Wed</button><button class="day" aria-pressed="false" data-d="3">Thu</button><button class="day" aria-pressed="false" data-d="4">Fri</button><button class="day" aria-pressed="false" data-d="5">Sat</button><button class="day" aria-pressed="false" data-d="6">Sun</button>
         </div>
-        <div class="frame"><img src="../assets/photos/pulse-hero.jpg" alt="Athlete lifting a barbell in dramatic light" fetchpriority="high"></div>
-      </div>
-      <div class="numbers">
-        <div class="num l" data-reveal><b data-count="40" data-suf="+">40+</b><span>classes a week</span></div>
-        <div class="num" data-reveal><b>5–11</b><span>open every day</span></div>
-        <div class="num v" data-reveal><b data-count="18">18</b><span>expert coaches</span></div>
-        <div class="num" data-reveal><b>£0</b><span>joining fee</span></div>
-      </div>
-    </div>
-    <div class="ticker" aria-hidden="true"><div class="ticker-track">
-      <span>Strength</span><span>HIIT</span><span>Spin</span><span>Boxing</span><span>Mobility</span><span>Strength</span><span>HIIT</span><span>Spin</span><span>Boxing</span><span>Mobility</span>
-    </div></div>
-  </section>
-
-  <section id="classes">
-    <div class="wrap">
-      <h2>This week's <span class="hl">classes</span></h2>
-      <div class="days" id="days">
-        <button class="day" aria-pressed="true" data-d="0">Mon</button><button class="day" aria-pressed="false" data-d="1">Tue</button><button class="day" aria-pressed="false" data-d="2">Wed</button><button class="day" aria-pressed="false" data-d="3">Thu</button><button class="day" aria-pressed="false" data-d="4">Fri</button><button class="day" aria-pressed="false" data-d="5">Sat</button><button class="day" aria-pressed="false" data-d="6">Sun</button>
-      </div>
-      <div class="table" id="table" data-reveal></div>
-    </div>
-  </section>
-
-  <section id="gym" style="padding-top:0">
-    <div class="wrap">
-      <h2>Built for <span class="hl">serious</span> training</h2>
-      <div class="bento">
-        <div class="frame b1" data-reveal><img src="../assets/photos/pulse-4.jpg" alt="Bright gym floor with spin bikes" loading="lazy"><span class="tag">Main floor</span></div>
-        <div class="frame b2" data-reveal><img src="../assets/photos/pulse-2.jpg" alt="Rows of dumbbells" loading="lazy"><span class="tag">Dumbbells to 60kg</span></div>
-        <div class="frame b3" data-reveal><img src="../assets/photos/pulse-1.jpg" alt="Athlete deadlifting a barbell" loading="lazy"><span class="tag">Platforms</span></div>
-        <div class="frame b4" data-reveal><img src="../assets/photos/pulse-3.jpg" alt="Woman doing core work on a mat" loading="lazy"><span class="tag">Studio</span></div>
+        <div id="table"></div>
       </div>
     </div>
   </section>
 
   <section id="join" style="padding-top:0">
     <div class="wrap">
-      <h2>Pick your <span class="hl">plan</span></h2>
+      <div class="head"><div><span class="k">Membership</span><h2>Pick your <span>plan.</span></h2></div><p>No contracts and no joining fee. Pause or cancel any time.</p></div>
       <div class="plans">
-        <div class="plan" data-reveal><h3>Off-peak</h3><div class="p">£19<small>/mo</small></div><ul><li>Gym access 10am – 4pm</li><li>No contract</li></ul><a class="btn black" href="#">Choose off-peak</a></div>
-        <div class="plan hot" data-reveal><h3>Unlimited</h3><div class="p">£32<small>/mo</small></div><ul><li>Gym access any time</li><li>Unlimited classes</li><li>Free training plan</li></ul><a class="btn lime" href="#">Choose unlimited</a></div>
-        <div class="plan" data-reveal><h3>Personal training</h3><div class="p">£35<small>/session</small></div><ul><li>One-to-one coaching</li><li>Nutrition guidance</li></ul><a class="btn black" href="#">Book a coach</a></div>
+        <div class="plan" data-reveal><h3>Off-peak</h3><div class="p">£19<small> /month</small></div><ul><li>Gym access 10am – 4pm</li><li>Two classes a week</li></ul><a class="btn ink" href="#">Choose off-peak</a></div>
+        <div class="plan hot" data-reveal><span class="flag">Best value</span><h3>Unlimited</h3><div class="p">£32<small> /month</small></div><ul><li>Gym access any time</li><li>Unlimited classes</li><li>Free training plan</li><li>Bring a friend monthly</li></ul><a class="btn violet" href="#">Choose unlimited</a></div>
+        <div class="plan" data-reveal><h3>Personal training</h3><div class="p">£35<small> /session</small></div><ul><li>One-to-one coaching</li><li>Nutrition guidance</li></ul><a class="btn ink" href="#">Book a coach</a></div>
       </div>
     </div>
   </section>
 
   <section style="padding-top:0">
-    <div class="wrap"><div class="finale"><h2>Your first week<br>is on us.</h2><a class="btn black" href="#">Claim free week</a></div></div>
+    <div class="wrap"><div class="finale" data-reveal><h2>Your first week is <span>on us.</span></h2><p>Try every class and every coach for seven days.</p><a class="btn white" href="#">Claim your free week</a></div></div>
   </section>
 </main>
 <footer><div class="wrap"><span>© Pulse Fitness (fictional business)</span><span>01632 960 733</span></div></footer>
@@ -178,7 +176,6 @@
 <script src="../vendor/lenis.min.js"></script>
 <script src="motion.js"></script>
 <script>
-  // Day-by-day timetable
   const base = [
     ["06:30", "Sunrise HIIT", "45 min · Studio 1", true], ["09:15", "Strength Foundations", "50 min · Free weights", false],
     ["12:30", "Lunch Express Spin", "30 min · Spin studio", true], ["17:30", "Boxing Conditioning", "45 min · Studio 2", true],
@@ -189,7 +186,7 @@
   const table = document.getElementById("table"), days = document.querySelectorAll(".day");
   function show(d) {
     const rows = plan[d].map(i => base[i]).sort((a, b) => a[0].localeCompare(b[0]));
-    table.innerHTML = rows.map(([t, n, m, hi]) => `<div class="cls"><time>${t}</time><div><strong>${n}</strong><span>${m}</span></div><span class="lvl ${hi ? "hi" : ""}">${hi ? "High intensity" : "All levels"}</span><a class="btn black" href="#">Book</a></div>`).join("");
+    table.innerHTML = rows.map(([t, n, m, hi]) => `<div class="cls"><time>${t}</time><div><strong>${n}</strong><span>${m}</span></div><span class="lvl ${hi ? "hi" : ""}">${hi ? "High intensity" : "All levels"}</span><a class="btn ink" href="#">Book</a></div>`).join("");
     if (window.gsap && !matchMedia("(prefers-reduced-motion: reduce)").matches) gsap.from(table.children, { y: 16, opacity: 0, duration: .5, stagger: .05, ease: "power3.out" });
   }
   days.forEach(b => b.addEventListener("click", () => { days.forEach(x => x.setAttribute("aria-pressed", x === b)); show(+b.dataset.d); }));

@@ -348,10 +348,15 @@
         const s = document.createElement("span"); s.textContent = ch; s.setAttribute("aria-hidden", "true"); el.appendChild(s);
       }
     }
-    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 90%" } });
+    // Roll through two full spins and land on the digit; replays each time it scrolls into view
+    const tl = gsap.timeline({ paused: true });
     strips.forEach(({ strip, d }, i) => {
-      tl.fromTo(strip, { yPercent: 0 }, { yPercent: -((10 + d) / 20) * 100, duration: 1.6 + i * .25, ease: "power4.out" }, i * .08);
+      tl.fromTo(strip, { yPercent: 0 }, { yPercent: -((10 + d) / 20) * 100, duration: 2.2 + i * .3, ease: "power4.out" }, i * .12);
     });
+    tl.progress(1);  // show the real price until it is in view
+    ST.create({ trigger: el, start: "top 80%", end: "bottom top", onEnter: () => tl.restart(), onEnterBack: () => tl.restart() });
+    const card = el.closest(".pp, .pp-care");
+    if (card && finePointer) card.addEventListener("pointerenter", () => { if (!tl.isActive()) tl.restart(); });
   });
   // Promise stats count up
   $$("[data-countup]").forEach(el => {
@@ -367,6 +372,7 @@
   // ---------- Closing band: scale in ----------
   $$(".band").forEach(b => gsap.from(b, { scale: .94, borderRadius: 48, ease: "none", scrollTrigger: { trigger: b, start: "top bottom", end: "top 60%", scrub: true } }));
 
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
   window.addEventListener("load", () => {
     ST.refresh();
     if (location.hash) {
